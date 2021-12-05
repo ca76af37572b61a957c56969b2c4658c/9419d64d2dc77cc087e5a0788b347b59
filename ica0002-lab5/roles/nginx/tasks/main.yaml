@@ -1,0 +1,33 @@
+# LAB 2 Task 3: Create an Ansible role named nginx
+
+- name: Install 'nginx'
+  apt:
+    name: nginx
+    state: latest
+    #update_cache: yes //LAB 4 Task 3: Add the init role
+
+
+# LAB 2 Task 3: Create an Ansible role named nginx
+
+- name: Replace the default HTML page
+  copy:
+    src: index.html
+    dest: /var/www/html
+    follow: no
+
+
+# LAB 3 Task 3: Nginx as uWSGI frontend
+
+- name: Copy Nginx configuration
+  copy:
+    src: default
+    dest: /etc/nginx/sites-enabled/default
+  notify: Restart nginx
+
+- name: Start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+ 

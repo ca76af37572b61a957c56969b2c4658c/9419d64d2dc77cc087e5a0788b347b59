@@ -1,0 +1,32 @@
+# LAB 4 Task 6: Add MySQL connection variables
+# LAB 5 Task 7: Update AGAMA MySQL connection
+
+mysql_host: bematv-2 #name-2 internal ip
+mysql_database: agama
+mysql_user: agama
+mysql_password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          64633832666132326639343466303163663333353334363763383633663433313164613762306265
+          6239623763623533336631623134363437313038396664660a303465393333353731396331363565
+          38366233386432346362633263396163316363643963343163616534623537316236303063313465
+          6161636637343062660a616164313461346231666632366266373734393361323066373730653132
+          3330
+
+
+# LAB 5
+## Task 3: Configure DNS forwarders
+
+forwarders:
+  - 1.1.1.1
+  - 8.8.8.8
+  - 9.9.9.9
+  - 9.9.9.10
+
+## Task 4: Configure access rules for DNS server
+allowed:
+  - 192.168.42.0/24;
+  - 127.0.0.0/8;
+
+## Variables for domain and zone
+domain: pho.ng #root domain // strtup_name
+zone: db.pho #master zone = db.pho file

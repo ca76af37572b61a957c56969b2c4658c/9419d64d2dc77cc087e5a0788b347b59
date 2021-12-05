@@ -1,0 +1,7 @@
+# LAB 3 Task 2 - uWSGI
+
+- name: Restart uwsgi
+  service:
+    name: uwsgi
+    state: restarted
+    enabled: yes

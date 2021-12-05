@@ -1,0 +1,4 @@
+# LAB 1
+
+- name: Ansible ping module
+  ansible.builtin.ping:
