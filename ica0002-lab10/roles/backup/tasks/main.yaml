@@ -1,0 +1,51 @@
+# LAB 10 Task 1
+
+- name: Install duplicity
+  apt:
+    name: duplicity
+
+- name: Add the user "backup" and generate keys
+  user:
+    name: "{{ backup_user }}"
+    home: /home/backup
+    shell: /bin/bash
+    generate_ssh_key: yes
+    ssh_key_bits: 4096
+    ssh_key_file: .ssh/id_rsa
+
+#- name: Add group 'backup'
+#  group:
+#    name: "{{ backup_user }}"
+#    state: present
+
+- name: Create backup directory on the backup server
+  file:
+    path: /home/backup/
+    state: directory
+    mode: 0744
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+
+- name: Create the backup directory
+  file:
+    path: /home/backup/{{ item }}
+    state: directory
+    mode: 0744
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+  loop:
+    - restore
+    - .ssh
+
+- name: Add known hosts at /home/backup/.ssh/known_hosts
+  template:
+    src: known_hosts.j2
+    dest: /home/backup/.ssh/known_hosts
+    mode: 0744
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+
+- name: Ensure cron is running
+  service:
+    name: cron
+    state: started

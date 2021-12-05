@@ -1,0 +1,42 @@
+# LAB 10 Task 1
+
+- name: Create the backup directory for mysql
+  file:
+    path: /home/backup/mysql
+    state: directory
+    mode: 0744
+    owner: "{{ backup_user }}"
+    group: mysql
+
+
+# LAB 10 Task 2
+
+- name: Create MySQL backup user
+  mysql_user:
+    name: "{{ backup_user }}"
+    password: "{{ mysql_backup_pass }}"
+    priv: "{{ mysql_database }}.*:SELECT,LOCK TABLES"
+    host: "localhost"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
+
+- name: Copy MySQL configuration file
+  template:
+    src: backup.my.cnf.j2
+    dest: /home/backup/.my.cnf
+    owner: backup
+    group: backup
+    mode: 0700
+
+
+# LAB 10 Task 3
+# LAB 10 Task 4
+
+- name: Copy mysql cron
+  template:
+    src: mysql-backup.j2
+    dest: /etc/cron.d/mysql-backup
+    owner: root
+    group: root
+    mode: 0744
+  #notify: First backup # SIDE PROJECT
