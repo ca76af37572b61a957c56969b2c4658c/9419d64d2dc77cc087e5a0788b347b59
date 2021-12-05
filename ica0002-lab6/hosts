@@ -1,0 +1,17 @@
+bematv-1 ansible_host=193.40.156.86 ansible_port=8322 ansible_ssh_user=ubuntu
+bematv-2 ansible_host=193.40.156.86 ansible_port=4222 ansible_ssh_user=ubuntu
+
+[db_servers]
+bematv-2
+
+[dns_servers]
+bematv-2
+
+[resolver]
+bematv-1
+
+[web_servers]
+bematv-1
+
+[prometheus]
+bematv-1

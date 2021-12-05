@@ -1,0 +1,69 @@
+---
+
+  # LAB 4
+  - name: Init
+    hosts: db_servers, web_servers
+    gather_facts: no
+    become: yes
+    roles:
+      - init
+
+  # LAB 5 Gather facts
+  - name: Collect info about all VMs
+    hosts: all
+    gather_facts: yes
+    become: yes
+    tasks:
+      - setup:
+
+  # LAB 5
+  - name: Bind9 DNS server
+    hosts: dns_servers
+    gather_facts: no
+    become: yes
+    roles:
+      - bind
+
+  # MY OWN PROJECT // you have to change the resolver file in each vm.  have created this role to update the resolver in bematv-1 as well
+  - name: Copy resolver
+    hosts: resolver
+    gather_facts: no
+    become: yes
+    roles:
+      - resolver
+
+  # LAB 4 Task 4: Install MySQL server
+  - name: Database server
+    hosts: db_servers
+    gather_facts: no
+    become: yes
+    roles:
+      - mysql
+
+
+  # LAB 6 Task 1: Install Node Exporters
+  - name: Node exporter
+    hosts: all
+    gather_facts: no
+    become: yes
+    roles:
+      - node_exporter
+
+  # LAB 6 Task 2: Install and configure Prometheus
+  - name: Prometheus
+    hosts: prometheus
+    gather_facts: no
+    become: yes
+    roles:
+      - prometheus      
+      
+  # LAB 1,2,3
+  - name: Web server
+    hosts: web_servers
+    gather_facts: no
+    become: yes
+    roles:
+      #- users # LAB 4
+      - agama
+      - uwsgi
+      - nginx

@@ -1,0 +1,6 @@
+# LAB 6 Task 1: Install Node Exporters
+
+
+- name: Install 'prometheus-node-exporter'
+  apt:
+    name: prometheus-node-exporter
