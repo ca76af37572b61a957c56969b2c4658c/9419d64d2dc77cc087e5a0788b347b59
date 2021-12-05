@@ -1,0 +1,17 @@
+# LAB 2 Task 3: Create an Ansible role named nginx
+
+- name: Install 'nginx'
+  apt:
+    name: nginx
+    state: latest
+    update_cache: yes
+
+
+# LAB 2 Task 3: Create an Ansible role named nginx
+
+- name: Replace the default HTML page
+  copy:
+    src: index.html
+    dest: /var/www/html
+    follow: no
+ 
