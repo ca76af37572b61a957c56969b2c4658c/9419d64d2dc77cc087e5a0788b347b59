@@ -1,0 +1,17 @@
+# LAB 4 Task 3: Add the init role
+- name: Update APT cache
+  apt:
+    cache_valid_time: 86400
+
+# LAB 7 demo task
+- name: hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Info+
+  debug:
+    msg: 
+      - SSH host  {{ ansible_ssh_host }}
+      - SSH port  {{ ansible_port }}
+      - Public URL  {{ public_url }}
+      - Hostname  {{ inventory_hostname }}

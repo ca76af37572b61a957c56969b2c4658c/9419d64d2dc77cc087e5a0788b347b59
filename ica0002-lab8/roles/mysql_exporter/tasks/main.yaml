@@ -1,0 +1,48 @@
+# LAB 7 Task 1: Install MySQL exporter
+
+- name: Install 'prometheus-mysqld-exporter'
+  apt:
+    name: prometheus-mysqld-exporter
+
+- name: Create directory
+  file:
+    path: /var/lib/prometheus
+    state: directory
+
+- name: Copy my.cnf.j2 to /var/lib/prometheus/.my.cnf
+  template:
+    src: my.cnf.j2
+    dest: /var/lib/prometheus/.my.cnf
+    owner: prometheus
+    group: prometheus
+    mode: 0644
+  notify: 
+    - Restart mysql
+    - Restart mysqld exporter
+
+- name: Create MySQL exporter user
+  mysql_user:
+    name: exporter
+    password: "{{ mysql_exporter_pass }}"
+    priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
+
+- name: Force all notified handlers to run at this point, not waiting for normal sync points
+  meta: flush_handlers # method 2
+
+- name: Sleep for 10 seconds and continue with play
+  wait_for:
+    timeout: 10 # method 1
+
+- name: Start mysqld exporter
+  service:
+    name: prometheus-mysqld-exporter
+    state: started
+    enabled: yes
+
+- name: Start mysql
+  service:
+    name: mysql
+    state: started
+    enabled: yes

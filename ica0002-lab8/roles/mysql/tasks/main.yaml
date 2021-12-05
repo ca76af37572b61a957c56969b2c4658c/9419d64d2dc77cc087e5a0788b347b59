@@ -1,0 +1,69 @@
+# LAB 4 Task 4: Install MySQL server
+
+- name: Install 'mysql-server'
+  apt:
+    name: mysql-server
+    #update_cache: yes
+  notify: Restart mysql ## why? but needed
+
+
+## LAB 4 Task 7: Add MySQL database
+
+- name: Install 'python3-mysql'
+  apt:
+    name: python3-pymysql
+
+
+## LAB 4 Task 5: Configure MySQL server
+
+- name: Copy the mysql config file and restart mysql server
+  copy:
+    src: override.cnf
+    dest: /etc/mysql/mysql.conf.d/override.cnf
+    mode: 0644
+  notify: Restart mysql
+
+- name: MySQL database
+  #community.mysql.mysql_db:
+  mysql_db:
+    name: "{{ mysql_database }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
+
+## LAB 4 Task 8: Add MySQL user
+
+- name: MySQL user
+  #community.mysql.mysql_user:
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    host: "%"
+    priv: "{{ mysql_database }}.*:ALL"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
+
+- name: Execute handlers preemptively
+  meta: flush_handlers
+
+#- name: Sleep for 10 seconds and continue with play
+#  wait_for:
+#    timeout: 10
+
+# LAB  7 I have put this to the mysqld exporter play
+
+#- name: Create user exporter
+#  mysql_user:
+#    name: exporter
+#    password: "{{ mysql_exporter_pass }}"
+#    priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
+#    login_unix_socket: /var/run/mysqld/mysqld.sock
+
+
+# LAB 4 Task 4: Install MySQL server
+
+- name: Start mysql server
+  service:
+    name: mysql
+    state: started
+    #enabled: yes
+  #become: yes # why?
