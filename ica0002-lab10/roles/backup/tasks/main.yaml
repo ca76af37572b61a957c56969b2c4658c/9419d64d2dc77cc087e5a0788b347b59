@@ -24,7 +24,7 @@
     state: directory
     mode: 0744
     owner: "{{ backup_user }}"
-    group: "{{ backup_user }}"
+    #group: "{{ backup_user }}"
 
 - name: Create the backup directory
   file:
@@ -32,7 +32,7 @@
     state: directory
     mode: 0744
     owner: "{{ backup_user }}"
-    group: "{{ backup_user }}"
+    #group: "{{ backup_user }}"
   loop:
     - restore
     - .ssh
@@ -43,7 +43,7 @@
     dest: /home/backup/.ssh/known_hosts
     mode: 0744
     owner: "{{ backup_user }}"
-    group: "{{ backup_user }}"
+    #group: "{{ backup_user }}"
 
 - name: Ensure cron is running
   service:
