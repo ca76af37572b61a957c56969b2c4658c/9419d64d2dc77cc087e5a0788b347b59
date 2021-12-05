@@ -1,0 +1,24 @@
+# LAB 3 Task 2 - uWSGI
+
+- name: Install 'uwsgi'
+  apt:
+    name: uwsgi
+    state: latest
+    update_cache: yes
+
+- name: Install 'uwsgi-plugin-python3'
+  apt:
+    name: uwsgi-plugin-python3
+    state: latest
+
+- name: Add uwsgi config file
+  copy:
+    src: agama.ini
+    dest: /etc/uwsgi/apps-enabled/agama.ini
+  notify: Restart uwsgi
+
+- name: Ensure that uwsgi is started
+  service:
+    name: uwsgi
+    state: started
+    enabled: yes  
