@@ -1,0 +1,28 @@
+---
+
+  # LAB 4
+  - name: Init
+    hosts: db_servers, web_servers
+    #gather_facts: no
+    become: yes
+    roles:
+      - init
+
+
+  # LAB 4 Task 4: Install MySQL server
+  - name: Database server
+    hosts: db_servers
+    become: yes
+    roles:
+      - mysql
+
+
+  # LAB 1,2,3
+  - name: Web server
+    hosts: web_servers
+    become: yes
+    roles:
+#      - users # LAB 4
+      - agama
+      - uwsgi
+      - nginx
