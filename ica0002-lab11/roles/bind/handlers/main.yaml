@@ -1,0 +1,10 @@
+# LAB 5 handlers
+
+- name: Restart bind9
+  service:
+    name: bind9
+    state: restarted
+    enabled: yes
+
+- name: rndc reload
+  shell: rndc reload

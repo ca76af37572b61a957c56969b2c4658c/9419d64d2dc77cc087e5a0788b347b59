@@ -1,0 +1,37 @@
+# LAB 3 Task 2 - uWSGI
+
+- name: Install 'uwsgi'
+  apt:
+    name: uwsgi
+    #state: latest
+    #update_cache: yes //LAB 4 Task 3: Add the init role
+
+- name: Install 'uwsgi-plugin-python3'
+  apt:
+    name: uwsgi-plugin-python3
+    #state: latest
+
+## No need from LAB 4
+#- name: Add uwsgi config file
+#  copy:
+#    src: agama.ini
+#    dest: /etc/uwsgi/apps-enabled/agama.ini
+#  notify: Restart uwsgi
+#
+#- name: Ensure that uwsgi is started
+#  service:
+#    name: uwsgi
+#    state: started
+#    enabled: yes  
+
+
+# LAB 4 Task 9: Reconfigure AGAMA to use MySQL
+
+- name: Copy agama.ini with owner and permissions
+  ansible.builtin.template:
+    src: agama.ini
+    dest: /etc/uwsgi/apps-enabled/agama.ini
+    owner: "{{ agama_user }}"
+    mode: 0644
+  notify: Restart uwsgi
+  no_log: true
