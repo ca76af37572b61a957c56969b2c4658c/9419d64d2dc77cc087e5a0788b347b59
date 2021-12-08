@@ -16,6 +16,6 @@
     src: influxdb-backup.j2
     dest: /etc/cron.d/influxdb-backup
     owner: root
-    group: "{{ backup_user }}"
+    group: root
     mode: 0660
   #notify: First backup # SIDE PROJECT
