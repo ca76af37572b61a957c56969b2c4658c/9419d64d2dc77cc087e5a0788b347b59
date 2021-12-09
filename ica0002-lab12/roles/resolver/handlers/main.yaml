@@ -1,0 +1,3 @@
+- name: rndc reload
+  shell: rndc reload
+  when: inventory_hostname == vm2

@@ -1,0 +1,12 @@
+# LAB 12 Task 1
+- name: Install docker.io and python3-docker
+  apt:
+    name:
+      - python3-docker
+      - docker.io
+
+- name: Ensure docker is running
+  service:
+    name: docker
+    state: started
+    enabled: true

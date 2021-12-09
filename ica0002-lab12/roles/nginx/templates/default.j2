@@ -1,0 +1,106 @@
+server {
+
+	listen 80 default_server;
+	server_name _;
+
+
+	# AGAMA OLD
+	#{% if inventory_hostname in groups['web_servers'] %}
+	#	
+	#	location / {
+	#		uwsgi_pass localhost:5000;
+	#		include uwsgi_params;
+	#	}
+	#{% endif %}	
+
+
+	# AGAMA NEW
+	{% if inventory_hostname in groups['web_servers'] %}
+
+		location / {
+			proxy_pass http://localhost:8001;
+			proxy_set_header Host $http_host;
+		}
+	{% endif %}	
+
+
+	# GRAFANA OLD
+	#{% if inventory_hostname in groups['grafana'] %}
+	#
+	#	location /grafana {
+	#		proxy_pass http://localhost:3000;
+	#	}
+	#{% endif %}
+
+
+	# GRAFANA NEW
+	{% if inventory_hostname in groups['grafana'] %}
+
+		location /grafana {
+			proxy_pass http://localhost:3001;
+		}
+	{% endif %}	
+
+
+	{% if inventory_hostname in groups['prometheus'] %}
+
+		location /prometheus {
+			proxy_pass http://localhost:9090;
+		}
+	{% endif %}	
+
+
+	{% if inventory_hostname in groups['influxdb'] %}
+
+		location /influxdb {
+			proxy_pass http://localhost:8086;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['db_servers'] %}
+
+		location /mysql-metrics {
+
+			proxy_pass http://localhost:9104/metrics;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['dns_servers'] %}
+
+		location /bind-metrics {
+
+			proxy_pass http://localhost:9119/metrics;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['nginx'] %}
+
+		location /nginx-metrics {
+
+			proxy_pass http://localhost:9113/metrics;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['all'] %}
+
+		location /node-metrics {
+
+			proxy_pass http://localhost:9100/metrics;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['influxdb'] %}
+		
+		location /influxdb-metrics {
+				
+			proxy_pass http://localhost:9424/metrics;
+		}
+	{% endif %}
+
+		
+}

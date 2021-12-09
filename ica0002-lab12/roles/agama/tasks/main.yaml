@@ -1,0 +1,26 @@
+# LAB 12 Task 5
+
+- name: Creating folder /opt/agama 
+  file:
+    path: /opt/agama
+    state: directory
+
+- name: Download agama container file
+  get_url:
+    url: https://raw.githubusercontent.com/hudolejev/agama/master/Dockerfile
+    dest: /opt/agama/Dockerfile
+
+- name: Create agama docker image file
+  community.docker.docker_image:
+    name: agama
+    source: build
+    build:
+      path: /opt/agama
+
+- name: Grafana Docker container
+  community.docker.docker_container:
+    name: agama
+    image: agama
+    env:
+      AGAMA_DATABASE_URI: mysql+pymysql://{{ mysql_user }}:{{ mysql_user_pass }}@{{ mysql_host }}/{{ mysql_database }}
+    published_ports: "8001:8000"

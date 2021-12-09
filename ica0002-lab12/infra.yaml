@@ -1,0 +1,192 @@
+---
+
+  # LAB 5 Gather facts
+  - name: Collect info about all VMs
+    hosts: all
+    gather_facts: yes
+    become: yes
+    tasks:
+      - setup:
+
+
+  # LAB 4
+  - name: Init
+    hosts: all
+    gather_facts: no
+    become: yes
+    roles:
+      - init
+      - backup # LAB 9 Task 2
+    tags:
+      - INIT
+
+
+  # LAB 12 HOTFIX
+  - name: iptables
+    hosts: all
+    gather_facts: no
+    become: yes
+    roles:
+      - iptables
+
+
+  # LAB 5
+  - name: Bind9 DNS server
+    hosts: dns_servers
+    gather_facts: no
+    become: yes
+    roles:
+      - bind
+      #- bind_exporter # LAB7 Task 2: Install Bind9 exporter
+    tags:
+      - BIND
+
+
+  # MY OWN PROJECT // you have to change the resolver file in each vm.  have created this role to update the resolver in bematv-1 as well
+  - name: Copy resolver
+    hosts: resolver
+    gather_facts: no
+    become: yes
+    roles:
+      - resolver
+    tags:
+      - RESOLVER
+
+
+  # LAB 4 Task 4: Install MySQL server
+  - name: Database server
+    hosts: db_servers
+    gather_facts: no
+    become: yes
+    roles:
+      - mysql
+      - mysql_backup # LAB 10 Task 1
+      #- mysql_exporter # LAB 7 Task 1: Install MySQL exporter
+    tags:
+      - MYSQL
+
+
+  # LAB 6 Task 1: Install Node Exporters
+  #- name: Node exporter
+  #  hosts: all
+  #  gather_facts: no
+  #  become: yes
+  #  roles:
+  #    - node_exporter
+
+
+
+  # LAB 12 Task 1: Install docker
+  - name: Install Docker
+    hosts: docker
+    gather_facts: no
+    become: yes
+    roles:
+      - docker
+    tags:
+      - DOCKER
+
+  
+   # LAB 7 install nginx in both machines
+  - name: nginx
+    hosts: nginx
+    gather_facts: no
+    become: yes
+    roles:
+      - nginx
+      #- nginx_exporter # LAB 7 Task 3: Install Nginx exporter
+    tags:
+      - NGINX
+
+
+  # LAB 1,2,3
+  - name: Web server
+    hosts: web_servers
+    gather_facts: no
+    become: yes
+    roles:
+      #- users # LAB 4
+      - agama
+      - uwsgi
+      #- nginx # LAB 7
+    tags:
+      - WEB_SERVERS
+
+ 
+  # LAB 6 Task 2: Install and configure Prometheus
+  - name: Prometheus
+    hosts: prometheus
+    gather_facts: no
+    become: yes
+    roles:
+      - prometheus
+    tags:
+      - PROMETHEUS      
+      
+
+  # LAB 8
+  - name: Install InfluxDB and Telegraf
+    hosts: influxdb
+    gather_facts: no
+    become: yes
+    roles:
+      - influxdb
+      - influxdb_backup
+    tags:
+      - INFLUXDB
+      
+  - name: Transfer and setup pinger sciprt
+    hosts: pinger
+    gather_facts: no
+    become: yes
+    roles:
+      - pinger
+    tags:
+      - PINGER
+  
+  - name: Configure Rsyslog
+    hosts: rsyslog
+    gather_facts: no
+    become: yes
+    roles:
+      - rsyslog
+    tags:
+      - RSYSLOG
+    
+
+  # MY OWN PROJECT FOR EXPORTERS
+  - name: vm1 exporters
+    hosts: vm1_exporters
+    gather_facts: no
+    become: yes
+    roles:
+      - node_exporter # LAB 6 Task 1: Install Node Exporters
+      - nginx_exporter # LAB 7 Task 3: Install Nginx exporter
+      - influxdb_exporter
+      - mysql_exporter # LAB 11 Task 1?
+    tags:
+      - VM1_EXPORTERS
+
+
+  - name: vm2 exporters
+    hosts: vm2_exporters
+    gather_facts: no
+    become: yes
+    roles:
+      - node_exporter # LAB 6 Task 1: Install Node Exporters
+      - nginx_exporter # LAB 7 Task 3: Install Nginx exporter
+      - bind_exporter # LAB7 Task 2: Install Bind9 exporter
+      - mysql_exporter # LAB 7 Task 1: Install MySQL exporter
+    tags:
+      - VM2_EXPORTERS
+
+
+  # LAB 7 Task 4: Install Grafana
+  - name: Install Grafana
+    hosts: grafana
+    gather_facts: no
+    become: yes
+    roles:
+      - grafana
+    tags:
+      - GRAFANA

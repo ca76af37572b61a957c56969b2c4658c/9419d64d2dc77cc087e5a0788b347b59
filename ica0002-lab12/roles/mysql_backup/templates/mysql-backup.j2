@@ -1,0 +1,7 @@
+{% if inventory_hostname != mysql_host -%}
+11 0 * * *  backup  mysqldump agama > /home/backup/mysql/agama.sql
+
+12 0 * * 0  backup  duplicity --no-encryption full /home/backup/mysql/ rsync://{{ backup_ssh }}//home/bematv/
+
+12 0 * * 1-6  backup  duplicity --no-encryption incremental /home/backup/mysql/ rsync://{{ backup_ssh }}//home/bematv/
+{% endif -%}
