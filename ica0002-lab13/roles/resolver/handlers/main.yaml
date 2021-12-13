@@ -1,0 +1,4 @@
+---
+- name: rndc reload
+  ansible.builtin.shell: rndc reload
+  when: inventory_hostname == vm2

@@ -1,0 +1,17 @@
+---
+# LAB 13 Task 3. Install HAProxy
+- name: Install 'haproxy'
+  apt:
+    name: haproxy
+
+- name: Copy haproxy.conf
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+  notify: Restart haproxy
+
+- name: Ensure haproxy is started
+  service:
+    name: haproxy
+    state: started
+

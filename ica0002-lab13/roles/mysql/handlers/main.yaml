@@ -1,0 +1,35 @@
+---
+- name: Restart mysql
+  service:
+    name: mysql
+    state: restarted
+    enabled: yes
+
+
+# LAB 11 Task 7: Reset MySQL source
+
+- name: Reset MySQL source
+  mysql_replication:
+    mode: "{{ item }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  loop:
+    - stopreplica
+    - resetprimary
+  when: inventory_hostname == mysql_host
+
+
+# LAB 11 Task 7: Reset MySQL replica
+
+- name: Reset MySQL replica
+  mysql_replication:
+    mode: "{{ item }}"
+    primary_host: "{{ mysql_host }}"
+    primary_user: "{{ replication }}"
+    primary_password: "{{ replication_pass }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  loop:
+    - stopreplica
+    - changeprimary
+    - resetreplica
+    - startreplica
+  when: inventory_hostname != mysql_host

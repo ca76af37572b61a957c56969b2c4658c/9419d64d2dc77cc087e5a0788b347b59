@@ -1,0 +1,6 @@
+---
+- name: Resolver1
+  template: 
+    src: resolv.conf1.j2
+    dest: /etc/resolv.conf
+  when: inventory_hostname == vm2

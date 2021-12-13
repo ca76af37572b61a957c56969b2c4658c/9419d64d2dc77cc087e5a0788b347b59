@@ -1,0 +1,79 @@
+# Sample config for Prometheus.
+
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /prometheus/metrics
+    static_configs:
+      - targets: ['localhost:9090']
+
+
+  - job_name: grafana
+    static_configs:
+      - targets:
+        {% for vm in groups['grafana'] %}
+        - '{{ vm }}:{{ grafana_port }}'
+        {% endfor %}
+
+
+  - job_name: influxdb + telegraph
+    static_configs:
+      - targets:
+        {% for vm in groups['influxdb'] %}
+        - '{{ vm }}:{{ influxdb_port }}'
+        {% endfor %}
+
+
+  - job_name: mysql-exporter
+    static_configs:
+      - targets:
+        {% for vm in groups['db_servers'] %}
+        - '{{ vm }}:{{ mysql_exporter_port }}'
+        {% endfor %}
+
+  - job_name: bind9-exporter
+    static_configs:
+      - targets:
+        {% for vm in groups['dns_servers'] %}
+        - '{{ vm }}:{{ bind_exporter_port }}'
+        {% endfor %}
+
+  - job_name: nginx-exporter
+    static_configs:
+      - targets:
+        {% for vm in groups['nginx'] %}
+        - '{{ vm }}:{{ nginx_exporter_port }}'
+        {% endfor %}
+
+  - job_name: node-exporter
+    static_configs:
+      - targets:
+        {% for vm in groups['all'] %}
+        - '{{ vm }}:{{ node_exporter_port }}'
+        {% endfor %}
+
+  - job_name: influxdb-exporter
+    static_configs:
+      - targets:
+        {% for vm in groups['influxdb'] %}
+        - '{{ vm }}:{{ influxdb_exporter_port }}'
+        {% endfor %}
+        
+  - job_name: keepalived-exporter
+    static_configs:
+      - targets:
+        {% for vm in groups['keepalived'] %}
+        - '{{ vm }}:{{ keepalived_exporter_port}}'
+        {% endfor %}
+
+  - job_name: haproxy-exporter
+    static_configs:
+      - targets:
+        {% for vm in groups['haproxy'] %}
+        - '{{ vm }}:{{ haproxy_exporter_port}}'
+        {% endfor %}

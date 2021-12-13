@@ -1,0 +1,49 @@
+---
+# LAB 12 Task 2
+
+- name: Create docker directories for grafana / /opt/grafana/provisioning/dashboards + /opt/grafana/provisioning/datasources
+  file:
+    path: '{{ item }}'
+    recurse: yes
+    state: directory
+  loop:
+    - /opt/grafana/provisioning/dashboards
+    - /opt/grafana/provisioning/datasources
+
+- name: Copy grafana.ini.j2 to /opt/grafana/grafana.ini / set url and pass
+  template:
+    src: grafana.ini.j2
+    dest: /opt/grafana/grafana.ini
+  notify: Restart grafana docker
+
+- name: Copy datasource.yaml to /opt/grafana/provisioning/datasources/datasource.yaml / set the prometheus, influxdb, telegraf datasources
+  template:
+    src: datasource.yaml
+    dest: /opt/grafana/provisioning/datasources/datasource.yaml
+  notify: Restart grafana docker
+
+- name: Copy dashboard.yaml to /opt/grafana/provisioning/dashboards/dashboard.yaml / set path to dashboards
+  template:
+    src: dashboard.yaml
+    dest: /opt/grafana/provisioning/dashboards/dashboard.yaml
+  notify: Restart grafana docker
+
+# LAB 12 Task 3
+
+- name: Copy grafana dashboards / copy the .json-s
+  copy:
+    src: "{{ item }}.json"
+    dest: "/opt/grafana/provisioning/dashboards/{{ item }}.json"
+  loop:
+    - main
+    - latency
+    - syslog
+    - mysql
+  notify: Restart grafana docker
+
+- name: Create grafana Docker container
+  community.docker.docker_container:
+    name: grafana
+    image: grafana/grafana
+    published_ports: "3001:3000"
+    volumes: /opt/grafana:/etc/grafana

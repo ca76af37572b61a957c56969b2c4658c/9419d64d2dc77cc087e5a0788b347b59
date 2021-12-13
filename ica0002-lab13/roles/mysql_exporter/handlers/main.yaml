@@ -1,0 +1,12 @@
+---
+- name: Restart mysql
+  service:
+    name: mysql
+    state: restarted
+    enabled: yes
+
+- name: Restart mysqld exporter
+  service:
+    name:  prometheus-mysqld-exporter
+    state: restarted
+    #enabled: yes

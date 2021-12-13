@@ -1,0 +1,26 @@
+---
+# LAB 13 Task 2. Install Keepalived
+- name: Install keepalived
+  apt:
+    name:
+      - keepalived
+
+- name: Copy keepalived conf
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+  notify: Restart keepalived
+
+- name: Copy ha88
+  template:
+    src: ha88.j2
+    dest: /usr/local/bin/ha88
+    mode: 0755
+  notify: Restart keepalived
+
+- name: start keepalived
+  service:
+    name: keepalived
+    state: started
+
+

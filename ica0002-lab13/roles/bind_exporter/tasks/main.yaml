@@ -1,0 +1,18 @@
+---
+# LAB7  Task 2: Install Bind9 exporter
+
+- name: Install 'prometheus-bind-exporter'
+  apt:
+    name: prometheus-bind-exporter
+
+- name: Ensure Bind9 exporter is running
+  service:
+    name: prometheus-bind-exporter
+    state: started
+    #enabled: yes
+
+#- name: Restart bind9 ## not needed?
+#  service:
+#    name: bind9
+#    state: restarted
+#    #enabled: yes
