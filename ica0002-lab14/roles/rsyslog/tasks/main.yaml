@@ -1,0 +1,19 @@
+---
+# LAB 8 Task 5: Setup rsyslog
+
+- name: Install 'rsyslog'
+  apt:
+    name: rsyslog
+    #state: latest
+
+- name: Copy 50-telegraf.conf.j2 to /etc/rsyslog.d/50-telegraf.conf / Reconfigure Rsyslog
+  template:
+    src: 50-telegraf.conf.j2
+    dest: /etc/rsyslog.d/50-telegraf.conf
+  notify: Restart Rsyslog
+
+- name: Ensure rsyslog is started
+  service:
+    name: rsyslog
+    state: started
+    enabled: yes

@@ -1,0 +1,28 @@
+---
+
+#- name: Set a hostname specifying strategy
+#  ansible.builtin.hostname:
+#    name: bematv-1 
+
+#- name: Set a hostname specifying strategy
+#  ansible.builtin.hostname:
+#    name: bematv-2
+
+# LAB 4 Task 3: Add the init role
+- name: Update APT cache
+  apt:
+    cache_valid_time: 86400
+
+# LAB 7 demo task
+- name: Get hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+# Gather information test
+- name: Gather information test
+  debug:
+    msg: 
+      - SSH host  {{ ansible_ssh_host }}
+      - SSH port  {{ ansible_port }}
+      - Public URL  {{ public_url }}
+      - Hostname  {{ inventory_hostname }}

@@ -1,0 +1,22 @@
+---
+# LAB 10 Task 1
+
+- name: Create the backup directory for influxdb
+  file:
+    path: /home/backup/influxdb
+    state: directory
+    mode: 0700
+    owner: "{{ backup_user }}"
+    group: influxdb
+
+
+# LAB 10 Task 6
+
+- name: Copy influxdb-backup.j2 to /etc/cron.d/influxdb-backup / Upload influxdb cron
+  template:
+    src: influxdb-backup.j2
+    dest: /etc/cron.d/influxdb-backup
+    owner: root
+    group: root
+    mode: 0700
+  #notify: First backup # SIDE PROJECT

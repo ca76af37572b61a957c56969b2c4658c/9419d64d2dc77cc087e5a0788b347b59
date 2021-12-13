@@ -1,0 +1,7 @@
+{% if inventory_hostname != mysql_host -%}
+10 0 * * 0 backup  mysqldump agama > /home/backup/mysql/agama.sql
+
+15 0 * * 0 backup duplicity full --no-encryption --allow-source-mismatch /home/backup/mysql/agama.sql rsync://bematv@backup//home/bematv/mysql
+
+20 0 * * 1-6 backup duplicity incremental --no-encryption --allow-source-mismatch /home/backup/mysql/agama.sql rsync://bematv@backup//home/bematv/mysql/
+{% endif -%}

@@ -1,0 +1,11 @@
+---
+- name: Fix ssl handshake for docker
+  template:
+    src: iptables.mangle.j2
+    dest: /var/local/iptables.mangle
+
+- name: Load iptable-mangle config
+  community.general.iptables_state:
+    path: /var/local/iptables.mangle
+    state: restored
+    table: mangle

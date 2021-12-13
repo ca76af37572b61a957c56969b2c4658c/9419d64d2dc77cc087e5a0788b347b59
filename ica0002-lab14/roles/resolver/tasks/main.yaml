@@ -1,0 +1,18 @@
+---
+- name: Copy resolv.conf.j2 to /etc/resolv.conf / Update resolv.conf
+  template: 
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+  notify: rndc reload
+
+# LAB 13
+- name: Copy resolv.conf.j2 to /run/systemd/resolve/resolv.conf / Upload resolv.conf for docker
+  template:
+    src: resolv.conf.j2
+    dest: /run/systemd/resolve/resolv.conf
+
+- name: Stop service systemd-resolved
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: no
