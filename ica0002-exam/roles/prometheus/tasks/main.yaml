@@ -1,0 +1,33 @@
+
+---
+# LAB 6 Task 2: Install and configure Prometheus
+
+- name: Install 'prometheus'
+  apt:
+    name: prometheus
+
+
+# LAB 6 Task 3: Make Prometheus and Node Exporters available from outside
+
+- name: Copy prometheus.yml.j2 to /etc/prometheus/prometheus.yml / prometheus config
+  template:
+   src: prometheus.yml.j2
+   dest: /etc/prometheus/prometheus.yml
+  notify: Restart prometheus
+
+
+# LAB 6 Task 4: Adjust Prometheus service
+
+- name: Copy prometheus.j2 to /etc/default/prometheus / reverse proxy config
+  template:
+   src: prometheus.j2
+   dest: /etc/default/prometheus
+  notify: Restart prometheus
+
+- name: Ensure prometheus is running
+  service:
+    name: prometheus
+    state: started
+    enabled: yes
+
+    

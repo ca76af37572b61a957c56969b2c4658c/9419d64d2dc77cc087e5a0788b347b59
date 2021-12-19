@@ -1,0 +1,11 @@
+# LAB 4 Task 9: Reconfigure AGAMA to use MySQL
+
+[uwsgi]
+chdir = /opt/agama
+module = agama:app
+#env = AGAMA_DATABASE_URI=sqlite:////opt/agama/db.sqlite3
+env = AGAMA_DATABASE_URI=mysql+pymysql://{{ mysql_user }}:{{ mysql_user_pass }}@{{ mysql_host }}/{{ mysql_database }}
+plugins = python3
+socket = localhost:5000
+uid = agama
+

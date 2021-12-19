@@ -1,0 +1,10 @@
+{% if inventory_hostname != mysql_host -%}
+0 23 * * * backup ssh {{ backup_ssh }} mkdir mysql
+
+0 23 * * * backup mysqldump agama > /home/backup/mysql/agama.sql
+
+5 23 * * 0 backup duplicity full --no-encryption --allow-source-mismatch /home/backup/mysql/ rsync://{{ vm0 }}@backup//home/{{ vm0 }}/mysql/
+
+10 23 * * 1-6 backup duplicity incremental --no-encryption --allow-source-mismatch /home/backup/mysql/ rsync://{{ vm0 }}@backup//home/{{ vm0 }}/mysql/
+{% endif -%}
+

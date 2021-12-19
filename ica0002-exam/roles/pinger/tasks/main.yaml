@@ -1,0 +1,51 @@
+---
+# LAB 8 Task 2: Create pinger service on one of VMs
+
+- name: Add user pinger
+  user:
+    name: "{{ pinger_user }}"
+  
+- name: Install 'fping'
+  apt:
+    name: fping
+
+- name: Copy pinger.sh.j2 template into /usr/local/bin/pinger / Create pinger service
+  template:
+    src: pinger.sh.j2
+    dest: /usr/local/bin/pinger
+    owner: "{{ pinger_user }}"
+    group: "{{ pinger_user }}"
+    mode: 0744
+  notify:
+    - Reload daemons
+    - Restart pinger
+
+- name: Create directory for pinger / /etc/pinger
+  file:
+    path: /etc/pinger
+    state: directory
+
+- name: Copy pinger.conf.j2 template into /etc/pinger/pinger.conf
+  template:
+    src: pinger.conf.j2
+    dest: /etc/pinger/pinger.conf
+  notify:
+    - Reload daemons
+    - Restart pinger
+
+- name: Copy pinger.service.j2 to /etc/systemd/system/pinger.service / Upload pinger service config
+  template: 
+    src: pinger.service.j2
+    dest: /etc/systemd/system/pinger.service
+  no_log: true
+  notify:
+    - Reload daemons
+    - Restart pinger
+
+- name: Ensure pinger is started
+  service:
+    name: pinger
+    state: started
+    enabled: yes
+
+    

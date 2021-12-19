@@ -1,0 +1,11 @@
+Sun 19 Dec 2021 04:26:03 PM EET
++ hostname
+ubuntu
++ ansible-playbook infra.yaml --diff
+
+PLAY [Collect info about all VMs] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+ok: [bematv-1]
+ [ERROR]: User interrupted execution

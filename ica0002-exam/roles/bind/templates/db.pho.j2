@@ -1,0 +1,21 @@
+$TTL	604800
+{% for vm  in groups ['dns_masters'] %}
+{{ domain }}. IN SOA {{ vm }}.{{ domain }}. king.{{ domain }}. (
+			      2		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+;
+{% endfor %}
+
+{% for vm in groups['dns_servers'] %}
+{{ domain }}. IN NS {{ vm }}
+{% endfor %}
+
+{% for vm in groups['all'] %}
+{{ vm }} IN A {{ hostvars[vm]['ansible_default_ipv4']['address'] }}
+{% endfor %}
+
+backup.{{ domain }}. IN A {{ backup_ip }}
+

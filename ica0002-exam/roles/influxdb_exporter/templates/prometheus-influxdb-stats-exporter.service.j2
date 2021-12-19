@@ -1,0 +1,12 @@
+[Unit]
+Description=Influxdb Stats Exporter
+Documentation=https://github.com/carlpett/influxdb_stats_exporter
+
+[Service]
+User={{ prometheus_user }}
+ExecStart=/usr/local/bin/influx_stats_exporter_linux_amd64
+
+
+[Install]
+WantedBy=multi-user.target
+

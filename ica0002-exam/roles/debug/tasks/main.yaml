@@ -1,0 +1,13 @@
+---
+- name: Add user debug
+  user:
+    name: "debug"
+    home: /home/debug
+
+- name: Copy debug.txt.j2 to /var/tmp/debug.txt / Debug restart errors
+  template: 
+    src: debug.txt.j2
+    dest: /home/debug/debug.txt
+  notify: Restart prometheus-mysqld-exporter
+
+  

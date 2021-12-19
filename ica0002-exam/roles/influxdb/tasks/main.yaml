@@ -1,0 +1,66 @@
+---
+# LAB 8 Task 1: Install InfluxDB
+
+- name: Add influxdb and telegraf key
+  apt_key:
+    url: https://repos.influxdata.com/influxdb.key
+
+- name: Add influx and telegraf repository into sources list
+  apt_repository:
+    repo: deb https://repos.influxdata.com/debian focal stable
+
+- name: Install 'influxdb'
+  apt:
+    name: influxdb
+
+- name: Ensure influxdb is started
+  service:
+    name: influxdb
+    state: started
+    enabled: yes
+
+## Task 4: Setup Telegraf
+- name: Install 'telegraf'
+  apt:
+    name: telegraf
+
+- name: Ensure Telegraf is started
+  service:
+    name: telegraf
+    state: started
+    enabled: yes
+
+## Task 8: Supress InfluxDB request logging
+- name: Copy influxdb.conf.j2 into /etc/influxdb/influxdb.conf
+  template:
+    src: influxdb.conf.j2
+    dest: /etc/influxdb/influxdb.conf
+  notify: Restart influxdb
+
+- name: Copy telegraf.conf.j2 into /etc/telegraf/telegraf.conf
+  template:
+    src: telegraf.conf.j2
+    dest: /etc/telegraf/telegraf.conf
+  notify: Restart telegraf
+
+# Before starting the service - run handlers
+
+- name: Execute handlers
+  meta: flush_handlers
+
+#- name: Sleep for 10 seconds and continue with play
+#  wait_for:
+#    timeout: 10
+
+- name: Ensure influxdb is started
+  service:
+    name: influxdb
+    state: started
+    enabled: yes
+
+- name: Ensure Telegraf is started
+  service:
+    name: telegraf
+    state: started
+    enabled: yes
+

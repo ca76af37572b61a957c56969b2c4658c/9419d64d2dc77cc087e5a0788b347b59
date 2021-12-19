@@ -1,0 +1,330 @@
+---
+
+# LAB 5 Gather facts
+- name: Collect info about all VMs
+  hosts: all
+  gather_facts: yes
+  become: yes
+  tasks:
+    - setup:
+  tags:
+    - SETUP
+    - se
+    - EXPORTER
+    - DATABASE
+    - DNS
+    - APPLICATION
+    - INTERNAL
+
+
+# LAB 4
+- name: Init
+  hosts: init
+  gather_facts: yes
+  become: yes
+  roles:
+    - init
+    #- backup # LAB 9 Task 2
+  tags:
+    - INIT
+    - in
+    - EXPORTER
+    - DATABASE
+    - DNS
+    - APPLICATION
+    - INTERNAL
+
+
+# LAB 9 Task 2
+- name: Backup
+  hosts: backup
+  gather_facts: yes
+  become: yes
+  roles:
+    - backup # LAB 9 Task 2
+  tags:
+    - BACKUP
+    - ba
+    - DATABASE
+    - APPLICATION
+    - INTERNAL
+
+
+# LAB 12 HOTFIX
+- name: IPtables
+  hosts: iptables
+  gather_facts: yes
+  become: yes
+  roles:
+    - iptables
+  tags:
+    - IPTABLES
+    - ip
+    - APPLICATION
+    - INTERNAL
+
+
+# LAB 5
+- name: Bind9 DNS server
+  hosts: dns_servers
+  gather_facts: yes
+  become: yes
+  roles:
+    - bind
+    #- bind_exporter # LAB7 Task 2: Install Bind9 exporter
+  tags:
+    - BIND
+    - bi
+    - DNS
+    - APPLICATION
+    - INTERNAL
+
+
+# MY OWN PROJECT // you have to change the resolver file in each vm.  have created this role to update the resolver in bematv-1 as well
+#- name: Resolver
+#  hosts: resolver
+#  gather_facts: yes
+#  become: yes
+#  roles:
+#    - resolver
+#  tags:
+#    - RESOLVER
+#    - re
+
+
+# LAB 4 Task 4: Install MySQL server
+- name: MySQL database server
+  hosts: db_servers
+  gather_facts: yes
+  become: yes
+  roles:
+    - mysql
+    - mysql_backup # LAB 10 Task 1
+    #- mysql_exporter # LAB 7 Task 1: Install MySQL exporter
+  tags:
+    - MYSQL
+    - my
+    - DATABASE
+    - APPLICATION
+
+
+# LAB 6 Task 1: Install Node Exporters
+#- name: Node exporter
+#  hosts: all
+#  gather_facts: yes
+#  become: yes
+#  roles:
+#    - node_exporter
+
+
+# LAB 12 Task 1: Install docker
+- name: Docker
+  hosts: docker
+  gather_facts: yes
+  become: yes
+  roles:
+    - docker
+  tags:
+    - DOCKER
+    - do
+    - APPLICATION
+    - INTERNAL
+
+  
+# LAB 7 install nginx in both machines
+- name: Nginx
+  hosts: nginx
+  gather_facts: yes
+  become: yes
+  roles:
+    - nginx
+    #- nginx_exporter # LAB 7 Task 3: Install Nginx exporter
+  tags:
+    - NGINX
+    - ng
+    - EXPORTERS
+    - APPLICATION
+    - INTERNAL
+
+
+# LAB 1,2,3
+- name: Agama web server
+  hosts: web_servers
+  gather_facts: yes
+  become: yes
+  roles:
+    #- users # LAB 4
+    - agama
+    - uwsgi
+    #- nginx # LAB 7
+  tags:
+    - WEB_SERVERS
+    - we
+    - DATABASE
+    - APPLICATION
+
+ 
+# LAB 6 Task 2: Install and configure Prometheus
+- name: Prometheus
+  hosts: prometheus
+  gather_facts: yes
+  become: yes
+  roles:
+    - prometheus
+  tags:
+    - PROMETHEUS
+    - EXPORTERS
+    - pr
+    - INTERNAL
+      
+
+# LAB 8
+- name: InfluxDB and Telegraf
+  hosts: influxdb
+  gather_facts: yes
+  become: yes
+  roles:
+    - influxdb
+    - influxdb_backup
+  tags:
+    - INFLUXDB
+    - inte
+    - DATABASE
+    - INTERNAL
+
+      
+- name: Pinger
+  hosts: pinger
+  gather_facts: yes
+  become: yes
+  roles:
+    - pinger
+  tags:
+    - PINGER
+    - pi
+    - DATABASE
+    - INTERNAL
+  
+
+- name: Rsyslog
+  hosts: rsyslog
+  gather_facts: yes
+  become: yes
+  roles:
+    - rsyslog
+  tags:
+    - RSYSLOG
+    - rs
+    - DATABASE
+    - INTERNAL
+
+- name: Haproxy
+  hosts: haproxy
+  gather_facts: yes
+  become: yes
+  roles:
+    - haproxy
+  tags:
+    - HAPROXY
+    - ha
+    - DNS
+    - APPLICATION
+
+
+- name: Keepalived
+  hosts: keepalived
+  gather_facts: yes
+  become: yes
+  roles:
+    - keepalived
+  tags:
+    - KEEPALIVED
+    - ke
+    - DNS
+    - APPLICATION
+
+
+# MY OWN PROJECT FOR EXPORTERS
+- name: VM1 exporters
+  hosts: vm1_exporters
+  gather_facts: yes
+  become: yes
+  roles:
+    - node_exporter # LAB 6 Task 1: Install Node Exporters
+    - nginx_exporter # LAB 7 Task 3: Install Nginx exporter
+    - bind_exporter # LAB 14
+    #- influxdb_exporter
+    - mysql_exporter # LAB 11 Task 1?
+    - haproxy_exporter    
+    - keepalived_exporter
+
+  tags:
+    - VM1_EXPORTERS
+    - vm1
+    - EXPORTER
+    - APPLICATION
+
+
+- name: VM2 exporters
+  hosts: vm2_exporters
+  gather_facts: yes
+  become: yes
+  roles:
+    - node_exporter # LAB 6 Task 1: Install Node Exporters
+    - nginx_exporter # LAB 7 Task 3: Install Nginx exporter
+    - bind_exporter # LAB7 Task 2: Install Bind9 exporter
+    #- influxdb_exporter
+    - mysql_exporter # LAB 7 Task 1: Install MySQL exporter
+    - haproxy_exporter    
+    - keepalived_exporter
+
+  tags:
+    - VM2_EXPORTERS
+    - vm2
+    - EXPORTER
+    - APPLICATION
+
+
+- name: VM3 exporters
+  hosts: vm3_exporters
+  gather_facts: yes
+  become: yes
+  roles:
+    - node_exporter # LAB 6 Task 1: Install Node Exporters
+    - nginx_exporter # LAB 7 Task 3: Install Nginx exporter
+    - bind_exporter # LAB 14
+    - influxdb_exporter
+    #- mysql_exporter # LAB 11 Task 1?
+    #- haproxy_exporter    
+    #- keepalived_exporter
+  tags:
+    - VM3_EXPORTERS
+    - vm3
+    - EXPORTER
+    - INTERNAL
+
+
+# LAB 7 Task 4: Install Grafana
+- name: Grafana
+  hosts: grafana
+  gather_facts: yes
+  become: yes
+  roles:
+    - grafana
+  tags:
+    - GRAFANA
+    - gr
+    - DATABASE
+    - INTERNAL
+
+
+# OWN PROJECT FOR DEBUGGING RESTART AND OTHER ERRORS
+#- name: Debug
+#  hosts: debug
+#  gather_facts: yes
+#  become: yes
+#  roles:
+#    - debug
+#  tags:
+#   - DEBUG
+#   - de
