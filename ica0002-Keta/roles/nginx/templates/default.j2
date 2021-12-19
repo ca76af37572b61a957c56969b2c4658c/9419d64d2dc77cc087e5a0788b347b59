@@ -1,0 +1,125 @@
+server {
+
+	listen 80 default_server;
+	server_name _;
+
+
+	# AGAMA OLD
+	#{% if inventory_hostname in groups['web_servers'] %}
+	#	
+	#	location / {
+	#		uwsgi_pass localhost:5000;
+	#		include uwsgi_params;
+	#	}
+	#{% endif %}	
+
+
+	# AGAMA NEW
+	{% if inventory_hostname in groups['web_servers'] %}
+
+		location / {
+			proxy_pass http://localhost:{{ agama_port }};
+			proxy_set_header Host $http_host;
+		}
+	{% endif %}	
+
+
+	# GRAFANA OLD
+	#{% if inventory_hostname in groups['grafana'] %}
+	#
+	#	location /grafana {
+	#		proxy_pass http://localhost:3000;
+	#	}
+	#{% endif %}
+
+
+	# GRAFANA NEW
+	{% if inventory_hostname in groups['grafana'] %}
+
+		location /grafana {
+			proxy_pass http://localhost:{{ grafana_port }};
+		}
+	{% endif %}	
+
+
+	{% if inventory_hostname in groups['prometheus'] %}
+
+		location /prometheus {
+			proxy_pass http://localhost:{{ prometheus_port }};
+		}
+	{% endif %}	
+
+
+	{% if inventory_hostname in groups['influxdb'] %}
+
+		location /influxdb {
+			proxy_pass http://localhost:{{ influxdb_port }};
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['db_servers'] %}
+
+		location /mysql-metrics {
+
+			proxy_pass http://localhost:{{ mysql_exporter_port }}/metrics;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['dns_servers'] %}
+
+		location /bind-metrics {
+
+			proxy_pass http://localhost:{{ bind_exporter_port }}/metrics;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['nginx'] %}
+
+		location /nginx-metrics {
+
+			proxy_pass http://localhost:{{ nginx_exporter_port }}/metrics;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['all'] %}
+
+		location /node-metrics {
+
+			proxy_pass http://localhost:{{ node_exporter_port }}/metrics;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['influxdb'] %}
+		
+		location /influxdb-metrics {
+				
+			proxy_pass http://localhost:{{ influxdb_exporter_port }}/metrics;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['keepalived'] %}
+		
+		location /keepalived-metrics {
+				
+			proxy_pass http://localhost:{{ keepalived_exporter_port }}/metrics;
+		}
+	{% endif %}
+
+
+	{% if inventory_hostname in groups['haproxy'] %}
+		
+		location /haproxy-metrics {
+				
+			proxy_pass http://localhost:{{ haproxy_exporter_port }}/metrics;
+		}
+	{% endif %}
+
+		
+}
+

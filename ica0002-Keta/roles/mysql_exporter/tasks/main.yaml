@@ -1,0 +1,61 @@
+---
+# LAB 7 Task 1: Install MySQL exporter
+
+- name: Install 'prometheus-mysqld-exporter'
+  apt:
+    name: prometheus-mysqld-exporter
+  register: prometheus_mysqld_exporter_installed
+
+
+- name: Create directory for prometheus / /var/lib/prometheus
+  file:
+    path: /var/lib/prometheus
+    state: directory
+
+- name: Copy my.cnf.j2 to /var/lib/prometheus/.my.cnf / mysql cofig file for prometheus
+  template:
+    src: .my.cnf.j2
+    dest: /var/lib/prometheus/.my.cnf
+  no_log: true
+  notify: 
+    - Restart mysql
+    - Restart mysqld exporter
+
+
+# LAB 11 Task 1
+
+- name: Copy prometheus-mysqld-exporter to /etc/default/prometheus-mysqld-exporter / set data to collect
+  template:
+    src: prometheus-mysqld-exporter.j2
+    dest: /etc/default/prometheus-mysqld-exporter
+  notify: Restart mysqld exporter
+
+
+- name: Create MySQL exporter user
+  mysql_user:
+    name: "{{ mysql_exporter_user }}"
+    password: "{{ mysql_exporter_pass }}"
+    priv: "*.*:PROCESS,REPLICATION CLIENT,SELECT"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  no_log: true
+
+- name: Pause for 10 sec
+  pause:
+    seconds: 10
+  when: prometheus_mysqld_exporter_installed.changed
+
+- name: Execute handlers
+  meta: flush_handlers # method 2
+
+- name: Ensure mysql is started
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Ensure mysqld exporter is started
+  service:
+    name: prometheus-mysqld-exporter
+    state: started
+    enabled: yes
+    

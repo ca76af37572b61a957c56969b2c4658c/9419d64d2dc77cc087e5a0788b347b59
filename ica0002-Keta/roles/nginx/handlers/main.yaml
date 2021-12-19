@@ -1,0 +1,9 @@
+---
+# LAB 3 Task 3: Nginx as uWSGI frontend
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+
+    

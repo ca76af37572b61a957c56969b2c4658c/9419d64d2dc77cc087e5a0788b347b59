@@ -1,0 +1,160 @@
+---
+- name: Collect info about all VMs
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - setup:
+
+- name: Init
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - init
+    - backup
+
+
+- name: iptables
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - iptables
+
+- name: Bind9 DNS server
+  hosts: dns_servers
+  gather_facts: no
+  become: yes
+  roles:
+    - bind
+
+
+- name: Docker instances
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - docker
+
+
+- name: Install nginx on all machines
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - nginx
+
+
+- name: upload rsyslog conf
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - rsyslog
+
+
+- name: Database server
+  hosts: db_servers
+  gather_facts: no
+  become: yes
+  roles:
+    - mysql
+    - mysql_backup
+
+
+- name: Ansible webserver
+  hosts: web_servers
+  gather_facts: no
+  become: yes
+  roles:
+    - agama
+    - uwsgi
+#    - nginx
+
+
+- name: Install and configure prometheus-node-exporter
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - node_exporter
+
+
+- name: Install and configure prometheus
+  hosts: prometheus
+  gather_facts: no
+  become: yes
+  roles:
+    - prometheus
+
+
+- name: Install and configure bind-exporter
+  hosts: dns_servers
+  gather_facts: no
+  become: yes
+  roles:
+    - bind_exporter
+
+
+- name: Install and configure mysqld-exporter
+  hosts: db_servers
+  gather_facts: no
+  become: yes
+  roles:
+    - mysql_exporter
+
+
+- name: Install and configure nginx-exporter
+  hosts: all
+  gather_facts: no
+  become: yes
+  roles:
+    - nginx_exporter
+
+
+- name: Install and configure grafana
+  hosts: grafana
+  gather_facts: no
+  become: yes
+  roles:
+    - grafana
+
+
+- name: Install and configure influxdb
+  hosts: influxdb
+  gather_facts: no
+  become: yes
+  roles:
+    - influxdb
+    - influxdb_backup
+
+
+- name: Create pinger and configure it
+  hosts: influxdb
+  gather_facts: no
+  become: yes
+  roles:
+    - pinger
+
+
+- name: Create influxdb_stats_exporter
+  hosts: influxdb
+  gather_facts: no
+  become: yes
+  roles:
+    - influxdb_exporter
+
+
+- name: Keepalived
+  hosts: keepalived
+  gather_facts: yes
+  become: yes
+  roles:
+    - keepalived
+
+- name: Haproxy
+  hosts: haproxy
+  gather_facts: yes
+  become: yes
+  roles:
+    - haproxy

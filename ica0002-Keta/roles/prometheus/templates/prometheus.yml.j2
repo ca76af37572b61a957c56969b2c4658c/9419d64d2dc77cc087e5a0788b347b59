@@ -1,0 +1,19 @@
+global:
+  scrape_interval:     15s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
+
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+{% for exporter in exporters %}
+  - job_name: {{ exporter.endpoint }}
+    static_configs:
+      - targets:
+{% for i in range(groups[exporter.groups]|length) %}
+{% if exporter.name != 'influxdb' %}
+  - "{{ exporter.name }}{{ i+1 }}:{{ exporter.port }}"
+{% else %}
+  - "{{ exporter.name }}:{{ exporter.port }}"
+{% endif %}
+{% endfor %}
+{% endfor %}
+

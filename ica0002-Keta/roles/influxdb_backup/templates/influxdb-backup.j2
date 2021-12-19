@@ -1,0 +1,8 @@
+0 23 * * * backup ssh {{ backup_ssh }} mkdir influxdb
+
+15 23 * * * backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
+
+20 23 * * 0 backup duplicity --no-encryption full /home/backup/influxdb/ rsync://{{ vm0 }}@backup//home/{{ vm0 }}/influxdb/
+
+25 23 * * 1-6 backup duplicity --no-encryption incremental /home/backup/influxdb/ rsync://{{ vm0 }}@backup//home/{{ vm0 }}/influxdb/
+

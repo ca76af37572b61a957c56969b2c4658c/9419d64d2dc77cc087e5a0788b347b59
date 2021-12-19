@@ -1,0 +1,10 @@
+---
+- name: Reload daemons
+  shell: systemctl daemon-reload
+
+- name: Restart prometheus-influxdb-stats-exporter
+  service:
+    name: prometheus-influxdb-stats-exporter
+    state: restarted
+    enabled: yes
+

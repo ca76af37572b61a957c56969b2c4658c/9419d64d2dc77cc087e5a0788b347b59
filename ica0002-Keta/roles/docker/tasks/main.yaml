@@ -1,0 +1,24 @@
+---
+# LAB 12 Task 1
+- name: Install 'python3-docker'
+  apt:
+    name:
+      - python3-docker
+      
+- name: Install 'docker.io'
+  apt:
+    name:
+      - docker.io
+
+- name: Log into DockerHub
+  community.docker.docker_login:
+    username: '{{ docker_user }}'
+    password: '{{ docker_pass }}'
+  no_log: True
+
+- name: Ensure docker is running
+  service:
+    name: docker
+    state: started
+    enabled: yes
+

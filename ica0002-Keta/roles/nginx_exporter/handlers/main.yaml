@@ -1,0 +1,15 @@
+---
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: Restart nginx exporter
+  service:
+    name: prometheus-nginx-exporter
+    state: restarted
+    enabled: yes
+
+- name: Reload daemons
+  shell: systemctl daemon-reload
+

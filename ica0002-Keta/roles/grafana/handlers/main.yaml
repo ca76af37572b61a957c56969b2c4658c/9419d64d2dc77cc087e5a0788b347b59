@@ -1,0 +1,9 @@
+---
+# LAB 12 Task 2
+
+- name: Restart grafana docker
+  docker_container:
+    name: grafana
+    state: started
+    restart: yes
+
