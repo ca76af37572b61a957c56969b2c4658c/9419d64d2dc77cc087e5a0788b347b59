@@ -4,7 +4,6 @@
 - name: Install 'rsyslog'
   apt:
     name: rsyslog
-    #state: latest
 
 - name: Copy 50-telegraf.conf.j2 to /etc/rsyslog.d/50-telegraf.conf / Reconfigure Rsyslog
   template:

@@ -1,0 +1,899 @@
+
+PLAY [Collect info about all VMs] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [setup] *******************************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+PLAY [Init] ********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [init : Update APT cache] *************************************************
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [init : Gather server information] ****************************************
+ok: [bematv-1] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  3222",
+        "Public URL  http://193.40.156.67:3280",
+        "Hostname  bematv-1"
+    ]
+}
+ok: [bematv-2] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  8922",
+        "Public URL  http://193.40.156.67:8980",
+        "Hostname  bematv-2"
+    ]
+}
+ok: [bematv-3] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  6922",
+        "Public URL  http://193.40.156.67:6980",
+        "Hostname  bematv-3"
+    ]
+}
+
+PLAY [Backup] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [backup : Install 'duplicity'] ********************************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [backup : Add the user 'backup' and generate keys] ************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [backup : Add group 'backup'] *********************************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [backup : Create backup directory on the backup server / /home/backup/] ***
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [backup : Create backup directory restore and .ssh / /home/backup/restore/ + /home/backup/.ssh/] ***
+ok: [bematv-1] => (item=restore)
+ok: [bematv-2] => (item=restore)
+ok: [bematv-3] => (item=restore)
+ok: [bematv-1] => (item=.ssh)
+ok: [bematv-3] => (item=.ssh)
+ok: [bematv-2] => (item=.ssh)
+
+TASK [backup : Add known hosts to /home/backup/.ssh/known_hosts] ***************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [backup : Ensure cron is running] *****************************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+PLAY [IPtables] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [iptables : Install 'iptables-persistent'] ********************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [iptables : fix ssl handshake docker] *************************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [iptables : Sleep for 10 seconds and continue with play] ******************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [iptables : Ensure netfilter-persistent is started] ***********************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [iptables : Load iptable-mangle config] ***********************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+PLAY [Bind9 DNS server] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [bind : Install 'bind9'] **************************************************
+The following additional packages will be installed:
+  bind9-utils python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils python3-ply
+0 upgraded, 3 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+The following additional packages will be installed:
+  bind9-utils python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils python3-ply
+0 upgraded, 3 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+The following additional packages will be installed:
+  bind9-utils python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils python3-ply
+0 upgraded, 3 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+
+TASK [bind : Install 'python3-dnspython'] **************************************
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [bind : Create directory /var/cache/bind] *********************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [bind : Upload db.pho.j2 to /var/cache/bind/db.pho.ng / DNS zone file] ****
+skipping: [bematv-1]
+skipping: [bematv-2]
+changed: [bematv-3]
+
+TASK [bind : Upload db.domain.j2 to /var/cache/bind/db.pho.ng.reverse / reverse DNS zone file] ***
+skipping: [bematv-1]
+skipping: [bematv-2]
+changed: [bematv-3]
+
+TASK [bind : Copy resolv.conf.j2 to /etc/resolv.conf / Update resolv.conf] *****
+changed: [bematv-3]
+changed: [bematv-1]
+changed: [bematv-2]
+
+TASK [bind : Stop service systemd-resolved] ************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [bind : Upload named.conf.local.j2 to /etc/bind/named.conf.local / local DNS server configuration] ***
+changed: [bematv-1]
+changed: [bematv-3]
+changed: [bematv-2]
+
+TASK [bind : Upload named.conf.options.j2 to /etc/bind/named.conf.options / configuration options for the DNS server] ***
+changed: [bematv-1]
+changed: [bematv-3]
+changed: [bematv-2]
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+RUNNING HANDLER [bind : resolve directory] *************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/run/systemd/resolve",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-3]
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/run/systemd/resolve",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-1]
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/run/systemd/resolve",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-2]
+
+RUNNING HANDLER [bind : systemd/resolve] ***************************************
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-66955q3a80avp/tmp8rk8i08r/resolv.conf.j2
+@@ -0,0 +1,4 @@
++nameserver 192.168.42.32
++nameserver 192.168.42.89
++search pho.ng
++
+
+changed: [bematv-3]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-66955q3a80avp/tmpzje2k9w9/resolv.conf.j2
+@@ -0,0 +1,4 @@
++nameserver 192.168.42.32
++nameserver 192.168.42.89
++search pho.ng
++
+
+changed: [bematv-1]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-66955q3a80avp/tmp9kcuaa2w/resolv.conf.j2
+@@ -0,0 +1,4 @@
++nameserver 192.168.42.32
++nameserver 192.168.42.89
++search pho.ng
++
+
+changed: [bematv-2]
+
+RUNNING HANDLER [bind : rndc reload] *******************************************
+changed: [bematv-3]
+changed: [bematv-2]
+changed: [bematv-1]
+
+RUNNING HANDLER [bind : Restart bind9] *****************************************
+changed: [bematv-1]
+changed: [bematv-3]
+changed: [bematv-2]
+
+TASK [bind : Ensure bind9 is started] ******************************************
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [bind : Set A records] ****************************************************
+skipping: [bematv-1] => (item={'key': 'backup', 'value': '192.168.42.132'}) 
+skipping: [bematv-1] => (item={'key': 'cloudfare', 'value': '1.1.1.1'}) 
+skipping: [bematv-1] => (item={'key': 'google', 'value': '8.8.8.8'}) 
+skipping: [bematv-1] => (item={'key': 'google2', 'value': '8.8.4.4'}) 
+skipping: [bematv-2] => (item={'key': 'backup', 'value': '192.168.42.132'}) 
+skipping: [bematv-2] => (item={'key': 'cloudfare', 'value': '1.1.1.1'}) 
+skipping: [bematv-2] => (item={'key': 'google', 'value': '8.8.8.8'}) 
+skipping: [bematv-2] => (item={'key': 'google2', 'value': '8.8.4.4'}) 
+changed: [bematv-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
+changed: [bematv-3] => (item={'key': 'cloudfare', 'value': '1.1.1.1'})
+changed: [bematv-3] => (item={'key': 'google', 'value': '8.8.8.8'})
+changed: [bematv-3] => (item={'key': 'google2', 'value': '8.8.4.4'})
+
+TASK [bind : Set CNAME records] ************************************************
+skipping: [bematv-1] => (item={'key': 'grafana', 'value': 'bematv-3'}) 
+skipping: [bematv-1] => (item={'key': 'prometheus', 'value': 'bematv-3'}) 
+skipping: [bematv-1] => (item={'key': 'influxdb', 'value': 'bematv-3'}) 
+skipping: [bematv-1] => (item={'key': 'web1', 'value': 'bematv-1'}) 
+skipping: [bematv-1] => (item={'key': 'web2', 'value': 'bematv-2'}) 
+skipping: [bematv-2] => (item={'key': 'grafana', 'value': 'bematv-3'}) 
+skipping: [bematv-1] => (item={'key': 'web3', 'value': 'bematv-3'}) 
+skipping: [bematv-2] => (item={'key': 'prometheus', 'value': 'bematv-3'}) 
+skipping: [bematv-1] => (item={'key': 'lb1', 'value': 'bematv-1'}) 
+skipping: [bematv-2] => (item={'key': 'influxdb', 'value': 'bematv-3'}) 
+skipping: [bematv-2] => (item={'key': 'web1', 'value': 'bematv-1'}) 
+skipping: [bematv-1] => (item={'key': 'lb2', 'value': 'bematv-2'}) 
+skipping: [bematv-1] => (item={'key': 'mysql1', 'value': 'bematv-1'}) 
+skipping: [bematv-1] => (item={'key': 'mysql2', 'value': 'bematv-2'}) 
+skipping: [bematv-2] => (item={'key': 'web2', 'value': 'bematv-2'}) 
+skipping: [bematv-1] => (item={'key': 'ns1', 'value': 'bematv-3'}) 
+skipping: [bematv-2] => (item={'key': 'web3', 'value': 'bematv-3'}) 
+skipping: [bematv-1] => (item={'key': 'ns2', 'value': 'bematv-1'}) 
+skipping: [bematv-2] => (item={'key': 'lb1', 'value': 'bematv-1'}) 
+skipping: [bematv-2] => (item={'key': 'lb2', 'value': 'bematv-2'}) 
+skipping: [bematv-1] => (item={'key': 'ns3', 'value': 'bematv-2'}) 
+skipping: [bematv-2] => (item={'key': 'mysql1', 'value': 'bematv-1'}) 
+skipping: [bematv-2] => (item={'key': 'mysql2', 'value': 'bematv-2'}) 
+skipping: [bematv-2] => (item={'key': 'ns1', 'value': 'bematv-3'}) 
+skipping: [bematv-2] => (item={'key': 'ns2', 'value': 'bematv-1'}) 
+skipping: [bematv-2] => (item={'key': 'ns3', 'value': 'bematv-2'}) 
+changed: [bematv-3] => (item={'key': 'grafana', 'value': 'bematv-3'})
+changed: [bematv-3] => (item={'key': 'prometheus', 'value': 'bematv-3'})
+changed: [bematv-3] => (item={'key': 'influxdb', 'value': 'bematv-3'})
+changed: [bematv-3] => (item={'key': 'web1', 'value': 'bematv-1'})
+changed: [bematv-3] => (item={'key': 'web2', 'value': 'bematv-2'})
+changed: [bematv-3] => (item={'key': 'web3', 'value': 'bematv-3'})
+changed: [bematv-3] => (item={'key': 'lb1', 'value': 'bematv-1'})
+changed: [bematv-3] => (item={'key': 'lb2', 'value': 'bematv-2'})
+changed: [bematv-3] => (item={'key': 'mysql1', 'value': 'bematv-1'})
+changed: [bematv-3] => (item={'key': 'mysql2', 'value': 'bematv-2'})
+changed: [bematv-3] => (item={'key': 'ns1', 'value': 'bematv-3'})
+changed: [bematv-3] => (item={'key': 'ns2', 'value': 'bematv-1'})
+changed: [bematv-3] => (item={'key': 'ns3', 'value': 'bematv-2'})
+
+PLAY [MySQL database server] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Install 'mysql-server'] ******************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Install 'python3-mysql'] *****************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Copy override.cnf.j2 to /etc/mysql/mysql.conf.d/override.cnf / Upload the mysql config file] ***
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Ensure mysql is started] *****************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Create MySQL database] *******************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Create MySQL user] ***********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Create MySQL replication user] ***********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Make replication read only] **************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Execute handlers preemptively] ***********************************
+
+TASK [mysql_backup : Create the backup directory for mysql /  /home/backup/mysql] ***
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql_backup : Create MySQL backup user] *********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql_backup : Copy backup.my.cnf.j2 to /home/backup/.my.cnf / Upload MySQL configuration file] ***
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql_backup : Copy mysql-backup.j2 to /etc/cron.d/mysql-backup / Update mysql cron] ***
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql_backup : Ensure Cron is started] ***********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [Docker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [docker : Install 'python3-docker'] ***************************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [docker : Install 'docker.io'] ********************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [docker : Log into DockerHub] *********************************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [docker : Ensure docker is running] ***************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+PLAY [Nginx] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [nginx : Install 'nginx'] *************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [nginx : Copy index.html to /var/www/html/index.html Replace the default HTML page] ***
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [nginx : Copy default.j2 to /etc/nginx/sites-enabled/default / Nginx as uWSGI frontend, Nginx configuration, Prometheus ports] ***
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [nginx : Ensure nginx is started] *****************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+PLAY [Agama web server] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Creating folder /opt/agama] **************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Download agama container file] ***********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Create agama docker image file] **********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Create agama Docker container 1] *********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Create agama Docker container 2] *********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [uwsgi : Install 'uwsgi'] *************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [uwsgi : Install 'uwsgi-plugin-python3'] **********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [uwsgi : Ensure that uwsgi is started] ************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [Prometheus] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [prometheus : Install 'prometheus'] ***************************************
+ok: [bematv-3]
+
+TASK [prometheus : Copy prometheus.yml.j2 to /etc/prometheus/prometheus.yml / prometheus config] ***
+ok: [bematv-3]
+
+TASK [prometheus : Copy prometheus.j2 to /etc/default/prometheus / reverse proxy config] ***
+ok: [bematv-3]
+
+TASK [prometheus : Ensure prometheus is running] *******************************
+ok: [bematv-3]
+
+PLAY [InfluxDB and Telegraf] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [influxdb : Add influxdb and telegraf key] ********************************
+ok: [bematv-3]
+
+TASK [influxdb : Add influx and telegraf repository into sources list] *********
+ok: [bematv-3]
+
+TASK [influxdb : Install 'influxdb'] *******************************************
+ok: [bematv-3]
+
+TASK [influxdb : Ensure influxdb is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Install 'telegraf'] *******************************************
+ok: [bematv-3]
+
+TASK [influxdb : Ensure Telegraf is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Copy influxdb.conf.j2 into /etc/influxdb/influxdb.conf] *******
+ok: [bematv-3]
+
+TASK [influxdb : Copy telegraf.conf.j2 into /etc/telegraf/telegraf.conf] *******
+ok: [bematv-3]
+
+TASK [influxdb : Execute handlers] *********************************************
+
+TASK [influxdb : Ensure influxdb is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Ensure Telegraf is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb_backup : Create the backup directory for influxdb] **************
+ok: [bematv-3]
+
+TASK [influxdb_backup : Copy influxdb-backup.j2 to /etc/cron.d/influxdb-backup / Upload influxdb cron] ***
+ok: [bematv-3]
+
+TASK [influxdb_backup : Ensure Cron is started] ********************************
+ok: [bematv-3]
+
+PLAY [Pinger] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [pinger : Add user pinger] ************************************************
+ok: [bematv-3]
+
+TASK [pinger : Install 'fping'] ************************************************
+ok: [bematv-3]
+
+TASK [pinger : Copy pinger.sh.j2 template into /usr/local/bin/pinger / Create pinger service] ***
+ok: [bematv-3]
+
+TASK [pinger : Create directory for pinger / /etc/pinger] **********************
+ok: [bematv-3]
+
+TASK [pinger : Copy pinger.conf.j2 template into /etc/pinger/pinger.conf] ******
+ok: [bematv-3]
+
+TASK [pinger : Copy pinger.service.j2 to /etc/systemd/system/pinger.service / Upload pinger service config] ***
+ok: [bematv-3]
+
+TASK [pinger : Ensure pinger is started] ***************************************
+ok: [bematv-3]
+
+PLAY [Rsyslog] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [rsyslog : Install 'rsyslog'] *********************************************
+ok: [bematv-3]
+
+TASK [rsyslog : Copy 50-telegraf.conf.j2 to /etc/rsyslog.d/50-telegraf.conf / Reconfigure Rsyslog] ***
+ok: [bematv-3]
+
+TASK [rsyslog : Ensure rsyslog is started] *************************************
+ok: [bematv-3]
+
+PLAY [Haproxy] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [haproxy : Install 'haproxy'] *********************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [haproxy : Copy haproxy.conf] *********************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [haproxy : Execute handlers] **********************************************
+
+TASK [haproxy : Ensure haproxy is started] *************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [Keepalived] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [keepalived : Install 'keepalived'] ***************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [keepalived : Add user keepalived_script] *********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [keepalived : Copy vrrp_script.j2 to /home/keepalived_script/vrrp_script] ***
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [keepalived : Copy keepalived.conf to /etc/keepalived/keepalived.conf] ****
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [keepalived : Copy ha88.j2 to /usr/local/bin/ha88] ************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [keepalived : Ensure keepalived is started] *******************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [VM1 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+ok: [bematv-1]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+ok: [bematv-1]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-1]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+ok: [bematv-1]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Install 'prometheus-mysqld-exporter'] *******************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Create directory for prometheus / /var/lib/prometheus] ***
+ok: [bematv-1]
+
+TASK [mysql_exporter : Copy my.cnf.j2 to /var/lib/prometheus/.my.cnf / mysql cofig file for prometheus] ***
+ok: [bematv-1]
+
+TASK [mysql_exporter : Copy prometheus-mysqld-exporter to /etc/default/prometheus-mysqld-exporter / set data to collect] ***
+ok: [bematv-1]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Pause for 10 sec] ***************************************
+skipping: [bematv-1]
+
+TASK [mysql_exporter : Execute handlers] ***************************************
+
+TASK [mysql_exporter : Ensure mysql is started] ********************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Ensure mysqld exporter is started] **********************
+ok: [bematv-1]
+
+TASK [haproxy_exporter : Install 'prometheus-haproxy-exporter'] ****************
+ok: [bematv-1]
+
+TASK [haproxy_exporter : Copy prometheus-haproxy-exporter] *********************
+ok: [bematv-1]
+
+TASK [haproxy_exporter : Execute handlers] *************************************
+
+TASK [haproxy_exporter : Ensure haproxy exporter is started] *******************
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Download keepalived exporter to /usr/local/bin/] ***
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Copy keepalived-prometheus-exporter.service.j2 to /etc/systemd/system/keepalived-prometheus-exporter.service / create keepalived prometheus exporter service] ***
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Sleep for 10 seconds and continue with play] *******
+skipping: [bematv-1]
+
+TASK [keepalived_exporter : Execute handlers] **********************************
+
+TASK [keepalived_exporter : Ensure that keepalived exporter is started] ********
+ok: [bematv-1]
+
+PLAY [VM2 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+ok: [bematv-2]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+ok: [bematv-2]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-2]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+ok: [bematv-2]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Install 'prometheus-mysqld-exporter'] *******************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Create directory for prometheus / /var/lib/prometheus] ***
+ok: [bematv-2]
+
+TASK [mysql_exporter : Copy my.cnf.j2 to /var/lib/prometheus/.my.cnf / mysql cofig file for prometheus] ***
+ok: [bematv-2]
+
+TASK [mysql_exporter : Copy prometheus-mysqld-exporter to /etc/default/prometheus-mysqld-exporter / set data to collect] ***
+ok: [bematv-2]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Pause for 10 sec] ***************************************
+skipping: [bematv-2]
+
+TASK [mysql_exporter : Execute handlers] ***************************************
+
+TASK [mysql_exporter : Ensure mysql is started] ********************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Ensure mysqld exporter is started] **********************
+ok: [bematv-2]
+
+TASK [haproxy_exporter : Install 'prometheus-haproxy-exporter'] ****************
+ok: [bematv-2]
+
+TASK [haproxy_exporter : Copy prometheus-haproxy-exporter] *********************
+ok: [bematv-2]
+
+TASK [haproxy_exporter : Execute handlers] *************************************
+
+TASK [haproxy_exporter : Ensure haproxy exporter is started] *******************
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Download keepalived exporter to /usr/local/bin/] ***
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Copy keepalived-prometheus-exporter.service.j2 to /etc/systemd/system/keepalived-prometheus-exporter.service / create keepalived prometheus exporter service] ***
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Sleep for 10 seconds and continue with play] *******
+skipping: [bematv-2]
+
+TASK [keepalived_exporter : Execute handlers] **********************************
+
+TASK [keepalived_exporter : Ensure that keepalived exporter is started] ********
+ok: [bematv-2]
+
+PLAY [VM3 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+ok: [bematv-3]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+ok: [bematv-3]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-3]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+ok: [bematv-3]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Download 'influxdb-stats-exporter' to /usr/local/bin/influx_stats_exporter_linux_amd64] ***
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Giving permission and upload influx_stats_exporter_linux_amd64 to] ***
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Upload prometheus-influxdb-stats-exporter.service.j2 to /etc/systemd/system/prometheus-influxdb-stats-exporter.service / making a service unit] ***
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Execute handlers] ************************************
+
+TASK [influxdb_exporter : Ensure influxdb-stats-exporter is started] ***********
+ok: [bematv-3]
+
+PLAY [Grafana] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [grafana : Create docker directories for grafana / /opt/grafana/provisioning/dashboards + /opt/grafana/provisioning/datasources] ***
+ok: [bematv-3] => (item=/opt/grafana/provisioning/dashboards)
+ok: [bematv-3] => (item=/opt/grafana/provisioning/datasources)
+
+TASK [grafana : Copy grafana.ini.j2 to /opt/grafana/grafana.ini / set url and pass] ***
+ok: [bematv-3]
+
+TASK [grafana : Copy datasource.yaml to /opt/grafana/provisioning/datasources/datasource.yaml / set the prometheus, influxdb, telegraf datasources] ***
+ok: [bematv-3]
+
+TASK [grafana : Copy dashboard.yaml to /opt/grafana/provisioning/dashboards/dashboard.yaml / set path to dashboards] ***
+ok: [bematv-3]
+
+TASK [grafana : Copy grafana dashboards / copy the .json-s] ********************
+ok: [bematv-3] => (item=None)
+ok: [bematv-3] => (item=None)
+ok: [bematv-3] => (item=None)
+ok: [bematv-3] => (item=None)
+ok: [bematv-3]
+
+TASK [grafana : Create grafana Docker container] *******************************
+ok: [bematv-3]
+
+PLAY [Rsyslog Slaves] **********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [rsyslog : Install 'rsyslog'] *********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [rsyslog : Copy 50-telegraf.conf.j2 to /etc/rsyslog.d/50-telegraf.conf / Reconfigure Rsyslog] ***
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [rsyslog : Ensure rsyslog is started] *************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+PLAY RECAP *********************************************************************
+bematv-1                   : ok=102  changed=8    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+bematv-2                   : ok=102  changed=8    unreachable=0    failed=0    skipped=6    rescued=0    ignored=0   
+bematv-3                   : ok=97   changed=12   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+

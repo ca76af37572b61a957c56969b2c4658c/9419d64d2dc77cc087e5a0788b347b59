@@ -1,5 +1,6 @@
 ---
 # LAB 13 Task 2. Install Keepalived
+
 - name: Install 'keepalived'
   apt:
     name:
@@ -30,9 +31,7 @@
     group: keepalived_script
     mode: 0755
   notify: 
-   #- Reload daemons
     - Restart keepalived
-   #- Restart keepalived_exporter
 
 - name: Ensure keepalived is started
   service:

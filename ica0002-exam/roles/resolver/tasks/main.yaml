@@ -1,5 +1,6 @@
 ---
 # LAB 14 Task 4. Update /etc/resolv.conf
+
 - name: Copy resolv.conf.j2 to /etc/resolv.conf / Update resolv.conf
   template: 
     src: resolv.conf.j2
@@ -16,6 +17,5 @@
   service:
     name: systemd-resolved
     state: stopped
-    #enabled: no
 
     

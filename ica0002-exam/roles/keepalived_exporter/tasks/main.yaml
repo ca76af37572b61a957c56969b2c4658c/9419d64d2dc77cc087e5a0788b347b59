@@ -1,5 +1,6 @@
 ---
 # LAB 13 Task 5. Add Keepalived monitoring
+
 - name: Download keepalived exporter to /usr/local/bin/
   unarchive:
     src: https://github.com/cafebazaar/keepalived-exporter/releases/download/v1.2.0/keepalived-exporter-1.2.0.linux-amd64.tar.gz
@@ -10,10 +11,17 @@
   template:
     src: keepalived-prometheus-exporter.service.j2
     dest: /etc/systemd/system/keepalived-prometheus-exporter.service
+  register: keepalived_exporter
   notify:
     - Reload daemons
     - Restart keepalived_exporter
 
+
+- name: Sleep for 10 seconds and continue with play
+  wait_for:
+    timeout: 10
+  when: keepalived_exporter.changed
+  
 - name: Execute handlers
   meta: flush_handlers
 

@@ -7,7 +7,7 @@
     state: directory
     owner: "{{ backup_user }}"
     group: "{{ backup_user }}"
-    mode: 0700
+    mode: 0755
 
 
 # LAB 10 Task 6
@@ -18,6 +18,12 @@
     dest: /etc/cron.d/influxdb-backup
     owner: root
     group: root
-    mode: 0644
+    mode: 0755
   tags: cron
 
+- name: Ensure Cron is started
+  service:
+    name: cron
+    state: started
+    enabled: yes
+  tags: cron

@@ -1,4 +1,5 @@
 ---
+
 - name: Add user debug
   user:
     name: "debug"

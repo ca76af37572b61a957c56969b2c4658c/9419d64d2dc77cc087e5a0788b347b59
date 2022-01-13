@@ -1,0 +1,19 @@
+1 st. task:
+DNS key leak:
+
+I have used the following commands on my DNS master:
+
+    tsig-keygen transfer.key
+    tsig-keygen nsupdate.key
+
+Than with ansible vault I have encrypted the output keys.
+
+Finally I have put no_log: true in ansible code where I use the keys.
+
+Purged bind9, deleted all config files and run ansible
+
+
+2 nd. task:
+Change agama containers from 2 to 5 with loop, change agama_containers_per_vm at all.yaml to 5
+It was stressful and difficult
+

@@ -78,16 +78,20 @@ Influxdb equals 4 weeks/28 days.
 
 #### Local copies of the databases are created every day at:
 + 01:00 AM UTC+2 Estonian time for MySQL
-+ 01:15 AM UTC+2 Estonian time for MySQL
++ 01:15 AM UTC+2 Estonian time for InfluxDB
 ###### This helps keep the data updated till the backup happens
 
 #### Full backup of the databases are created every Sunday at:
 + 01:05 AM UTC+2 Estonian time for MySQL
-+ 01:20 AM UTC+2 Estonian time for MySQL
++ 01:20 AM UTC+2 Estonian time for InfluxDB
 
 #### Incremetal backup of the databases are created every Monday at:
 + 01:10 AM UTC+2 Estonian time for MySQL
-+ 01:25 AM UTC+2 Estonian time for MySQL
++ 01:25 AM UTC+2 Estonian time for InfluxDB
+
+#### Local restore of the databases are created every day at:
++ 23:00 PM UTC+2 Estonian time for MySQL
++ 23:00 PM UTC+2 Estonian time for InfluxDB
 
 #### Explanation:
 The 01:10 - 01:30 time window was chosen as the time with the least activity in the region when our service is provided, some backed up services may be in the read-only mode or shutdown.

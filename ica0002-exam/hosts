@@ -1,6 +1,6 @@
-bematv-1 ansible_host=193.40.156.86 ansible_port=13222 ansible_ssh_user=ubuntu
-bematv-2 ansible_host=193.40.156.86 ansible_port=18022 ansible_ssh_user=ubuntu
-bematv-3 ansible_host=193.40.156.86 ansible_port=16722 ansible_ssh_user=ubuntu
+bematv-1 ansible_host=193.40.156.67 ansible_port=3222 ansible_ssh_user=ubuntu
+bematv-2 ansible_host=193.40.156.67 ansible_port=8922 ansible_ssh_user=ubuntu
+bematv-3 ansible_host=193.40.156.67 ansible_port=6922 ansible_ssh_user=ubuntu
 
 [vm1]
 bematv-1
@@ -99,6 +99,12 @@ bematv-3
 [grafana]
 bematv-3
 
+[rsyslog_slaves]
+bematv-1
+bematv-2
+
 [debug]
 bematv-1
 bematv-2
+bematv-3
+

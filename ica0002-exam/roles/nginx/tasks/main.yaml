@@ -4,8 +4,6 @@
 - name: Install 'nginx'
   apt:
     name: nginx
-    #state: latest
-    #update_cache: yes //LAB 4 Task 3: Add the init role
 
 
 # LAB 2 Task 3: Create an Ansible role named nginx
@@ -15,15 +13,6 @@
     src: index.html
     dest: /var/www/html/index.html
     follow: no
-
-
-# LAB 3 Task 3: Nginx as uWSGI frontend
-
-#- name: Copy Nginx configuration
-#  copy:
-#    src: default
-#    dest: /etc/nginx/sites-enabled/default
-#  notify: Restart nginx
 
 
 # LAB 6 Task 3: Make Prometheus and Node Exporters available from outside

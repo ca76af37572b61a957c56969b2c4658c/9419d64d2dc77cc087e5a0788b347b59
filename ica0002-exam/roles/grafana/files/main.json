@@ -21,6 +21,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -111,7 +112,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "node_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.13.8\", instance=\"bematv-1:9100\", job=\"node-exporter\", revision=\"0.18.1+ds-2\", version=\"0.18.1+ds\"}"
+              "options": "node_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.13.8\", instance=\"bematv-1:9100\", job=\"node-metrics\", revision=\"0.18.1+ds-2\", version=\"0.18.1+ds\"}"
             },
             "properties": [
               {
@@ -139,7 +140,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "node_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.13.8\", instance=\"bematv-2:9100\", job=\"node-exporter\", revision=\"0.18.1+ds-2\", version=\"0.18.1+ds\"}"
+              "options": "node_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.13.8\", instance=\"bematv-2:9100\", job=\"node-metrics\", revision=\"0.18.1+ds-2\", version=\"0.18.1+ds\"}"
             },
             "properties": [
               {
@@ -167,7 +168,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "node_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.13.8\", instance=\"bematv-3:9100\", job=\"node-exporter\", revision=\"0.18.1+ds-2\", version=\"0.18.1+ds\"}"
+              "options": "node_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.13.8\", instance=\"bematv-3:9100\", job=\"node-metrics\", revision=\"0.18.1+ds-2\", version=\"0.18.1+ds\"}"
             },
             "properties": [
               {
@@ -274,7 +275,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "bind_exporter_build_info{goversion=\"go1.13.6\", instance=\"bematv-1:9119\", job=\"bind9-exporter\"}"
+              "options": "bind_exporter_build_info{goversion=\"go1.13.6\", instance=\"ns1:9119\", job=\"bind-metrics\"}"
             },
             "properties": [
               {
@@ -302,7 +303,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "bind_exporter_build_info{goversion=\"go1.13.6\", instance=\"bematv-2:9119\", job=\"bind9-exporter\"}"
+              "options": "bind_exporter_build_info{goversion=\"go1.13.6\", instance=\"ns2:9119\", job=\"bind-metrics\"}"
             },
             "properties": [
               {
@@ -330,7 +331,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "bind_exporter_build_info{goversion=\"go1.13.6\", instance=\"bematv-3:9119\", job=\"bind9-exporter\"}"
+              "options": "bind_exporter_build_info{goversion=\"go1.13.6\", instance=\"ns3:9119\", job=\"bind-metrics\"}"
             },
             "properties": [
               {
@@ -436,7 +437,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "nginxexporter_build_info{instance=\"bematv-1:9113\", job=\"nginx-exporter\", version=\"0.5.0+ds-2\"}"
+              "options": "nginxexporter_build_info{instance=\"web1:9113\", job=\"nginx-metrics\", version=\"0.5.0+ds-2\"}"
             },
             "properties": [
               {
@@ -464,7 +465,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "nginxexporter_build_info{instance=\"bematv-2:9113\", job=\"nginx-exporter\", version=\"0.5.0+ds-2\"}"
+              "options": "nginxexporter_build_info{instance=\"web2:9113\", job=\"nginx-metrics\", version=\"0.5.0+ds-2\"}"
             },
             "properties": [
               {
@@ -492,7 +493,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "nginxexporter_build_info{instance=\"bematv-3:9113\", job=\"nginx-exporter\", version=\"0.5.0+ds-2\"}"
+              "options": "nginxexporter_build_info{instance=\"web3:9113\", job=\"nginx-metrics\", version=\"0.5.0+ds-2\"}"
             },
             "properties": [
               {
@@ -598,7 +599,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "influxdb_stats_exporter_build_info{branch=\"HEAD\", goversion=\"go1.12.1\", instance=\"bematv-3:9424\", job=\"influxdb-exporter\", revision=\"ee98fdc3\", version=\"v0.1.1\"}"
+              "options": "influxdb_stats_exporter_build_info{branch=\"HEAD\", goversion=\"go1.12.1\", instance=\"influxdb:9424\", job=\"influxdb-metrics\", revision=\"ee98fdc3\", version=\"v0.1.1\"}"
             },
             "properties": [
               {
@@ -704,7 +705,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "mysqld_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.10.4\", instance=\"bematv-1:9104\", job=\"mysql-exporter\", revision=\"0.11.0+ds-1\", version=\"0.11.0+ds\"}"
+              "options": "mysqld_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.10.4\", instance=\"mysql1:9104\", job=\"mysql-metrics\", revision=\"0.11.0+ds-1\", version=\"0.11.0+ds\"}"
             },
             "properties": [
               {
@@ -732,7 +733,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "mysqld_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.10.4\", instance=\"bematv-2:9104\", job=\"mysql-exporter\", revision=\"0.11.0+ds-1\", version=\"0.11.0+ds\"}"
+              "options": "mysqld_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.10.4\", instance=\"mysql2:9104\", job=\"mysql-metrics\", revision=\"0.11.0+ds-1\", version=\"0.11.0+ds\"}"
             },
             "properties": [
               {
@@ -838,7 +839,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.10.4\", instance=\"bematv-1:9101\", job=\"haproxy-exporter\", revision=\"0.9.0+git20180917+ds-1\", version=\"0.9.0+git20180917+ds\"}"
+              "options": "haproxy_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.10.4\", instance=\"lb1:9101\", job=\"haproxy-metrics\", revision=\"0.9.0+git20180917+ds-1\", version=\"0.9.0+git20180917+ds\"}"
             },
             "properties": [
               {
@@ -866,7 +867,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.10.4\", instance=\"bematv-2:9101\", job=\"haproxy-exporter\", revision=\"0.9.0+git20180917+ds-1\", version=\"0.9.0+git20180917+ds\"}"
+              "options": "haproxy_exporter_build_info{branch=\"debian/sid\", goversion=\"go1.10.4\", instance=\"lb2:9101\", job=\"haproxy-metrics\", revision=\"0.9.0+git20180917+ds-1\", version=\"0.9.0+git20180917+ds\"}"
             },
             "properties": [
               {
@@ -1436,7 +1437,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "keepalived_up{instance=\"bematv-1:9165\", job=\"keepalived-exporter\"}"
+              "options": "keepalived_up{instance=\"lb1:9165\", job=\"keepalived-metrics\"}"
             },
             "properties": [
               {
@@ -1464,7 +1465,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "keepalived_up{instance=\"bematv-2:9165\", job=\"keepalived-exporter\"}"
+              "options": "keepalived_up{instance=\"lb2:9165\", job=\"keepalived-metrics\"}"
             },
             "properties": [
               {
@@ -1570,7 +1571,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_up{instance=\"bematv-1:9101\", job=\"haproxy-exporter\"}"
+              "options": "haproxy_up{instance=\"lb1:9101\", job=\"haproxy-metrics\"}"
             },
             "properties": [
               {
@@ -1598,7 +1599,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_up{instance=\"bematv-2:9101\", job=\"haproxy-exporter\"}"
+              "options": "haproxy_up{instance=\"lb2:9101\", job=\"haproxy-metrics\"}"
             },
             "properties": [
               {
@@ -1711,7 +1712,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"bematv-1:9101\", job=\"haproxy-exporter\", server=\"bematv-1-1\"}"
+              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"lb1:9101\", job=\"haproxy-metrics\", server=\"bematv-1-1\"}"
             },
             "properties": [
               {
@@ -1739,7 +1740,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"bematv-1:9101\", job=\"haproxy-exporter\", server=\"bematv-1-2\"}"
+              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"lb1:9101\", job=\"haproxy-metrics\", server=\"bematv-1-2\"}"
             },
             "properties": [
               {
@@ -1767,7 +1768,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"bematv-1:9101\", job=\"haproxy-exporter\", server=\"bematv-2-1\"}"
+              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"lb1:9101\", job=\"haproxy-metrics\", server=\"bematv-2-1\"}"
             },
             "properties": [
               {
@@ -1795,7 +1796,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"bematv-1:9101\", job=\"haproxy-exporter\", server=\"bematv-2-2\"}"
+              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"lb1:9101\", job=\"haproxy-metrics\", server=\"bematv-2-2\"}"
             },
             "properties": [
               {
@@ -1823,7 +1824,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"bematv-2:9101\", job=\"haproxy-exporter\", server=\"bematv-1-1\"}"
+              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"lb2:9101\", job=\"haproxy-metrics\", server=\"bematv-1-1\"}"
             },
             "properties": [
               {
@@ -1851,7 +1852,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"bematv-2:9101\", job=\"haproxy-exporter\", server=\"bematv-1-2\"}"
+              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"lb2:9101\", job=\"haproxy-metrics\", server=\"bematv-1-2\"}"
             },
             "properties": [
               {
@@ -1879,7 +1880,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"bematv-2:9101\", job=\"haproxy-exporter\", server=\"bematv-2-1\"}"
+              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"lb2:9101\", job=\"haproxy-metrics\", server=\"bematv-2-1\"}"
             },
             "properties": [
               {
@@ -1907,7 +1908,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"bematv-2:9101\", job=\"haproxy-exporter\", server=\"bematv-2-2\"}"
+              "options": "haproxy_server_up{backend=\"agama_front\", instance=\"lb2:9101\", job=\"haproxy-metrics\", server=\"bematv-2-2\"}"
             },
             "properties": [
               {
@@ -2024,7 +2025,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "influxdb_exporter_stats_query_success{instance=\"bematv-3:9424\", job=\"influxdb-exporter\"}"
+              "options": "influxdb_exporter_stats_query_success{instance=\"influxdb:9424\", job=\"influxdb-metrics\"}"
             },
             "properties": [
               {
@@ -2220,7 +2221,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "nginx_up{instance=\"bematv-1:9113\", job=\"nginx-exporter\"}"
+              "options": "nginx_up{instance=\"web1:9113\", job=\"nginx-metrics\"}"
             },
             "properties": [
               {
@@ -2248,7 +2249,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "nginx_up{instance=\"bematv-2:9113\", job=\"nginx-exporter\"}"
+              "options": "nginx_up{instance=\"web2:9113\", job=\"nginx-metrics\"}"
             },
             "properties": [
               {
@@ -2276,7 +2277,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "nginx_up{instance=\"bematv-3:9113\", job=\"nginx-exporter\"}"
+              "options": "nginx_up{instance=\"web3:9113\", job=\"nginx-metrics\"}"
             },
             "properties": [
               {
@@ -2476,7 +2477,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "mysql_up{instance=\"bematv-1:9104\", job=\"mysql-exporter\"}"
+              "options": "mysql_up{instance=\"mysql1:9104\", job=\"mysql-metrics\"}"
             },
             "properties": [
               {
@@ -2504,7 +2505,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "mysql_up{instance=\"bematv-2:9104\", job=\"mysql-exporter\"}"
+              "options": "mysql_up{instance=\"mysql2:9104\", job=\"mysql-metrics\"}"
             },
             "properties": [
               {
@@ -2650,7 +2651,7 @@
       "type": "timeseries"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2658,244 +2659,245 @@
         "y": 71
       },
       "id": 12,
-      "panels": [
-        {
-          "fieldConfig": {
-            "defaults": {
-              "mappings": [
-                {
-                  "options": {
-                    "0": {
-                      "text": "DOWN"
-                    },
-                    "1": {
-                      "text": "UP"
-                    }
-                  },
-                  "type": "value"
+      "panels": [],
+      "title": "BIND9",
+      "type": "row"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "text": "DOWN"
+                },
+                "1": {
+                  "text": "UP"
                 }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "red"
-                  },
-                  {
-                    "color": "green",
-                    "value": 0.5
-                  }
-                ]
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 0.5
               }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bind_up{instance=\"ns1:9119\", job=\"bind-metrics\"}"
             },
-            "overrides": [
+            "properties": [
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "bind_up{instance=\"bematv-1:9119\", job=\"bind9-exporter\"}"
-                },
-                "properties": [
+                "id": "mappings",
+                "value": [
                   {
-                    "id": "mappings",
-                    "value": [
-                      {
-                        "options": {
-                          "0": {
-                            "color": "red",
-                            "index": 0,
-                            "text": "VM1"
-                          },
-                          "1": {
-                            "color": "green",
-                            "index": 1,
-                            "text": "VM1"
-                          }
-                        },
-                        "type": "value"
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 0,
+                        "text": "VM1"
+                      },
+                      "1": {
+                        "color": "green",
+                        "index": 1,
+                        "text": "VM1"
                       }
-                    ]
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "bind_up{instance=\"bematv-2:9119\", job=\"bind9-exporter\"}"
-                },
-                "properties": [
-                  {
-                    "id": "mappings",
-                    "value": [
-                      {
-                        "options": {
-                          "0": {
-                            "color": "red",
-                            "index": 0,
-                            "text": "VM2"
-                          },
-                          "1": {
-                            "color": "green",
-                            "index": 1,
-                            "text": "VM2"
-                          }
-                        },
-                        "type": "value"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "bind_up{instance=\"bematv-3:9119\", job=\"bind9-exporter\"}"
-                },
-                "properties": [
-                  {
-                    "id": "mappings",
-                    "value": [
-                      {
-                        "options": {
-                          "0": {
-                            "color": "red",
-                            "index": 0,
-                            "text": "VM3"
-                          },
-                          "1": {
-                            "color": "green",
-                            "index": 1,
-                            "text": "VM3"
-                          }
-                        },
-                        "type": "value"
-                      }
-                    ]
+                    },
+                    "type": "value"
                   }
                 ]
               }
             ]
           },
-          "gridPos": {
-            "h": 9,
-            "w": 7,
-            "x": 0,
-            "y": 68
-          },
-          "id": 8,
-          "options": {
-            "colorMode": "background",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "last"
-              ],
-              "fields": "",
-              "values": false
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bind_up{instance=\"ns2:9119\", job=\"bind-metrics\"}"
             },
-            "text": {
-              "titleSize": 2,
-              "valueSize": 90
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "8.3.3",
-          "targets": [
-            {
-              "expr": "bind_up",
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
-          ],
-          "title": "Bind9 Health",
-          "type": "stat"
-        },
-        {
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 10,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "links": [],
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
                   {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 0,
+                        "text": "VM2"
+                      },
+                      "1": {
+                        "color": "green",
+                        "index": 1,
+                        "text": "VM2"
+                      }
+                    },
+                    "type": "value"
                   }
                 ]
-              },
-              "unit": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "bind_up{instance=\"ns3:9119\", job=\"bind-metrics\"}"
             },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 9,
-            "w": 17,
-            "x": 7,
-            "y": 68
-          },
-          "id": 10,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "pluginVersion": "8.3.3",
-          "targets": [
-            {
-              "expr": "rate(bind_resolver_queries_total[1m])",
-              "interval": "",
-              "legendFormat": "",
-              "refId": "A"
-            }
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "0": {
+                        "color": "red",
+                        "index": 0,
+                        "text": "VM3"
+                      },
+                      "1": {
+                        "color": "green",
+                        "index": 1,
+                        "text": "VM3"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 7,
+        "x": 0,
+        "y": 72
+      },
+      "id": 8,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "last"
           ],
-          "title": "DNS Total Queries Per Minute",
-          "type": "timeseries"
+          "fields": "",
+          "values": false
+        },
+        "text": {
+          "titleSize": 2,
+          "valueSize": 90
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "expr": "bind_up",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
         }
       ],
-      "title": "BIND9",
-      "type": "row"
+      "title": "Bind9 Health",
+      "type": "stat"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 17,
+        "x": 7,
+        "y": 72
+      },
+      "id": 10,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "pluginVersion": "8.3.3",
+      "targets": [
+        {
+          "expr": "rate(bind_resolver_queries_total[1m])",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "DNS Total Queries Per Minute",
+      "type": "timeseries"
     },
     {
       "collapsed": false,
@@ -2903,7 +2905,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 72
+        "y": 81
       },
       "id": 6,
       "panels": [],
@@ -2967,7 +2969,7 @@
         "h": 7,
         "w": 15,
         "x": 0,
-        "y": 73
+        "y": 82
       },
       "id": 2,
       "options": {
@@ -3035,7 +3037,7 @@
         "h": 7,
         "w": 9,
         "x": 15,
-        "y": 73
+        "y": 82
       },
       "id": 67,
       "options": {
@@ -3086,7 +3088,7 @@
         "h": 7,
         "w": 15,
         "x": 0,
-        "y": 80
+        "y": 89
       },
       "hiddenSeries": false,
       "id": 4,
@@ -3196,7 +3198,7 @@
         "h": 7,
         "w": 9,
         "x": 15,
-        "y": 80
+        "y": 89
       },
       "id": 68,
       "options": {

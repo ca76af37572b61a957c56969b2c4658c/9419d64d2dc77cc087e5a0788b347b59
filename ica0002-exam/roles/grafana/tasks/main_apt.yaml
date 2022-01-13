@@ -1,12 +1,6 @@
 ---
 # LAB 7 Task 4: Install Grafana
 
-#- name: Install nessesary packages for grafana
-#  apt: 
-#    name: 
-#      - apt-transport-https
-#      - software-properties-common
-
 - name: Add grafana gpg key
   apt_key: 
     url: https://packages.grafana.com/gpg.key
@@ -36,13 +30,6 @@
 
 
 # LAB 7 Task 7: Configure Grafana provisioning
-
-
-## Set admin password // Put into grafana.ini
-#- name: Reset grafana admin password
-# shell: grafana-cli admin reset-admin-password {{ grafana_admin_pass }}
-
-
 ## Configure Prometheus as default datasource
 ## LAB 8 Task 3: Add latency monitoring to main Grafana dashboard
 ## LAB 8 Task 6: Create logging dashboard in Grafana

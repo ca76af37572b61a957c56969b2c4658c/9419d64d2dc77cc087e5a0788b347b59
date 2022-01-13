@@ -16,9 +16,9 @@
 #### cron jobs
     rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
 
-    duplicity --no-encryption full /home/backup/influxdb/ rsync://bematv@backup//home/bematv/
+    duplicity --no-encryption full /home/backup/influxdb/ rsync://bematv@backup//home/bematv/influxdb/
 
-    duplicity --no-encryption incremental /home/backup/influxdb/ rsync://bematv@backup//home/bematv/
+    duplicity --no-encryption incremental /home/backup/influxdb/ rsync://bematv@backup//home/bematv/influxdb/
 
 #### delete
     service telegraf stop
@@ -29,7 +29,7 @@
 
 #### restore
     sudo su - backup
-    rm -r restore/
+    rm -r /home/backup/restore/*
     duplicity --no-encryption restore rsync://bematv@backup//home/bematv/influxdb/ /home/backup/restore/
     exit
     sudo su -
@@ -55,7 +55,7 @@
 
 #### restore
         sudo su - backup
-        rm -r restore/
+        rm -r /home/backup/restore/*
         duplicity --no-encryption restore rsync://bematv@backup//home/bematv/mysql/ /home/backup/restore/agama
         exit
         sudo su -

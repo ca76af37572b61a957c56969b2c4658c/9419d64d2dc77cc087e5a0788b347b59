@@ -5,7 +5,6 @@
   apt:
     name: duplicity
   
-
 - name: Add the user 'backup' and generate keys
   user:
     name: "{{ backup_user }}"
@@ -14,8 +13,6 @@
     generate_ssh_key: yes
     ssh_key_bits: 4096
     ssh_key_file: .ssh/id_rsa
-    #state: present
-    #system: yes
 
 - name: Add group 'backup'
   group:
@@ -30,15 +27,16 @@
     group: "{{ backup_user }}"
     mode: 0744
 
-
-#- name: Create backup directory restore and .ssh / /home/backup/restore/ + /home/backup/.ssh/
-#  file:
-#    path: /home/backup/.ssh
-#    state: directory
-#    owner: "{{ backup_user }}"
-#    group: "{{ backup_user }}"
-#    mode: 0744
-   
+- name: Create backup directory restore and .ssh / /home/backup/restore/ + /home/backup/.ssh/
+  file:
+    path: /home/backup/{{ item }}
+    state: directory
+    owner: "{{ backup_user }}"
+    group: "{{ backup_user }}"
+    mode: 0744
+  loop:
+    - restore
+    - .ssh
 
 - name: Add known hosts to /home/backup/.ssh/known_hosts
   template:
@@ -46,8 +44,7 @@
     dest: /home/backup/.ssh/known_hosts
     owner: root
     group: root 
-    mode: 0644
-  no_log: true
+    mode: 0744
 
 - name: Ensure cron is running
   service:

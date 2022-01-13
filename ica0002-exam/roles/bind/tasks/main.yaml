@@ -41,7 +41,7 @@
     src: db.domain.reverse.j2
     dest: /var/cache/bind/db.{{ domain }}.reverse
     force: no
-  no_log: true    
+  no_log: true
   notify:
     - rndc reload # hotfix
 
@@ -51,18 +51,11 @@
   template: 
     src: resolv.conf.j2
     dest: /etc/resolv.conf
+  no_log: true
   notify: 
     - resolve directory
     - systemd/resolve
     - rndc reload
-
-
-# LAB 13 # PUT INTO HANDLERS
-#- name: systemd/resolve # Copy resolv.conf.j2 to /run/systemd/resolve/resolv.conf / Upload resolv.conf for docker
-#  template:
-#    src: resolv.conf.j2
-#    dest: /run/systemd/resolve/resolv.conf
-#  notify: rndc reload
 
 
 - name: Stop service systemd-resolved
@@ -80,7 +73,7 @@
   template: 
     src: named.conf.local.j2
     dest: /etc/bind/named.conf.local
-  #no_log: true
+  no_log: true
   notify: 
     - Restart bind9
     - rndc reload
@@ -94,12 +87,6 @@
     - Restart bind9
     - rndc reload
 
-
-#- name: Get IP
-#  debug:
-#    msg: 
-#      - bematv-1 IP is {{ hostvars['bematv-1']['ansible_default_ipv4']['address'] }}
-#      - bematv-2 IP is {{ hostvars['bematv-2']['ansible_default_ipv4']['address'] }}
 
 - name: Execute handlers preemptively
   meta: flush_handlers
@@ -126,7 +113,7 @@
     type: "A"
     value: "{{ item.value }}"
   loop: "{{ dns_a_records | dict2items }}"
-  run_once: True
+  run_once: true
   
 - name: Set CNAME records
   when: inventory_hostname in groups["dns_masters"]
@@ -140,12 +127,5 @@
     type: "CNAME"
     value: "{{ item.value }}"
   loop: "{{ dns_cname_records | dict2items }}"
-  run_once: True
+  run_once: true
 
-  
-- name: Ensure bind9 is started
-  service:
-    name: bind9
-    state: started
-    enabled: yes
-    

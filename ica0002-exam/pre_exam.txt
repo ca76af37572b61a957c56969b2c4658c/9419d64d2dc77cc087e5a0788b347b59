@@ -1,4 +1,4 @@
-Sun 19 Dec 2021 04:26:03 PM EET
+Thu 13 Jan 2022 02:40:28 PM EET
 + hostname
 ubuntu
 + ansible-playbook infra.yaml --diff
@@ -6,6 +6,5693 @@ ubuntu
 PLAY [Collect info about all VMs] **********************************************
 
 TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [setup] *******************************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+PLAY [Init] ********************************************************************
+
+TASK [Gathering Facts] *********************************************************
 ok: [bematv-3]
 ok: [bematv-1]
- [ERROR]: User interrupted execution
+ok: [bematv-2]
+
+TASK [init : Update APT cache] *************************************************
+changed: [bematv-2]
+changed: [bematv-1]
+changed: [bematv-3]
+
+TASK [init : Gather server information] ****************************************
+ok: [bematv-1] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  3222",
+        "Public URL  http://193.40.156.67:3280",
+        "Hostname  bematv-1"
+    ]
+}
+ok: [bematv-2] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  8922",
+        "Public URL  http://193.40.156.67:8980",
+        "Hostname  bematv-2"
+    ]
+}
+ok: [bematv-3] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  6922",
+        "Public URL  http://193.40.156.67:6980",
+        "Hostname  bematv-3"
+    ]
+}
+
+PLAY [Backup] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [backup : Install 'duplicity'] ********************************************
+The following additional packages will be installed:
+  librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
+  python3-monotonic python3-paramiko
+Suggested packages:
+  python3-boto ncftp lftp tahoe-lafs python3-swiftclient python3-pip par2
+  python-future-doc python-lockfile-doc python3-gssapi
+The following NEW packages will be installed:
+  duplicity librsync2 python3-bcrypt python3-fasteners python3-future
+  python3-lockfile python3-monotonic python3-paramiko
+0 upgraded, 8 newly installed, 0 to remove and 142 not upgraded.
+changed: [bematv-2]
+The following additional packages will be installed:
+  librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
+  python3-monotonic python3-paramiko
+Suggested packages:
+  python3-boto ncftp lftp tahoe-lafs python3-swiftclient python3-pip par2
+  python-future-doc python-lockfile-doc python3-gssapi
+The following NEW packages will be installed:
+  duplicity librsync2 python3-bcrypt python3-fasteners python3-future
+  python3-lockfile python3-monotonic python3-paramiko
+0 upgraded, 8 newly installed, 0 to remove and 142 not upgraded.
+changed: [bematv-1]
+The following additional packages will be installed:
+  librsync2 python3-bcrypt python3-fasteners python3-future python3-lockfile
+  python3-monotonic python3-paramiko
+Suggested packages:
+  python3-boto ncftp lftp tahoe-lafs python3-swiftclient python3-pip par2
+  python-future-doc python-lockfile-doc python3-gssapi
+The following NEW packages will be installed:
+  duplicity librsync2 python3-bcrypt python3-fasteners python3-future
+  python3-lockfile python3-monotonic python3-paramiko
+0 upgraded, 8 newly installed, 0 to remove and 142 not upgraded.
+changed: [bematv-3]
+
+TASK [backup : Add the user 'backup' and generate keys] ************************
+changed: [bematv-1]
+changed: [bematv-2]
+changed: [bematv-3]
+
+TASK [backup : Add group 'backup'] *********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [backup : Create backup directory on the backup server / /home/backup/] ***
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "0755",
++    "mode": "0744",
+     "path": "/home/backup/"
+ }
+
+changed: [bematv-1]
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "0755",
++    "mode": "0744",
+     "path": "/home/backup/"
+ }
+
+changed: [bematv-2]
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "0755",
++    "mode": "0744",
+     "path": "/home/backup/"
+ }
+
+changed: [bematv-3]
+
+TASK [backup : Create backup directory restore and .ssh / /home/backup/restore/ + /home/backup/.ssh/] ***
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0744",
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-1] => (item=restore)
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0744",
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-2] => (item=restore)
+--- before
++++ after
+@@ -1,7 +1,7 @@
+ {
+-    "group": 0,
+-    "mode": "0755",
+-    "owner": 0,
++    "group": 34,
++    "mode": "0744",
++    "owner": 34,
+     "path": "/home/backup/restore",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-3] => (item=restore)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "0700",
++    "mode": "0744",
+     "path": "/home/backup/.ssh"
+ }
+
+changed: [bematv-1] => (item=.ssh)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "0700",
++    "mode": "0744",
+     "path": "/home/backup/.ssh"
+ }
+
+changed: [bematv-2] => (item=.ssh)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "0700",
++    "mode": "0744",
+     "path": "/home/backup/.ssh"
+ }
+
+changed: [bematv-3] => (item=.ssh)
+
+TASK [backup : Add known hosts to /home/backup/.ssh/known_hosts] ***************
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpwrrxkw4b/known_hosts.j2
+@@ -0,0 +1,3 @@
++backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup.pho.ng ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++
+
+changed: [bematv-1]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpn0jqjn2u/known_hosts.j2
+@@ -0,0 +1,3 @@
++backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup.pho.ng ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++
+
+changed: [bematv-2]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpavzb3k39/known_hosts.j2
+@@ -0,0 +1,3 @@
++backup ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++backup.pho.ng ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEu6pFFWyuRrl4WGFPQGElYN9txwTGm2wSntcpVAaN90
++
+
+changed: [bematv-3]
+
+TASK [backup : Ensure cron is running] *****************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+PLAY [IPtables] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [iptables : Install 'iptables-persistent'] ********************************
+The following additional packages will be installed:
+  netfilter-persistent
+The following NEW packages will be installed:
+  iptables-persistent netfilter-persistent
+0 upgraded, 2 newly installed, 0 to remove and 142 not upgraded.
+changed: [bematv-2]
+The following additional packages will be installed:
+  netfilter-persistent
+The following NEW packages will be installed:
+  iptables-persistent netfilter-persistent
+0 upgraded, 2 newly installed, 0 to remove and 142 not upgraded.
+changed: [bematv-3]
+The following additional packages will be installed:
+  netfilter-persistent
+The following NEW packages will be installed:
+  iptables-persistent netfilter-persistent
+0 upgraded, 2 newly installed, 0 to remove and 142 not upgraded.
+changed: [bematv-1]
+
+TASK [iptables : fix ssl handshake docker] *************************************
+--- before: /etc/iptables/rules.v4
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpx0792eqd/iptables.mangle.j2
+@@ -1,7 +1,9 @@
+-# Generated by iptables-save v1.8.4 on Thu Jan 13 12:42:27 2022
+-*filter
++*mangle
++:PREROUTING ACCEPT [0:0]
+ :INPUT ACCEPT [0:0]
+ :FORWARD ACCEPT [0:0]
+ :OUTPUT ACCEPT [0:0]
++:POSTROUTING ACCEPT [0:0]
++-A POSTROUTING -o ens3 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1400 --clamp-mss-to-pmtu
+ COMMIT
+-# Completed on Thu Jan 13 12:42:27 2022
++
+
+changed: [bematv-3]
+--- before: /etc/iptables/rules.v4
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpit9r5_a5/iptables.mangle.j2
+@@ -1,7 +1,9 @@
+-# Generated by iptables-save v1.8.4 on Thu Jan 13 12:42:28 2022
+-*filter
++*mangle
++:PREROUTING ACCEPT [0:0]
+ :INPUT ACCEPT [0:0]
+ :FORWARD ACCEPT [0:0]
+ :OUTPUT ACCEPT [0:0]
++:POSTROUTING ACCEPT [0:0]
++-A POSTROUTING -o ens3 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1400 --clamp-mss-to-pmtu
+ COMMIT
+-# Completed on Thu Jan 13 12:42:28 2022
++
+
+changed: [bematv-1]
+--- before: /etc/iptables/rules.v4
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmphzses8bw/iptables.mangle.j2
+@@ -1,7 +1,9 @@
+-# Generated by iptables-save v1.8.4 on Thu Jan 13 12:42:27 2022
+-*filter
++*mangle
++:PREROUTING ACCEPT [0:0]
+ :INPUT ACCEPT [0:0]
+ :FORWARD ACCEPT [0:0]
+ :OUTPUT ACCEPT [0:0]
++:POSTROUTING ACCEPT [0:0]
++-A POSTROUTING -o ens3 -p tcp -m tcp --tcp-flags SYN,RST SYN -j TCPMSS --set-mss 1400 --clamp-mss-to-pmtu
+ COMMIT
+-# Completed on Thu Jan 13 12:42:27 2022
++
+
+changed: [bematv-2]
+
+TASK [iptables : Sleep for 10 seconds and continue with play] ******************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [iptables : Ensure netfilter-persistent is started] ***********************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [iptables : Load iptable-mangle config] ***********************************
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+changed: [bematv-2]
+changed: [bematv-3]
+changed: [bematv-1]
+
+PLAY [Bind9 DNS server] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [bind : Install 'bind9'] **************************************************
+The following additional packages will be installed:
+  bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils dns-root-data python3-ply
+The following packages will be upgraded:
+  bind9-dnsutils bind9-libs
+2 upgraded, 4 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+The following additional packages will be installed:
+  bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils dns-root-data python3-ply
+The following packages will be upgraded:
+  bind9-dnsutils bind9-libs
+2 upgraded, 4 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+The following additional packages will be installed:
+  bind9-dnsutils bind9-libs bind9-utils dns-root-data python3-ply
+Suggested packages:
+  bind-doc resolvconf python-ply-doc
+The following NEW packages will be installed:
+  bind9 bind9-utils dns-root-data python3-ply
+The following packages will be upgraded:
+  bind9-dnsutils bind9-libs
+2 upgraded, 4 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+
+TASK [bind : Install 'python3-dnspython'] **************************************
+The following NEW packages will be installed:
+  python3-dnspython
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+The following NEW packages will be installed:
+  python3-dnspython
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+The following NEW packages will be installed:
+  python3-dnspython
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+
+TASK [bind : Create directory /var/cache/bind] *********************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [bind : Upload db.pho.j2 to /var/cache/bind/db.pho.ng / DNS zone file] ****
+skipping: [bematv-1]
+skipping: [bematv-2]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp79njr23p/db.pho.j2
+@@ -0,0 +1,17 @@
++$TTL	604800
++pho.ng. IN SOA bematv-3.pho.ng. king.pho.ng. (
++			      2		; Serial
++			 604800		; Refresh
++			  86400		; Retry
++			2419200		; Expire
++			 604800 )	; Negative Cache TTL
++;
++
++pho.ng. IN NS bematv-3
++pho.ng. IN NS bematv-1
++pho.ng. IN NS bematv-2
++
++bematv-1 IN A 192.168.42.32
++bematv-2 IN A 192.168.42.89
++bematv-3 IN A 192.168.42.69
++
+
+changed: [bematv-3]
+
+TASK [bind : Upload db.domain.j2 to /var/cache/bind/db.pho.ng.reverse / reverse DNS zone file] ***
+skipping: [bematv-1]
+skipping: [bematv-2]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpw74a9_az/db.domain.reverse.j2
+@@ -0,0 +1,16 @@
++$TTL	604800
++42.168.192.in-addr.arpa. IN SOA bematv-3.pho.ng. king.pho.ng. (
++			      2		; Serial
++			 604800		; Refresh
++			  86400		; Retry
++			2419200		; Expire
++			 604800 )	; Negative Cache TTL
++;
++
++42.168.192.in-addr.arpa. IN NS bematv-3.pho.ng.
++42.168.192.in-addr.arpa. IN NS bematv-1.pho.ng.
++42.168.192.in-addr.arpa. IN NS bematv-2.pho.ng.
++32 IN PTR bematv-1.pho.ng.
++89 IN PTR bematv-2.pho.ng.
++69 IN PTR bematv-3.pho.ng.
++
+
+changed: [bematv-3]
+
+TASK [bind : Copy resolv.conf.j2 to /etc/resolv.conf / Update resolv.conf] *****
+--- before: /etc/resolv.conf
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp4n9nn6d9/resolv.conf.j2
+@@ -1,19 +1,4 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
++nameserver 192.168.42.32
++nameserver 192.168.42.89
++search pho.ng
+ 
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
+
+changed: [bematv-2]
+--- before: /etc/resolv.conf
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpt7sny1f_/resolv.conf.j2
+@@ -1,19 +1,4 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
++nameserver 192.168.42.32
++nameserver 192.168.42.89
++search pho.ng
+ 
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
+
+changed: [bematv-1]
+--- before: /etc/resolv.conf
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmptgprln1x/resolv.conf.j2
+@@ -1,19 +1,4 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients to the
+-# internal DNS stub resolver of systemd-resolved. This file lists all
+-# configured search domains.
+-#
+-# Run "resolvectl status" to see details about the uplink DNS servers
+-# currently in use.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
++nameserver 192.168.42.32
++nameserver 192.168.42.89
++search pho.ng
+ 
+-nameserver 127.0.0.53
+-options edns0 trust-ad
+-search openstacklocal
+
+changed: [bematv-3]
+
+TASK [bind : Stop service systemd-resolved] ************************************
+changed: [bematv-2]
+changed: [bematv-3]
+changed: [bematv-1]
+
+TASK [bind : Upload named.conf.local.j2 to /etc/bind/named.conf.local / local DNS server configuration] ***
+--- before: /etc/bind/named.conf.local
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpmcx87aev/named.conf.local.j2
+@@ -1,8 +1,20 @@
+-//
+-// Do any local configuration here
+-//
++zone "pho.ng" {
+ 
+-// Consider adding the 1918 zones here, if they are not used in your
+-// organization
+-//include "/etc/bind/zones.rfc1918";
++  type slave;
++  masters { 192.168.42.69; };
++  
++  file "db.pho.ng";
++};
+ 
++server 192.168.42.69 {
++  keys {  dns_transfer_key; };
++};
++
++
++zone "42.168.192.in-addr.arpa" {
++  type slave;
++  masters { 192.168.42.69; };
++  
++  file "db.pho.ng.reverse";
++};
++
+
+changed: [bematv-1]
+--- before: /etc/bind/named.conf.local
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpljoid0sq/named.conf.local.j2
+@@ -1,8 +1,19 @@
+-//
+-// Do any local configuration here
+-//
++zone "pho.ng" {
+ 
+-// Consider adding the 1918 zones here, if they are not used in your
+-// organization
+-//include "/etc/bind/zones.rfc1918";
++  type master;
++  allow-update { key dns_update_key; };
++  allow-transfer { 127.0.0.1; key dns_transfer_key; };
+ 
++  file "db.pho.ng";
++};
++
++
++
++zone "42.168.192.in-addr.arpa" {
++  type master;
++  allow-update { key dns_update_key; };
++  allow-transfer { 127.0.0.1; key dns_transfer_key; };
++
++  file "db.pho.ng.reverse";
++};
++
+
+changed: [bematv-3]
+--- before: /etc/bind/named.conf.local
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpfo00ugva/named.conf.local.j2
+@@ -1,8 +1,20 @@
+-//
+-// Do any local configuration here
+-//
++zone "pho.ng" {
+ 
+-// Consider adding the 1918 zones here, if they are not used in your
+-// organization
+-//include "/etc/bind/zones.rfc1918";
++  type slave;
++  masters { 192.168.42.69; };
++  
++  file "db.pho.ng";
++};
+ 
++server 192.168.42.69 {
++  keys {  dns_transfer_key; };
++};
++
++
++zone "42.168.192.in-addr.arpa" {
++  type slave;
++  masters { 192.168.42.69; };
++  
++  file "db.pho.ng.reverse";
++};
++
+
+changed: [bematv-2]
+
+TASK [bind : Upload named.conf.options.j2 to /etc/bind/named.conf.options / configuration options for the DNS server] ***
+--- before: /etc/bind/named.conf.options
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpd21l8itk/named.conf.options.j2
+@@ -1,24 +1,37 @@
++acl lan {
++                192.168.42.0/24;
++                127.0.0.0/8;
++                172.17.0.0/16;
++                        };
++
+ options {
++
+ 	directory "/var/cache/bind";
+ 
+-	// If there is a firewall between you and nameservers you want
+-	// to talk to, you may need to fix the firewall to allow multiple
+-	// ports to talk.  See http://www.kb.cert.org/vuls/id/800113
++        forwarders {
++                1.1.1.1;
++                8.8.8.8;
++                9.9.9.9;
++                9.9.9.10;
++                	};
+ 
+-	// If your ISP provided one or more IP addresses for stable 
+-	// nameservers, you probably want to use them as forwarders.  
+-	// Uncomment the following block, and insert the addresses replacing 
+-	// the all-0's placeholder.
++        allow-query { lan; };
++    
++	dnssec-validation no;
+ 
+-	// forwarders {
+-	// 	0.0.0.0;
+-	// };
++};
+ 
+-	//========================================================================
+-	// If BIND logs error messages about the root key being expired,
+-	// you will need to update your keys.  See https://www.isc.org/bind-keys
+-	//========================================================================
+-	dnssec-validation auto;
++statistics-channels {
++  inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
++};
+ 
+-	listen-on-v6 { any; };
++key "dns_transfer_key" {
++        algorithm hmac-sha256;
++        secret "ja4+B709JTnRiq+PqTQA7ALqbkbdP/Mkteu1LcKcnf4=";
+ };
++
++key "dns_update_key" {
++	algorithm hmac-sha256;
++	secret "nhuNNJG3F6nZ9DwiD+7j8QWDRgk4eN9FEiiktC5z4Kc=";
++};
++
+
+changed: [bematv-1]
+--- before: /etc/bind/named.conf.options
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpqkaxthx5/named.conf.options.j2
+@@ -1,24 +1,37 @@
++acl lan {
++                192.168.42.0/24;
++                127.0.0.0/8;
++                172.17.0.0/16;
++                        };
++
+ options {
++
+ 	directory "/var/cache/bind";
+ 
+-	// If there is a firewall between you and nameservers you want
+-	// to talk to, you may need to fix the firewall to allow multiple
+-	// ports to talk.  See http://www.kb.cert.org/vuls/id/800113
++        forwarders {
++                1.1.1.1;
++                8.8.8.8;
++                9.9.9.9;
++                9.9.9.10;
++                	};
+ 
+-	// If your ISP provided one or more IP addresses for stable 
+-	// nameservers, you probably want to use them as forwarders.  
+-	// Uncomment the following block, and insert the addresses replacing 
+-	// the all-0's placeholder.
++        allow-query { lan; };
++    
++	dnssec-validation no;
+ 
+-	// forwarders {
+-	// 	0.0.0.0;
+-	// };
++};
+ 
+-	//========================================================================
+-	// If BIND logs error messages about the root key being expired,
+-	// you will need to update your keys.  See https://www.isc.org/bind-keys
+-	//========================================================================
+-	dnssec-validation auto;
++statistics-channels {
++  inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
++};
+ 
+-	listen-on-v6 { any; };
++key "dns_transfer_key" {
++        algorithm hmac-sha256;
++        secret "ja4+B709JTnRiq+PqTQA7ALqbkbdP/Mkteu1LcKcnf4=";
+ };
++
++key "dns_update_key" {
++	algorithm hmac-sha256;
++	secret "nhuNNJG3F6nZ9DwiD+7j8QWDRgk4eN9FEiiktC5z4Kc=";
++};
++
+
+changed: [bematv-3]
+--- before: /etc/bind/named.conf.options
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpnk37cg7j/named.conf.options.j2
+@@ -1,24 +1,37 @@
++acl lan {
++                192.168.42.0/24;
++                127.0.0.0/8;
++                172.17.0.0/16;
++                        };
++
+ options {
++
+ 	directory "/var/cache/bind";
+ 
+-	// If there is a firewall between you and nameservers you want
+-	// to talk to, you may need to fix the firewall to allow multiple
+-	// ports to talk.  See http://www.kb.cert.org/vuls/id/800113
++        forwarders {
++                1.1.1.1;
++                8.8.8.8;
++                9.9.9.9;
++                9.9.9.10;
++                	};
+ 
+-	// If your ISP provided one or more IP addresses for stable 
+-	// nameservers, you probably want to use them as forwarders.  
+-	// Uncomment the following block, and insert the addresses replacing 
+-	// the all-0's placeholder.
++        allow-query { lan; };
++    
++	dnssec-validation no;
+ 
+-	// forwarders {
+-	// 	0.0.0.0;
+-	// };
++};
+ 
+-	//========================================================================
+-	// If BIND logs error messages about the root key being expired,
+-	// you will need to update your keys.  See https://www.isc.org/bind-keys
+-	//========================================================================
+-	dnssec-validation auto;
++statistics-channels {
++  inet 127.0.0.1 port 8053 allow { 127.0.0.1; };
++};
+ 
+-	listen-on-v6 { any; };
++key "dns_transfer_key" {
++        algorithm hmac-sha256;
++        secret "ja4+B709JTnRiq+PqTQA7ALqbkbdP/Mkteu1LcKcnf4=";
+ };
++
++key "dns_update_key" {
++	algorithm hmac-sha256;
++	secret "nhuNNJG3F6nZ9DwiD+7j8QWDRgk4eN9FEiiktC5z4Kc=";
++};
++
+
+changed: [bematv-2]
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+RUNNING HANDLER [bind : resolve directory] *************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+RUNNING HANDLER [bind : systemd/resolve] ***************************************
+--- before: /run/systemd/resolve/resolv.conf
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpv3w0o3re/resolv.conf.j2
+@@ -1,15 +1,4 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients directly to
+-# all known uplink DNS servers. This file lists all configured search domains.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
++nameserver 192.168.42.32
++nameserver 192.168.42.89
++search pho.ng
+ 
+-nameserver 1.1.1.1
+-nameserver 8.8.8.8
+-search openstacklocal
+
+changed: [bematv-2]
+--- before: /run/systemd/resolve/resolv.conf
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpx0_l9yg8/resolv.conf.j2
+@@ -1,15 +1,4 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients directly to
+-# all known uplink DNS servers. This file lists all configured search domains.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
++nameserver 192.168.42.32
++nameserver 192.168.42.89
++search pho.ng
+ 
+-nameserver 1.1.1.1
+-nameserver 8.8.8.8
+-search openstacklocal
+
+changed: [bematv-3]
+--- before: /run/systemd/resolve/resolv.conf
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpka36jh3i/resolv.conf.j2
+@@ -1,15 +1,4 @@
+-# This file is managed by man:systemd-resolved(8). Do not edit.
+-#
+-# This is a dynamic resolv.conf file for connecting local clients directly to
+-# all known uplink DNS servers. This file lists all configured search domains.
+-#
+-# Third party programs must not access this file directly, but only through the
+-# symlink at /etc/resolv.conf. To manage man:resolv.conf(5) in a different way,
+-# replace this symlink by a static file or a different symlink.
+-#
+-# See man:systemd-resolved.service(8) for details about the supported modes of
+-# operation for /etc/resolv.conf.
++nameserver 192.168.42.32
++nameserver 192.168.42.89
++search pho.ng
+ 
+-nameserver 1.1.1.1
+-nameserver 8.8.8.8
+-search openstacklocal
+
+changed: [bematv-1]
+
+RUNNING HANDLER [bind : rndc reload] *******************************************
+changed: [bematv-1]
+changed: [bematv-2]
+changed: [bematv-3]
+
+RUNNING HANDLER [bind : Restart bind9] *****************************************
+changed: [bematv-1]
+changed: [bematv-3]
+changed: [bematv-2]
+
+TASK [bind : Ensure bind9 is started] ******************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [bind : Set A records] ****************************************************
+changed: [bematv-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
+changed: [bematv-3] => (item={'key': 'cloudfare', 'value': '1.1.1.1'})
+changed: [bematv-3] => (item={'key': 'google', 'value': '8.8.8.8'})
+changed: [bematv-3] => (item={'key': 'google2', 'value': '8.8.4.4'})
+
+TASK [bind : Set CNAME records] ************************************************
+changed: [bematv-3] => (item={'key': 'grafana', 'value': 'bematv-3'})
+changed: [bematv-3] => (item={'key': 'prometheus', 'value': 'bematv-3'})
+changed: [bematv-3] => (item={'key': 'influxdb', 'value': 'bematv-3'})
+changed: [bematv-3] => (item={'key': 'web1', 'value': 'bematv-1'})
+changed: [bematv-3] => (item={'key': 'web2', 'value': 'bematv-2'})
+changed: [bematv-3] => (item={'key': 'web3', 'value': 'bematv-3'})
+changed: [bematv-3] => (item={'key': 'lb1', 'value': 'bematv-1'})
+changed: [bematv-3] => (item={'key': 'lb2', 'value': 'bematv-2'})
+changed: [bematv-3] => (item={'key': 'mysql1', 'value': 'bematv-1'})
+changed: [bematv-3] => (item={'key': 'mysql2', 'value': 'bematv-2'})
+changed: [bematv-3] => (item={'key': 'ns1', 'value': 'bematv-3'})
+changed: [bematv-3] => (item={'key': 'ns2', 'value': 'bematv-1'})
+changed: [bematv-3] => (item={'key': 'ns3', 'value': 'bematv-2'})
+
+PLAY [MySQL database server] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Install 'mysql-server'] ******************************************
+The following additional packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 libtimedate-perl liburi-perl mecab-ipadic
+  mecab-ipadic-utf8 mecab-utils mysql-client-8.0 mysql-client-core-8.0
+  mysql-common mysql-server-8.0 mysql-server-core-8.0
+Suggested packages:
+  libdata-dump-perl libipc-sharedcache-perl libwww-perl mailx tinyca
+The following NEW packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 libtimedate-perl liburi-perl mecab-ipadic
+  mecab-ipadic-utf8 mecab-utils mysql-client-8.0 mysql-client-core-8.0
+  mysql-common mysql-server mysql-server-8.0 mysql-server-core-8.0
+0 upgraded, 25 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+The following additional packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 libtimedate-perl liburi-perl mecab-ipadic
+  mecab-ipadic-utf8 mecab-utils mysql-client-8.0 mysql-client-core-8.0
+  mysql-common mysql-server-8.0 mysql-server-core-8.0
+Suggested packages:
+  libdata-dump-perl libipc-sharedcache-perl libwww-perl mailx tinyca
+The following NEW packages will be installed:
+  libcgi-fast-perl libcgi-pm-perl libencode-locale-perl libevent-core-2.1-7
+  libevent-pthreads-2.1-7 libfcgi-perl libhtml-parser-perl libhtml-tagset-perl
+  libhtml-template-perl libhttp-date-perl libhttp-message-perl libio-html-perl
+  liblwp-mediatypes-perl libmecab2 libtimedate-perl liburi-perl mecab-ipadic
+  mecab-ipadic-utf8 mecab-utils mysql-client-8.0 mysql-client-core-8.0
+  mysql-common mysql-server mysql-server-8.0 mysql-server-core-8.0
+0 upgraded, 25 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+
+TASK [mysql : Install 'python3-mysql'] *****************************************
+Suggested packages:
+  python-pymysql-doc
+The following NEW packages will be installed:
+  python3-pymysql
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+Suggested packages:
+  python-pymysql-doc
+The following NEW packages will be installed:
+  python3-pymysql
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+
+TASK [mysql : Copy override.cnf.j2 to /etc/mysql/mysql.conf.d/override.cnf / Upload the mysql config file] ***
+changed: [bematv-2]
+changed: [bematv-1]
+
+TASK [mysql : Ensure mysql is started] *****************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Create MySQL database] *******************************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+TASK [mysql : Create MySQL user] ***********************************************
+changed: [bematv-1]
+changed: [bematv-2]
+
+TASK [mysql : Create MySQL replication user] ***********************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+TASK [mysql : Make replication read only] **************************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+TASK [mysql : Execute handlers preemptively] ***********************************
+
+RUNNING HANDLER [mysql : Restart mysql] ****************************************
+changed: [bematv-1]
+changed: [bematv-2]
+
+RUNNING HANDLER [mysql : Reset MySQL source] ***********************************
+skipping: [bematv-1] => (item=stopreplica) 
+skipping: [bematv-1] => (item=resetprimary) 
+ok: [bematv-2] => (item=stopreplica)
+changed: [bematv-2] => (item=resetprimary)
+
+RUNNING HANDLER [mysql : Reset MySQL replica] **********************************
+skipping: [bematv-2] => (item=None) 
+skipping: [bematv-2] => (item=None) 
+skipping: [bematv-2] => (item=None) 
+skipping: [bematv-2] => (item=None) 
+skipping: [bematv-2]
+ok: [bematv-1] => (item=None)
+changed: [bematv-1] => (item=None)
+changed: [bematv-1] => (item=None)
+changed: [bematv-1] => (item=None)
+changed: [bematv-1]
+
+TASK [mysql_backup : Create the backup directory for mysql /  /home/backup/mysql] ***
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ {
+-    "group": 0,
+-    "owner": 0,
++    "group": 34,
++    "owner": 34,
+     "path": "/home/backup/mysql",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-2]
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ {
+-    "group": 0,
+-    "owner": 0,
++    "group": 34,
++    "owner": 34,
+     "path": "/home/backup/mysql",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-1]
+
+TASK [mysql_backup : Create MySQL backup user] *********************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+TASK [mysql_backup : Copy backup.my.cnf.j2 to /home/backup/.my.cnf / Upload MySQL configuration file] ***
+changed: [bematv-1]
+changed: [bematv-2]
+
+TASK [mysql_backup : Copy mysql-backup.j2 to /etc/cron.d/mysql-backup / Update mysql cron] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp1mwnwi24/mysql-backup.j2
+@@ -0,0 +1,12 @@
++0 23 * * * backup ssh bematv@backup.pho.ng mkdir mysql
++
++1 23 * * * backup mysqldump agama > /home/backup/mysql/agama.sql
++
++5 23 * * 0 backup duplicity full --no-encryption --allow-source-mismatch /home/backup/mysql/ rsync://bematv@backup//home/bematv/mysql/
++
++10 23 * * 1-6 backup duplicity incremental --no-encryption --allow-source-mismatch /home/backup/mysql/ rsync://bematv@backup//home/bematv/mysql/
++
++0 21 * * * backup rm -r /home/backup/restore/*
++
++1 21 * * * backup duplicity --no-encryption restore rsync://bematv@backup//home/bematv/mysql/ /home/backup/restore/agama
++
+
+changed: [bematv-1]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpw2h49bqf/mysql-backup.j2
+@@ -0,0 +1,2 @@
++
++
+
+changed: [bematv-2]
+
+TASK [mysql_backup : Ensure Cron is started] ***********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [Docker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [docker : Install 'python3-docker'] ***************************************
+The following additional packages will be installed:
+  python3-websocket
+The following NEW packages will be installed:
+  python3-docker python3-websocket
+0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+The following additional packages will be installed:
+  python3-websocket
+The following NEW packages will be installed:
+  python3-docker python3-websocket
+0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+The following additional packages will be installed:
+  python3-websocket
+The following NEW packages will be installed:
+  python3-docker python3-websocket
+0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+
+TASK [docker : Install 'docker.io'] ********************************************
+The following additional packages will be installed:
+  bridge-utils containerd dnsmasq-base libidn11 pigz runc ubuntu-fan
+Suggested packages:
+  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
+  rinse zfs-fuse | zfsutils
+The following NEW packages will be installed:
+  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz runc ubuntu-fan
+0 upgraded, 8 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+The following additional packages will be installed:
+  bridge-utils containerd dnsmasq-base libidn11 pigz runc ubuntu-fan
+Suggested packages:
+  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
+  rinse zfs-fuse | zfsutils
+The following NEW packages will be installed:
+  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz runc ubuntu-fan
+0 upgraded, 8 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+The following additional packages will be installed:
+  bridge-utils containerd dnsmasq-base libidn11 pigz runc ubuntu-fan
+Suggested packages:
+  ifupdown aufs-tools cgroupfs-mount | cgroup-lite debootstrap docker-doc
+  rinse zfs-fuse | zfsutils
+The following NEW packages will be installed:
+  bridge-utils containerd dnsmasq-base docker.io libidn11 pigz runc ubuntu-fan
+0 upgraded, 8 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+
+TASK [docker : Log into DockerHub] *********************************************
+changed: [bematv-3]
+changed: [bematv-1]
+changed: [bematv-2]
+
+TASK [docker : Ensure docker is running] ***************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+PLAY [Nginx] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [nginx : Install 'nginx'] *************************************************
+The following additional packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx-common nginx-core
+Suggested packages:
+  libgd-tools fcgiwrap nginx-doc ssl-cert
+The following NEW packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx nginx-common nginx-core
+0 upgraded, 17 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+The following additional packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx-common nginx-core
+Suggested packages:
+  libgd-tools fcgiwrap nginx-doc ssl-cert
+The following NEW packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx nginx-common nginx-core
+0 upgraded, 17 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+The following additional packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx-common nginx-core
+Suggested packages:
+  libgd-tools fcgiwrap nginx-doc ssl-cert
+The following NEW packages will be installed:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0
+  libjpeg-turbo8 libjpeg8 libnginx-mod-http-image-filter
+  libnginx-mod-http-xslt-filter libnginx-mod-mail libnginx-mod-stream libtiff5
+  libwebp6 libxpm4 nginx nginx-common nginx-core
+0 upgraded, 17 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+
+TASK [nginx : Copy index.html to /var/www/html/index.html Replace the default HTML page] ***
+--- before
++++ after: /home/bematv/Desktop/GIT/ica0002/roles/nginx/files/index.html
+@@ -0,0 +1,9 @@
++<html>
++    <head>
++        <title>bematv-1 - Nginx</title>
++    </head>
++    <body>
++        <h1>Nginx running on bematv-1</h1>
++    </body>
++</html>
++
+
+changed: [bematv-1]
+--- before
++++ after: /home/bematv/Desktop/GIT/ica0002/roles/nginx/files/index.html
+@@ -0,0 +1,9 @@
++<html>
++    <head>
++        <title>bematv-1 - Nginx</title>
++    </head>
++    <body>
++        <h1>Nginx running on bematv-1</h1>
++    </body>
++</html>
++
+
+changed: [bematv-3]
+--- before
++++ after: /home/bematv/Desktop/GIT/ica0002/roles/nginx/files/index.html
+@@ -0,0 +1,9 @@
++<html>
++    <head>
++        <title>bematv-1 - Nginx</title>
++    </head>
++    <body>
++        <h1>Nginx running on bematv-1</h1>
++    </body>
++</html>
++
+
+changed: [bematv-2]
+
+TASK [nginx : Copy default.j2 to /etc/nginx/sites-enabled/default / Nginx as uWSGI frontend, Nginx configuration, Prometheus ports] ***
+--- before: /etc/nginx/sites-enabled/default
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpj92pjh3_/default.j2
+@@ -1,91 +1,82 @@
+-##
+-# You should look at the following URL's in order to grasp a solid understanding
+-# of Nginx configuration files in order to fully unleash the power of Nginx.
+-# https://www.nginx.com/resources/wiki/start/
+-# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+-# https://wiki.debian.org/Nginx/DirectoryStructure
+-#
+-# In most cases, administrators will remove this file from sites-enabled/ and
+-# leave it as reference inside of sites-available where it will continue to be
+-# updated by the nginx packaging team.
+-#
+-# This file will automatically load configuration files provided by other
+-# applications, such as Drupal or Wordpress. These applications will be made
+-# available underneath a path with that package name, such as /drupal8.
+-#
+-# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+-##
++server {
+ 
+-# Default server configuration
+-#
+-server {
+ 	listen 80 default_server;
+-	listen [::]:80 default_server;
+-
+-	# SSL configuration
+-	#
+-	# listen 443 ssl default_server;
+-	# listen [::]:443 ssl default_server;
+-	#
+-	# Note: You should disable gzip for SSL traffic.
+-	# See: https://bugs.debian.org/773332
+-	#
+-	# Read up on ssl_ciphers to ensure a secure configuration.
+-	# See: https://bugs.debian.org/765782
+-	#
+-	# Self signed certs generated by the ssl-cert package
+-	# Don't use them in a production server!
+-	#
+-	# include snippets/snakeoil.conf;
+-
+-	root /var/www/html;
+-
+-	# Add index.php to the list if you are using PHP
+-	index index.html index.htm index.nginx-debian.html;
+-
+ 	server_name _;
+ 
+-	location / {
+-		# First attempt to serve request as file, then
+-		# as directory, then fall back to displaying a 404.
+-		try_files $uri $uri/ =404;
+-	}
+ 
+-	# pass PHP scripts to FastCGI server
++	# AGAMA OLD
++	#	#	
++	#	location / {
++	#		uwsgi_pass localhost:5000;
++	#		include uwsgi_params;
++	#	}
++	#	
++
++
++	# AGAMA NEW
++	
++		location / {
++			proxy_pass http://localhost:8001;
++			proxy_set_header Host $http_host;
++		}
++		
++
++
++	# GRAFANA OLD
+ 	#
+-	#location ~ \.php$ {
+-	#	include snippets/fastcgi-php.conf;
+-	#
+-	#	# With php-fpm (or other unix sockets):
+-	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+-	#	# With php-cgi (or other tcp sockets):
+-	#	fastcgi_pass 127.0.0.1:9000;
+-	#}
+ 
+-	# deny access to .htaccess files, if Apache's document root
+-	# concurs with nginx's one
+-	#
+-	#location ~ /\.ht {
+-	#	deny all;
+-	#}
++	# GRAFANA NEW
++		
++
++
++		
++
++
++	
++
++	
++		location /mysql-metrics {
++
++			proxy_pass http://localhost:9104/metrics;
++		}
++	
++
++	
++		location /bind-metrics {
++
++			proxy_pass http://localhost:9119/metrics;
++		}
++	
++
++	
++		location /nginx-metrics {
++
++			proxy_pass http://localhost:9113/metrics;
++		}
++	
++
++	
++		location /node-metrics {
++
++			proxy_pass http://localhost:9100/metrics;
++		}
++	
++
++	
++
++			
++		location /keepalived-metrics {
++				
++			proxy_pass http://localhost:9165/metrics;
++		}
++	
++
++			
++		location /haproxy-metrics {
++				
++			proxy_pass http://localhost:9101/metrics;
++		}
++	
++		
+ }
+ 
+-
+-# Virtual Host configuration for example.com
+-#
+-# You can move that to a different file under sites-available/ and symlink that
+-# to sites-enabled/ to enable it.
+-#
+-#server {
+-#	listen 80;
+-#	listen [::]:80;
+-#
+-#	server_name example.com;
+-#
+-#	root /var/www/example.com;
+-#	index index.html;
+-#
+-#	location / {
+-#		try_files $uri $uri/ =404;
+-#	}
+-#}
+
+changed: [bematv-1]
+--- before: /etc/nginx/sites-enabled/default
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmps2xux7jm/default.j2
+@@ -1,91 +1,78 @@
+-##
+-# You should look at the following URL's in order to grasp a solid understanding
+-# of Nginx configuration files in order to fully unleash the power of Nginx.
+-# https://www.nginx.com/resources/wiki/start/
+-# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+-# https://wiki.debian.org/Nginx/DirectoryStructure
+-#
+-# In most cases, administrators will remove this file from sites-enabled/ and
+-# leave it as reference inside of sites-available where it will continue to be
+-# updated by the nginx packaging team.
+-#
+-# This file will automatically load configuration files provided by other
+-# applications, such as Drupal or Wordpress. These applications will be made
+-# available underneath a path with that package name, such as /drupal8.
+-#
+-# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+-##
++server {
+ 
+-# Default server configuration
+-#
+-server {
+ 	listen 80 default_server;
+-	listen [::]:80 default_server;
+-
+-	# SSL configuration
+-	#
+-	# listen 443 ssl default_server;
+-	# listen [::]:443 ssl default_server;
+-	#
+-	# Note: You should disable gzip for SSL traffic.
+-	# See: https://bugs.debian.org/773332
+-	#
+-	# Read up on ssl_ciphers to ensure a secure configuration.
+-	# See: https://bugs.debian.org/765782
+-	#
+-	# Self signed certs generated by the ssl-cert package
+-	# Don't use them in a production server!
+-	#
+-	# include snippets/snakeoil.conf;
+-
+-	root /var/www/html;
+-
+-	# Add index.php to the list if you are using PHP
+-	index index.html index.htm index.nginx-debian.html;
+-
+ 	server_name _;
+ 
+-	location / {
+-		# First attempt to serve request as file, then
+-		# as directory, then fall back to displaying a 404.
+-		try_files $uri $uri/ =404;
+-	}
+ 
+-	# pass PHP scripts to FastCGI server
++	# AGAMA OLD
++	#	
++
++
++	# AGAMA NEW
++		
++
++
++	# GRAFANA OLD
++	#	#
++	#	location /grafana {
++	#		proxy_pass http://localhost:3000;
++	#	}
+ 	#
+-	#location ~ \.php$ {
+-	#	include snippets/fastcgi-php.conf;
+-	#
+-	#	# With php-fpm (or other unix sockets):
+-	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+-	#	# With php-cgi (or other tcp sockets):
+-	#	fastcgi_pass 127.0.0.1:9000;
+-	#}
+ 
+-	# deny access to .htaccess files, if Apache's document root
+-	# concurs with nginx's one
+-	#
+-	#location ~ /\.ht {
+-	#	deny all;
+-	#}
++	# GRAFANA NEW
++	
++		location /grafana {
++			proxy_pass http://localhost:3001;
++		}
++		
++
++
++	
++		location /prometheus {
++			proxy_pass http://localhost:9090;
++		}
++		
++
++
++	
++		location /influxdb {
++			proxy_pass http://localhost:8086;
++		}
++	
++
++	
++
++	
++		location /bind-metrics {
++
++			proxy_pass http://localhost:9119/metrics;
++		}
++	
++
++	
++		location /nginx-metrics {
++
++			proxy_pass http://localhost:9113/metrics;
++		}
++	
++
++	
++		location /node-metrics {
++
++			proxy_pass http://localhost:9100/metrics;
++		}
++	
++
++			
++		location /influxdb-metrics {
++				
++			proxy_pass http://localhost:9424/metrics;
++		}
++	
++
++	
++
++	
++		
+ }
+ 
+-
+-# Virtual Host configuration for example.com
+-#
+-# You can move that to a different file under sites-available/ and symlink that
+-# to sites-enabled/ to enable it.
+-#
+-#server {
+-#	listen 80;
+-#	listen [::]:80;
+-#
+-#	server_name example.com;
+-#
+-#	root /var/www/example.com;
+-#	index index.html;
+-#
+-#	location / {
+-#		try_files $uri $uri/ =404;
+-#	}
+-#}
+
+changed: [bematv-3]
+--- before: /etc/nginx/sites-enabled/default
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp9lk0dg9h/default.j2
+@@ -1,91 +1,82 @@
+-##
+-# You should look at the following URL's in order to grasp a solid understanding
+-# of Nginx configuration files in order to fully unleash the power of Nginx.
+-# https://www.nginx.com/resources/wiki/start/
+-# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+-# https://wiki.debian.org/Nginx/DirectoryStructure
+-#
+-# In most cases, administrators will remove this file from sites-enabled/ and
+-# leave it as reference inside of sites-available where it will continue to be
+-# updated by the nginx packaging team.
+-#
+-# This file will automatically load configuration files provided by other
+-# applications, such as Drupal or Wordpress. These applications will be made
+-# available underneath a path with that package name, such as /drupal8.
+-#
+-# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+-##
++server {
+ 
+-# Default server configuration
+-#
+-server {
+ 	listen 80 default_server;
+-	listen [::]:80 default_server;
+-
+-	# SSL configuration
+-	#
+-	# listen 443 ssl default_server;
+-	# listen [::]:443 ssl default_server;
+-	#
+-	# Note: You should disable gzip for SSL traffic.
+-	# See: https://bugs.debian.org/773332
+-	#
+-	# Read up on ssl_ciphers to ensure a secure configuration.
+-	# See: https://bugs.debian.org/765782
+-	#
+-	# Self signed certs generated by the ssl-cert package
+-	# Don't use them in a production server!
+-	#
+-	# include snippets/snakeoil.conf;
+-
+-	root /var/www/html;
+-
+-	# Add index.php to the list if you are using PHP
+-	index index.html index.htm index.nginx-debian.html;
+-
+ 	server_name _;
+ 
+-	location / {
+-		# First attempt to serve request as file, then
+-		# as directory, then fall back to displaying a 404.
+-		try_files $uri $uri/ =404;
+-	}
+ 
+-	# pass PHP scripts to FastCGI server
++	# AGAMA OLD
++	#	#	
++	#	location / {
++	#		uwsgi_pass localhost:5000;
++	#		include uwsgi_params;
++	#	}
++	#	
++
++
++	# AGAMA NEW
++	
++		location / {
++			proxy_pass http://localhost:8001;
++			proxy_set_header Host $http_host;
++		}
++		
++
++
++	# GRAFANA OLD
+ 	#
+-	#location ~ \.php$ {
+-	#	include snippets/fastcgi-php.conf;
+-	#
+-	#	# With php-fpm (or other unix sockets):
+-	#	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+-	#	# With php-cgi (or other tcp sockets):
+-	#	fastcgi_pass 127.0.0.1:9000;
+-	#}
+ 
+-	# deny access to .htaccess files, if Apache's document root
+-	# concurs with nginx's one
+-	#
+-	#location ~ /\.ht {
+-	#	deny all;
+-	#}
++	# GRAFANA NEW
++		
++
++
++		
++
++
++	
++
++	
++		location /mysql-metrics {
++
++			proxy_pass http://localhost:9104/metrics;
++		}
++	
++
++	
++		location /bind-metrics {
++
++			proxy_pass http://localhost:9119/metrics;
++		}
++	
++
++	
++		location /nginx-metrics {
++
++			proxy_pass http://localhost:9113/metrics;
++		}
++	
++
++	
++		location /node-metrics {
++
++			proxy_pass http://localhost:9100/metrics;
++		}
++	
++
++	
++
++			
++		location /keepalived-metrics {
++				
++			proxy_pass http://localhost:9165/metrics;
++		}
++	
++
++			
++		location /haproxy-metrics {
++				
++			proxy_pass http://localhost:9101/metrics;
++		}
++	
++		
+ }
+ 
+-
+-# Virtual Host configuration for example.com
+-#
+-# You can move that to a different file under sites-available/ and symlink that
+-# to sites-enabled/ to enable it.
+-#
+-#server {
+-#	listen 80;
+-#	listen [::]:80;
+-#
+-#	server_name example.com;
+-#
+-#	root /var/www/example.com;
+-#	index index.html;
+-#
+-#	location / {
+-#		try_files $uri $uri/ =404;
+-#	}
+-#}
+
+changed: [bematv-2]
+
+TASK [nginx : Ensure nginx is started] *****************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+RUNNING HANDLER [nginx : Restart nginx] ****************************************
+changed: [bematv-1]
+changed: [bematv-2]
+changed: [bematv-3]
+
+PLAY [Agama web server] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Creating folder /opt/agama] **************************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/agama",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-1]
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/agama",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-2]
+
+TASK [agama : Download agama container file] ***********************************
+changed: [bematv-1]
+changed: [bematv-2]
+
+TASK [agama : Create agama docker image file] **********************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+TASK [agama : Create agama Docker container 1] *********************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+TASK [agama : Create agama Docker container 2] *********************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+TASK [uwsgi : Install 'uwsgi'] *************************************************
+The following additional packages will be installed:
+  libjansson4 libnorm1 libpgm-5.2-0 libzmq5 uwsgi-core
+Suggested packages:
+  nginx-full | cherokee | libapache2-mod-proxy-uwsgi | libapache2-mod-uwsgi
+  | libapache2-mod-ruwsgi uwsgi-dev uwsgi-extra uwsgi-plugins-all
+The following NEW packages will be installed:
+  libjansson4 libnorm1 libpgm-5.2-0 libzmq5 uwsgi uwsgi-core
+0 upgraded, 6 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+The following additional packages will be installed:
+  libjansson4 libnorm1 libpgm-5.2-0 libzmq5 uwsgi-core
+Suggested packages:
+  nginx-full | cherokee | libapache2-mod-proxy-uwsgi | libapache2-mod-uwsgi
+  | libapache2-mod-ruwsgi uwsgi-dev uwsgi-extra uwsgi-plugins-all
+The following NEW packages will be installed:
+  libjansson4 libnorm1 libpgm-5.2-0 libzmq5 uwsgi uwsgi-core
+0 upgraded, 6 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+
+TASK [uwsgi : Install 'uwsgi-plugin-python3'] **********************************
+Suggested packages:
+  python3-uwsgidecorators
+The following NEW packages will be installed:
+  uwsgi-plugin-python3
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+Suggested packages:
+  python3-uwsgidecorators
+The following NEW packages will be installed:
+  uwsgi-plugin-python3
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+
+TASK [uwsgi : Ensure that uwsgi is started] ************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [Prometheus] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [prometheus : Install 'prometheus'] ***************************************
+The following additional packages will be installed:
+  fonts-glyphicons-halflings javascript-common libc-ares2 libio-pty-perl
+  libipc-run-perl libjs-bootstrap libjs-bootstrap4 libjs-d3
+  libjs-eonasdan-bootstrap-datetimepicker libjs-jquery libjs-jquery-hotkeys
+  libjs-moment libjs-moment-timezone libjs-mustache libjs-popper.js
+  libjs-rickshaw libnode64 libtime-duration-perl libtimedate-perl moreutils
+  node-jquery nodejs nodejs-doc prometheus-node-exporter
+  prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  npm gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  fonts-glyphicons-halflings javascript-common libc-ares2 libio-pty-perl
+  libipc-run-perl libjs-bootstrap libjs-bootstrap4 libjs-d3
+  libjs-eonasdan-bootstrap-datetimepicker libjs-jquery libjs-jquery-hotkeys
+  libjs-moment libjs-moment-timezone libjs-mustache libjs-popper.js
+  libjs-rickshaw libnode64 libtime-duration-perl libtimedate-perl moreutils
+  node-jquery nodejs nodejs-doc prometheus prometheus-node-exporter
+  prometheus-node-exporter-collectors smartmontools
+0 upgraded, 27 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+
+TASK [prometheus : Copy prometheus.yml.j2 to /etc/prometheus/prometheus.yml / prometheus config] ***
+--- before: /etc/prometheus/prometheus.yml
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpu4vq2ouk/prometheus.yml.j2
+@@ -1,44 +1,55 @@
+-# Sample config for Prometheus.
++global:
++  scrape_interval:     15s # By default, scrape targets every 15 seconds.
++  evaluation_interval: 15s # By default, scrape targets every 15 seconds.
+ 
+-global:
+-  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+-  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+-  # scrape_timeout is set to the global default (10s).
+-
+-  # Attach these labels to any time series or alerts when communicating with
+-  # external systems (federation, remote storage, Alertmanager).
+-  external_labels:
+-      monitor: 'example'
+-
+-# Alertmanager configuration
+-alerting:
+-  alertmanagers:
+-  - static_configs:
+-    - targets: ['localhost:9093']
+-
+-# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+-rule_files:
+-  # - "first_rules.yml"
+-  # - "second_rules.yml"
+-
+-# A scrape configuration containing exactly one endpoint to scrape:
+-# Here it's Prometheus itself.
+ scrape_configs:
+-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+   - job_name: 'prometheus'
+-
+-    # Override the global default and scrape targets from this job every 5 seconds.
+     scrape_interval: 5s
+     scrape_timeout: 5s
+-
+-    # metrics_path defaults to '/metrics'
+-    # scheme defaults to 'http'.
+-
++    metrics_path: /prometheus/metrics
+     static_configs:
+       - targets: ['localhost:9090']
+ 
+-  - job_name: node
+-    # If prometheus-node-exporter is installed, grab stats about the local
+-    # machine by default.
++  - job_name: grafana
+     static_configs:
+-      - targets: ['localhost:9100']
++      - targets:
++                - 'bematv-3:3001'
++              
++  - job_name: mysql-metrics
++    static_configs:
++      - targets:
++        - "mysql1:9104"
++        - "mysql2:9104"
++  - job_name: bind-metrics
++    static_configs:
++      - targets:
++        - "ns1:9119"
++        - "ns2:9119"
++        - "ns3:9119"
++  - job_name: node-metrics
++    static_configs:
++      - targets:
++        - "bematv-1:9100"
++        - "bematv-2:9100"
++        - "bematv-3:9100"
++  - job_name: nginx-metrics
++    static_configs:
++      - targets:
++        - "web1:9113"
++        - "web2:9113"
++        - "web3:9113"
++  - job_name: keepalived-metrics
++    static_configs:
++      - targets:
++        - "lb1:9165"
++        - "lb2:9165"
++  - job_name: haproxy-metrics
++    static_configs:
++      - targets:
++        - "lb1:9101"
++        - "lb2:9101"
++  - job_name: influxdb-metrics
++    static_configs:
++      - targets:
++        - "influxdb:9424"
++
+
+changed: [bematv-3]
+
+TASK [prometheus : Copy prometheus.j2 to /etc/default/prometheus / reverse proxy config] ***
+--- before: /etc/default/prometheus
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpjayakupv/prometheus.j2
+@@ -1,57 +1,2 @@
+-# Set the command-line arguments to pass to the server.
+-ARGS=""
++ARGS=" --web.external-url=http://193.40.156.67:6980/prometheus"
+ 
+-# Prometheus supports the following options:
+-#  --config.file="/etc/prometheus/prometheus.yml"
+-#                             Prometheus configuration file path.
+-#  --web.listen-address="0.0.0.0:9090"
+-#                             Address to listen on for UI, API, and telemetry.
+-#  --web.read-timeout=5m      Maximum duration before timing out read of the
+-#                             request, and closing idle connections.
+-#  --web.max-connections=512  Maximum number of simultaneous connections.
+-#  --web.external-url=<URL>   The URL under which Prometheus is externally
+-#                             reachable (for example, if Prometheus is served
+-#                             via a reverse proxy). Used for generating
+-#                             relative and absolute links back to Prometheus
+-#                             itself. If the URL has a path portion, it will
+-#                             be used to prefix all HTTP endpoints served by
+-#                             Prometheus. If omitted, relevant URL components
+-#                             will be derived automatically.
+-#  --web.route-prefix=<path>  Prefix for the internal routes of web endpoints.
+-#                             Defaults to path of --web.external-url.
+-#  --web.local-assets="/usr/share/prometheus/web/"
+-#                             Path to static asset/templates directory.
+-#  --web.user-assets=<path>   Path to static asset directory, available at
+-#                             /user.
+-#  --web.enable-lifecycle     Enable shutdown and reload via HTTP request.
+-#  --web.enable-admin-api     Enables API endpoints for admin control actions.
+-#  --web.console.templates="/etc/prometheus/consoles"
+-#                             Path to the console template directory,
+-#                             available at /consoles.
+-#  --web.console.libraries="/etc/prometheus/console_libraries"
+-#                             Path to the console library directory.
+-#  --storage.tsdb.path="/var/lib/prometheus/metrics2/"
+-#                             Base path for metrics storage.
+-#  --storage.tsdb.min-block-duration=2h
+-#                             Minimum duration of a data block before being
+-#                             persisted.
+-#  --storage.tsdb.max-block-duration=<duration>
+-#                             Maximum duration compacted blocks may span.
+-#                             (Defaults to 10% of the retention period)
+-#  --storage.tsdb.retention=15d
+-#                             How long to retain samples in the storage.
+-#  --storage.tsdb.use-lockfile
+-#                             Create a lockfile in data directory.
+-#  --alertmanager.notification-queue-capacity=10000
+-#                             The capacity of the queue for pending alert
+-#                             manager notifications.
+-#  --alertmanager.timeout=10s
+-#                             Timeout for sending alerts to Alertmanager.
+-#  --query.lookback-delta=5m  The delta difference allowed for retrieving
+-#                             metrics during expression evaluations.
+-#  --query.timeout=2m         Maximum time a query may take before being
+-#                             aborted.
+-#  --query.max-concurrency=20
+-#                             Maximum number of queries executed concurrently.
+-#  --log.level=info           Only log messages with the given severity or
+-#                             above. One of: [debug, info, warn, error]
+
+changed: [bematv-3]
+
+TASK [prometheus : Ensure prometheus is running] *******************************
+ok: [bematv-3]
+
+RUNNING HANDLER [prometheus : Restart prometheus] ******************************
+changed: [bematv-3]
+
+PLAY [InfluxDB and Telegraf] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [influxdb : Add influxdb and telegraf key] ********************************
+changed: [bematv-3]
+
+TASK [influxdb : Add influx and telegraf repository into sources list] *********
+--- before: /dev/null
++++ after: /etc/apt/sources.list.d/repos_influxdata_com_debian.list
+@@ -0,0 +1 @@
++deb https://repos.influxdata.com/debian focal stable
+
+changed: [bematv-3]
+
+TASK [influxdb : Install 'influxdb'] *******************************************
+The following NEW packages will be installed:
+  influxdb
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+
+TASK [influxdb : Ensure influxdb is started] ***********************************
+changed: [bematv-3]
+
+TASK [influxdb : Install 'telegraf'] *******************************************
+The following NEW packages will be installed:
+  telegraf
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+
+TASK [influxdb : Ensure Telegraf is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Copy influxdb.conf.j2 into /etc/influxdb/influxdb.conf] *******
+--- before: /etc/influxdb/influxdb.conf
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp7rfsm3mr/influxdb.conf.j2
+@@ -1,596 +1,23 @@
+-### Welcome to the InfluxDB configuration file.
++[meta]
++  dir = "/var/lib/influxdb/meta"
++[data]
++  dir = "/var/lib/influxdb/data"
++  wal-dir = "/var/lib/influxdb/wal"
++  series-id-set-cache-size = 100
++  query-log-enabled = false
++[coordinator]
++[retention]
++[shard-precreation]
++[monitor]
++[http]
++  log-enabled = false
++  write-tracing = false
++[logging]
++[subscriber]
++[[graphite]]
++[[collectd]]
++[[opentsdb]]
++[[udp]]
++[continuous_queries]
++[tls]
+ 
+-# The values in this file override the default values used by the system if
+-# a config option is not specified. The commented out lines are the configuration
+-# field and the default value used. Uncommenting a line and changing the value
+-# will change the value used at runtime when the process is restarted.
+-
+-# Once every 24 hours InfluxDB will report usage data to usage.influxdata.com
+-# The data includes a random ID, os, arch, version, the number of series and other
+-# usage data. No data from user databases is ever transmitted.
+-# Change this option to true to disable reporting.
+-# reporting-disabled = false
+-
+-# Bind address to use for the RPC service for backup and restore.
+-# bind-address = "127.0.0.1:8088"
+-
+-###
+-### [meta]
+-###
+-### Controls the parameters for the Raft consensus group that stores metadata
+-### about the InfluxDB cluster.
+-###
+-
+-[meta]
+-  # Where the metadata/raft database is stored
+-  dir = "/var/lib/influxdb/meta"
+-
+-  # Automatically create a default retention policy when creating a database.
+-  # retention-autocreate = true
+-
+-  # If log messages are printed for the meta service
+-  # logging-enabled = true
+-
+-###
+-### [data]
+-###
+-### Controls where the actual shard data for InfluxDB lives and how it is
+-### flushed from the WAL. "dir" may need to be changed to a suitable place
+-### for your system, but the WAL settings are an advanced configuration. The
+-### defaults should work for most systems.
+-###
+-
+-[data]
+-  # The directory where the TSM storage engine stores TSM files.
+-  dir = "/var/lib/influxdb/data"
+-
+-  # The directory where the TSM storage engine stores WAL files.
+-  wal-dir = "/var/lib/influxdb/wal"
+-
+-  # The amount of time that a write will wait before fsyncing.  A duration
+-  # greater than 0 can be used to batch up multiple fsync calls.  This is useful for slower
+-  # disks or when WAL write contention is seen.  A value of 0s fsyncs every write to the WAL.
+-  # Values in the range of 0-100ms are recommended for non-SSD disks.
+-  # wal-fsync-delay = "0s"
+-
+-
+-  # The type of shard index to use for new shards.  The default is an in-memory index that is
+-  # recreated at startup.  A value of "tsi1" will use a disk based index that supports higher
+-  # cardinality datasets.
+-  # index-version = "inmem"
+-
+-  # Trace logging provides more verbose output around the tsm engine. Turning
+-  # this on can provide more useful output for debugging tsm engine issues.
+-  # trace-logging-enabled = false
+-
+-  # Whether queries should be logged before execution. Very useful for troubleshooting, but will
+-  # log any sensitive data contained within a query.
+-  # query-log-enabled = true
+-
+-  # Provides more error checking. For example, SELECT INTO will err out inserting an +/-Inf value
+-  # rather than silently failing.
+-  # strict-error-handling = false
+-
+-  # Validates incoming writes to ensure keys only have valid unicode characters.
+-  # This setting will incur a small overhead because every key must be checked.
+-  # validate-keys = false
+-
+-  # Settings for the TSM engine
+-
+-  # CacheMaxMemorySize is the maximum size a shard's cache can
+-  # reach before it starts rejecting writes.
+-  # Valid size suffixes are k, m, or g (case insensitive, 1024 = 1k).
+-  # Values without a size suffix are in bytes.
+-  # cache-max-memory-size = "1g"
+-
+-  # CacheSnapshotMemorySize is the size at which the engine will
+-  # snapshot the cache and write it to a TSM file, freeing up memory
+-  # Valid size suffixes are k, m, or g (case insensitive, 1024 = 1k).
+-  # Values without a size suffix are in bytes.
+-  # cache-snapshot-memory-size = "25m"
+-
+-  # CacheSnapshotWriteColdDuration is the length of time at
+-  # which the engine will snapshot the cache and write it to
+-  # a new TSM file if the shard hasn't received writes or deletes
+-  # cache-snapshot-write-cold-duration = "10m"
+-
+-  # CompactFullWriteColdDuration is the duration at which the engine
+-  # will compact all TSM files in a shard if it hasn't received a
+-  # write or delete
+-  # compact-full-write-cold-duration = "4h"
+-
+-  # The maximum number of concurrent full and level compactions that can run at one time.  A
+-  # value of 0 results in 50% of runtime.GOMAXPROCS(0) used at runtime.  Any number greater
+-  # than 0 limits compactions to that value.  This setting does not apply
+-  # to cache snapshotting.
+-  # max-concurrent-compactions = 0
+-
+-  # CompactThroughput is the rate limit in bytes per second that we
+-  # will allow TSM compactions to write to disk. Note that short bursts are allowed
+-  # to happen at a possibly larger value, set by CompactThroughputBurst
+-  # compact-throughput = "48m"
+-
+-  # CompactThroughputBurst is the rate limit in bytes per second that we
+-  # will allow TSM compactions to write to disk.
+-  # compact-throughput-burst = "48m"
+-
+-  # If true, then the mmap advise value MADV_WILLNEED will be provided to the kernel with respect to
+-  # TSM files. This setting has been found to be problematic on some kernels, and defaults to off.
+-  # It might help users who have slow disks in some cases.
+-  # tsm-use-madv-willneed = false
+-
+-  # Settings for the inmem index
+-
+-  # The maximum series allowed per database before writes are dropped.  This limit can prevent
+-  # high cardinality issues at the database level.  This limit can be disabled by setting it to
+-  # 0.
+-  # max-series-per-database = 1000000
+-
+-  # The maximum number of tag values per tag that are allowed before writes are dropped.  This limit
+-  # can prevent high cardinality tag values from being written to a measurement.  This limit can be
+-  # disabled by setting it to 0.
+-  # max-values-per-tag = 100000
+-
+-  # Settings for the tsi1 index
+-
+-  # The threshold, in bytes, when an index write-ahead log file will compact
+-  # into an index file. Lower sizes will cause log files to be compacted more
+-  # quickly and result in lower heap usage at the expense of write throughput.
+-  # Higher sizes will be compacted less frequently, store more series in-memory,
+-  # and provide higher write throughput.
+-  # Valid size suffixes are k, m, or g (case insensitive, 1024 = 1k).
+-  # Values without a size suffix are in bytes.
+-  # max-index-log-file-size = "1m"
+-
+-  # The size of the internal cache used in the TSI index to store previously 
+-  # calculated series results. Cached results will be returned quickly from the cache rather
+-  # than needing to be recalculated when a subsequent query with a matching tag key/value 
+-  # predicate is executed. Setting this value to 0 will disable the cache, which may
+-  # lead to query performance issues.
+-  # This value should only be increased if it is known that the set of regularly used 
+-  # tag key/value predicates across all measurements for a database is larger than 100. An
+-  # increase in cache size may lead to an increase in heap usage.
+-  series-id-set-cache-size = 100
+-
+-###
+-### [coordinator]
+-###
+-### Controls the clustering service configuration.
+-###
+-
+-[coordinator]
+-  # The default time a write request will wait until a "timeout" error is returned to the caller.
+-  # write-timeout = "10s"
+-
+-  # The maximum number of concurrent queries allowed to be executing at one time.  If a query is
+-  # executed and exceeds this limit, an error is returned to the caller.  This limit can be disabled
+-  # by setting it to 0.
+-  # max-concurrent-queries = 0
+-
+-  # The maximum time a query will is allowed to execute before being killed by the system.  This limit
+-  # can help prevent run away queries.  Setting the value to 0 disables the limit.
+-  # query-timeout = "0s"
+-
+-  # The time threshold when a query will be logged as a slow query.  This limit can be set to help
+-  # discover slow or resource intensive queries.  Setting the value to 0 disables the slow query logging.
+-  # log-queries-after = "0s"
+-
+-  # The maximum number of points a SELECT can process.  A value of 0 will make
+-  # the maximum point count unlimited.  This will only be checked every second so queries will not
+-  # be aborted immediately when hitting the limit.
+-  # max-select-point = 0
+-
+-  # The maximum number of series a SELECT can run.  A value of 0 will make the maximum series
+-  # count unlimited.
+-  # max-select-series = 0
+-
+-  # The maximum number of group by time bucket a SELECT can create.  A value of zero will max the maximum
+-  # number of buckets unlimited.
+-  # max-select-buckets = 0
+-
+-###
+-### [retention]
+-###
+-### Controls the enforcement of retention policies for evicting old data.
+-###
+-
+-[retention]
+-  # Determines whether retention policy enforcement enabled.
+-  # enabled = true
+-
+-  # The interval of time when retention policy enforcement checks run.
+-  # check-interval = "30m"
+-
+-###
+-### [shard-precreation]
+-###
+-### Controls the precreation of shards, so they are available before data arrives.
+-### Only shards that, after creation, will have both a start- and end-time in the
+-### future, will ever be created. Shards are never precreated that would be wholly
+-### or partially in the past.
+-
+-[shard-precreation]
+-  # Determines whether shard pre-creation service is enabled.
+-  # enabled = true
+-
+-  # The interval of time when the check to pre-create new shards runs.
+-  # check-interval = "10m"
+-
+-  # The default period ahead of the endtime of a shard group that its successor
+-  # group is created.
+-  # advance-period = "30m"
+-
+-###
+-### Controls the system self-monitoring, statistics and diagnostics.
+-###
+-### The internal database for monitoring data is created automatically if
+-### if it does not already exist. The target retention within this database
+-### is called 'monitor' and is also created with a retention period of 7 days
+-### and a replication factor of 1, if it does not exist. In all cases the
+-### this retention policy is configured as the default for the database.
+-
+-[monitor]
+-  # Whether to record statistics internally.
+-  # store-enabled = true
+-
+-  # The destination database for recorded statistics
+-  # store-database = "_internal"
+-
+-  # The interval at which to record statistics
+-  # store-interval = "10s"
+-
+-###
+-### [http]
+-###
+-### Controls how the HTTP endpoints are configured. These are the primary
+-### mechanism for getting data into and out of InfluxDB.
+-###
+-
+-[http]
+-  # Determines whether HTTP endpoint is enabled.
+-  # enabled = true
+-
+-  # Determines whether the Flux query endpoint is enabled.
+-  # flux-enabled = false
+-
+-  # Determines whether the Flux query logging is enabled.
+-  # flux-log-enabled = false
+-
+-  # The bind address used by the HTTP service.
+-  # bind-address = ":8086"
+-
+-  # Determines whether user authentication is enabled over HTTP/HTTPS.
+-  # auth-enabled = false
+-
+-  # The default realm sent back when issuing a basic auth challenge.
+-  # realm = "InfluxDB"
+-
+-  # Determines whether HTTP request logging is enabled.
+-  # log-enabled = true
+-
+-  # Determines whether the HTTP write request logs should be suppressed when the log is enabled.
+-  # suppress-write-log = false
+-
+-  # When HTTP request logging is enabled, this option specifies the path where
+-  # log entries should be written. If unspecified, the default is to write to stderr, which
+-  # intermingles HTTP logs with internal InfluxDB logging.
+-  #
+-  # If influxd is unable to access the specified path, it will log an error and fall back to writing
+-  # the request log to stderr.
+-  # access-log-path = ""
+-
+-  # Filters which requests should be logged. Each filter is of the pattern NNN, NNX, or NXX where N is
+-  # a number and X is a wildcard for any number. To filter all 5xx responses, use the string 5xx.
+-  # If multiple filters are used, then only one has to match. The default is to have no filters which
+-  # will cause every request to be printed.
+-  # access-log-status-filters = []
+-
+-  # Determines whether detailed write logging is enabled.
+-  # write-tracing = false
+-
+-  # Determines whether the pprof endpoint is enabled.  This endpoint is used for
+-  # troubleshooting and monitoring.
+-  # pprof-enabled = true
+-
+-  # Enables authentication on pprof endpoints. Users will need admin permissions
+-  # to access the pprof endpoints when this setting is enabled. This setting has
+-  # no effect if either auth-enabled or pprof-enabled are set to false.
+-  # pprof-auth-enabled = false
+-
+-  # Enables a pprof endpoint that binds to localhost:6060 immediately on startup.
+-  # This is only needed to debug startup issues.
+-  # debug-pprof-enabled = false
+-
+-  # Enables authentication on the /ping, /metrics, and deprecated /status
+-  # endpoints. This setting has no effect if auth-enabled is set to false.
+-  # ping-auth-enabled = false
+-
+-  # Determines whether HTTPS is enabled.
+-  # https-enabled = false
+-
+-  # The SSL certificate to use when HTTPS is enabled.
+-  # https-certificate = "/etc/ssl/influxdb.pem"
+-
+-  # Use a separate private key location.
+-  # https-private-key = ""
+-
+-  # The JWT auth shared secret to validate requests using JSON web tokens.
+-  # shared-secret = ""
+-
+-  # The default chunk size for result sets that should be chunked.
+-  # max-row-limit = 0
+-
+-  # The maximum number of HTTP connections that may be open at once.  New connections that
+-  # would exceed this limit are dropped.  Setting this value to 0 disables the limit.
+-  # max-connection-limit = 0
+-
+-  # Enable http service over unix domain socket
+-  # unix-socket-enabled = false
+-
+-  # The path of the unix domain socket.
+-  # bind-socket = "/var/run/influxdb.sock"
+-
+-  # The maximum size of a client request body, in bytes. Setting this value to 0 disables the limit.
+-  # max-body-size = 25000000
+-
+-  # The maximum number of writes processed concurrently.
+-  # Setting this to 0 disables the limit.
+-  # max-concurrent-write-limit = 0
+-
+-  # The maximum number of writes queued for processing.
+-  # Setting this to 0 disables the limit.
+-  # max-enqueued-write-limit = 0
+-
+-  # The maximum duration for a write to wait in the queue to be processed.
+-  # Setting this to 0 or setting max-concurrent-write-limit to 0 disables the limit.
+-  # enqueued-write-timeout = 0
+-
+-	# User supplied HTTP response headers
+-	#
+-	# [http.headers]
+-	#   X-Header-1 = "Header Value 1"
+-	#   X-Header-2 = "Header Value 2"
+-
+-###
+-### [logging]
+-###
+-### Controls how the logger emits logs to the output.
+-###
+-
+-[logging]
+-  # Determines which log encoder to use for logs. Available options
+-  # are auto, logfmt, and json. auto will use a more a more user-friendly
+-  # output format if the output terminal is a TTY, but the format is not as
+-  # easily machine-readable. When the output is a non-TTY, auto will use
+-  # logfmt.
+-  # format = "auto"
+-
+-  # Determines which level of logs will be emitted. The available levels
+-  # are error, warn, info, and debug. Logs that are equal to or above the
+-  # specified level will be emitted.
+-  # level = "info"
+-
+-  # Suppresses the logo output that is printed when the program is started.
+-  # The logo is always suppressed if STDOUT is not a TTY.
+-  # suppress-logo = false
+-
+-###
+-### [subscriber]
+-###
+-### Controls the subscriptions, which can be used to fork a copy of all data
+-### received by the InfluxDB host.
+-###
+-
+-[subscriber]
+-  # Determines whether the subscriber service is enabled.
+-  # enabled = true
+-
+-  # The default timeout for HTTP writes to subscribers.
+-  # http-timeout = "30s"
+-
+-  # Allows insecure HTTPS connections to subscribers.  This is useful when testing with self-
+-  # signed certificates.
+-  # insecure-skip-verify = false
+-
+-  # The path to the PEM encoded CA certs file. If the empty string, the default system certs will be used
+-  # ca-certs = ""
+-
+-  # The number of writer goroutines processing the write channel.
+-  # write-concurrency = 40
+-
+-  # The number of in-flight writes buffered in the write channel.
+-  # write-buffer-size = 1000
+-
+-
+-###
+-### [[graphite]]
+-###
+-### Controls one or many listeners for Graphite data.
+-###
+-
+-[[graphite]]
+-  # Determines whether the graphite endpoint is enabled.
+-  # enabled = false
+-  # database = "graphite"
+-  # retention-policy = ""
+-  # bind-address = ":2003"
+-  # protocol = "tcp"
+-  # consistency-level = "one"
+-
+-  # These next lines control how batching works. You should have this enabled
+-  # otherwise you could get dropped metrics or poor performance. Batching
+-  # will buffer points in memory if you have many coming in.
+-
+-  # Flush if this many points get buffered
+-  # batch-size = 5000
+-
+-  # number of batches that may be pending in memory
+-  # batch-pending = 10
+-
+-  # Flush at least this often even if we haven't hit buffer limit
+-  # batch-timeout = "1s"
+-
+-  # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
+-  # udp-read-buffer = 0
+-
+-  ### This string joins multiple matching 'measurement' values providing more control over the final measurement name.
+-  # separator = "."
+-
+-  ### Default tags that will be added to all metrics.  These can be overridden at the template level
+-  ### or by tags extracted from metric
+-  # tags = ["region=us-east", "zone=1c"]
+-
+-  ### Each template line requires a template pattern.  It can have an optional
+-  ### filter before the template and separated by spaces.  It can also have optional extra
+-  ### tags following the template.  Multiple tags should be separated by commas and no spaces
+-  ### similar to the line protocol format.  There can be only one default template.
+-  # templates = [
+-  #   "*.app env.service.resource.measurement",
+-  #   # Default template
+-  #   "server.*",
+-  # ]
+-
+-###
+-### [collectd]
+-###
+-### Controls one or many listeners for collectd data.
+-###
+-
+-[[collectd]]
+-  # enabled = false
+-  # bind-address = ":25826"
+-  # database = "collectd"
+-  # retention-policy = ""
+-  #
+-  # The collectd service supports either scanning a directory for multiple types
+-  # db files, or specifying a single db file.
+-  # typesdb = "/usr/local/share/collectd"
+-  #
+-  # security-level = "none"
+-  # auth-file = "/etc/collectd/auth_file"
+-
+-  # These next lines control how batching works. You should have this enabled
+-  # otherwise you could get dropped metrics or poor performance. Batching
+-  # will buffer points in memory if you have many coming in.
+-
+-  # Flush if this many points get buffered
+-  # batch-size = 5000
+-
+-  # Number of batches that may be pending in memory
+-  # batch-pending = 10
+-
+-  # Flush at least this often even if we haven't hit buffer limit
+-  # batch-timeout = "10s"
+-
+-  # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
+-  # read-buffer = 0
+-
+-  # Multi-value plugins can be handled two ways.
+-  # "split" will parse and store the multi-value plugin data into separate measurements
+-  # "join" will parse and store the multi-value plugin as a single multi-value measurement.
+-  # "split" is the default behavior for backward compatibility with previous versions of influxdb.
+-  # parse-multivalue-plugin = "split"
+-###
+-### [opentsdb]
+-###
+-### Controls one or many listeners for OpenTSDB data.
+-###
+-
+-[[opentsdb]]
+-  # enabled = false
+-  # bind-address = ":4242"
+-  # database = "opentsdb"
+-  # retention-policy = ""
+-  # consistency-level = "one"
+-  # tls-enabled = false
+-  # certificate= "/etc/ssl/influxdb.pem"
+-
+-  # Log an error for every malformed point.
+-  # log-point-errors = true
+-
+-  # These next lines control how batching works. You should have this enabled
+-  # otherwise you could get dropped metrics or poor performance. Only points
+-  # metrics received over the telnet protocol undergo batching.
+-
+-  # Flush if this many points get buffered
+-  # batch-size = 1000
+-
+-  # Number of batches that may be pending in memory
+-  # batch-pending = 5
+-
+-  # Flush at least this often even if we haven't hit buffer limit
+-  # batch-timeout = "1s"
+-
+-###
+-### [[udp]]
+-###
+-### Controls the listeners for InfluxDB line protocol data via UDP.
+-###
+-
+-[[udp]]
+-  # enabled = false
+-  # bind-address = ":8089"
+-  # database = "udp"
+-  # retention-policy = ""
+-
+-  # InfluxDB precision for timestamps on received points ("" or "n", "u", "ms", "s", "m", "h")
+-  # precision = ""
+-
+-  # These next lines control how batching works. You should have this enabled
+-  # otherwise you could get dropped metrics or poor performance. Batching
+-  # will buffer points in memory if you have many coming in.
+-
+-  # Flush if this many points get buffered
+-  # batch-size = 5000
+-
+-  # Number of batches that may be pending in memory
+-  # batch-pending = 10
+-
+-  # Will flush at least this often even if we haven't hit buffer limit
+-  # batch-timeout = "1s"
+-
+-  # UDP Read buffer size, 0 means OS default. UDP listener will fail if set above OS max.
+-  # read-buffer = 0
+-
+-###
+-### [continuous_queries]
+-###
+-### Controls how continuous queries are run within InfluxDB.
+-###
+-
+-[continuous_queries]
+-  # Determines whether the continuous query service is enabled.
+-  # enabled = true
+-
+-  # Controls whether queries are logged when executed by the CQ service.
+-  # log-enabled = true
+-
+-  # Controls whether queries are logged to the self-monitoring data store.
+-  # query-stats-enabled = false
+-
+-  # interval for how often continuous queries will be checked if they need to run
+-  # run-interval = "1s"
+-
+-###
+-### [tls]
+-###
+-### Global configuration settings for TLS in InfluxDB.
+-###
+-
+-[tls]
+-  # Determines the available set of cipher suites. See https://golang.org/pkg/crypto/tls/#pkg-constants
+-  # for a list of available ciphers, which depends on the version of Go (use the query
+-  # SHOW DIAGNOSTICS to see the version of Go used to build InfluxDB). If not specified, uses
+-  # the default settings from Go's crypto/tls package.
+-  # ciphers = [
+-  #   "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
+-  #   "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305",
+-  # ]
+-
+-  # Minimum version of the tls protocol that will be negotiated. If not specified, uses the
+-  # default settings from Go's crypto/tls package.
+-  # min-version = "tls1.2"
+-
+-  # Maximum version of the tls protocol that will be negotiated. If not specified, uses the
+-  # default settings from Go's crypto/tls package.
+-  # max-version = "tls1.3"
+
+changed: [bematv-3]
+
+TASK [influxdb : Copy telegraf.conf.j2 into /etc/telegraf/telegraf.conf] *******
+diff skipped: destination file size is greater than 104448
+changed: [bematv-3]
+
+TASK [influxdb : Execute handlers] *********************************************
+
+RUNNING HANDLER [influxdb : Restart telegraf] **********************************
+changed: [bematv-3]
+
+RUNNING HANDLER [influxdb : Restart influxdb] **********************************
+changed: [bematv-3]
+
+TASK [influxdb : Ensure influxdb is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Ensure Telegraf is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb_backup : Create the backup directory for influxdb] **************
+--- before
++++ after
+@@ -1,6 +1,6 @@
+ {
+-    "group": 0,
+-    "owner": 0,
++    "group": 34,
++    "owner": 34,
+     "path": "/home/backup/influxdb",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-3]
+
+TASK [influxdb_backup : Copy influxdb-backup.j2 to /etc/cron.d/influxdb-backup / Upload influxdb cron] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpl2ne74ds/influxdb-backup.j2
+@@ -0,0 +1,12 @@
++1 23 * * * backup ssh bematv@backup.pho.ng mkdir influxdb
++
++15 23 * * * backup rm -rf /home/backup/influxdb/*; influxd backup -portable -database telegraf /home/backup/influxdb
++
++20 23 * * 0 backup duplicity --no-encryption full /home/backup/influxdb/ rsync://bematv@backup//home/bematv/influxdb/
++
++25 23 * * 1-6 backup duplicity --no-encryption incremental /home/backup/influxdb/ rsync://bematv@backup//home/bematv/influxdb/
++
++2 21 * * * backup rm -r /home/backup/restore/*
++
++3 21 * * * backup duplicity --no-encryption restore rsync://bematv@backup//home/bematv/influxdb/ /home/backup/restore/
++
+
+changed: [bematv-3]
+
+TASK [influxdb_backup : Ensure Cron is started] ********************************
+ok: [bematv-3]
+
+PLAY [Pinger] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [pinger : Add user pinger] ************************************************
+changed: [bematv-3]
+
+TASK [pinger : Install 'fping'] ************************************************
+The following NEW packages will be installed:
+  fping
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+
+TASK [pinger : Copy pinger.sh.j2 template into /usr/local/bin/pinger / Create pinger service] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp5qat1gki/pinger.sh.j2
+@@ -0,0 +1,27 @@
++#!/bin/bash
++
++# Script contains several (more than 1) security issues.
++# Find them and fix them to get bonus on exam.
++# Problem example: SQL injection.
++
++for t in database_url database_name targets; do
++  if ! grep -q "^${t}=" /etc/pinger/pinger.conf; then
++    logger "$0 Failed to get $t from config"
++    exit 1
++  fi
++done
++
++which fping > /dev/null || (logger "fping not found"; exit 1)
++
++db_url=$(grep "^database_url=" /etc/pinger/pinger.conf | sed 's/^.*=//')
++db_name=$(grep "^database_name=" /etc/pinger/pinger.conf | sed 's/^.*=//')
++targets=$(grep "^targets=" /etc/pinger/pinger.conf | sed 's/^.*=//' | sed 's/\(,\|;\)/ /g')
++
++curl -i -XPOST "${db_url}/query" --data-urlencode "q=CREATE DATABASE $db_name" 1>/dev/null 2>/dev/null
++
++while true; do
++  result=$(fping -C1 -q $targets 2>&1 | awk -v db=$db_name '{print db",dst="$1" rtt="$3}')
++  curl -i -XPOST "${db_url}/write?db=$db_name" --data-binary "$result" 1>/dev/null 2>/dev/null
++ sleep 1
++done
++
+
+changed: [bematv-3]
+
+TASK [pinger : Create directory for pinger / /etc/pinger] **********************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/etc/pinger",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-3]
+
+TASK [pinger : Copy pinger.conf.j2 template into /etc/pinger/pinger.conf] ******
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmprqk3v2ei/pinger.conf.j2
+@@ -0,0 +1,4 @@
++database_url=http://influxdb.pho.ng:8086
++database_name=latency
++targets=google.com,cloudflare.com,twitter.com,fb.com,taltech.ee
++
+
+changed: [bematv-3]
+
+TASK [pinger : Copy pinger.service.j2 to /etc/systemd/system/pinger.service / Upload pinger service config] ***
+changed: [bematv-3]
+
+TASK [pinger : Ensure pinger is started] ***************************************
+changed: [bematv-3]
+
+RUNNING HANDLER [pinger : Reload daemons] **************************************
+changed: [bematv-3]
+
+RUNNING HANDLER [pinger : Restart pinger] **************************************
+changed: [bematv-3]
+
+PLAY [Rsyslog] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [rsyslog : Install 'rsyslog'] *********************************************
+ok: [bematv-3]
+
+TASK [rsyslog : Copy 50-telegraf.conf.j2 to /etc/rsyslog.d/50-telegraf.conf / Reconfigure Rsyslog] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp9ghvqi5e/50-telegraf.conf.j2
+@@ -0,0 +1,7 @@
++$ActionQueueType LinkedList # use asynchronous processing
++$ActionQueueFileName srvrfwd # set file name, also enables disk mode
++$ActionResumeRetryCount -1 # infinite retries on insert failure
++$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
++
++*.* @influxdb:6514;RSYSLOG_SyslogProtocol23Format
++
+
+changed: [bematv-3]
+
+TASK [rsyslog : Ensure rsyslog is started] *************************************
+ok: [bematv-3]
+
+RUNNING HANDLER [rsyslog : Restart Rsyslog] ************************************
+changed: [bematv-3]
+
+PLAY [Haproxy] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [haproxy : Install 'haproxy'] *********************************************
+The following additional packages will be installed:
+  liblua5.3-0
+Suggested packages:
+  vim-haproxy haproxy-doc
+The following NEW packages will be installed:
+  haproxy liblua5.3-0
+0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+The following additional packages will be installed:
+  liblua5.3-0
+Suggested packages:
+  vim-haproxy haproxy-doc
+The following NEW packages will be installed:
+  haproxy liblua5.3-0
+0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+
+TASK [haproxy : Copy haproxy.conf] *********************************************
+--- before: /etc/haproxy/haproxy.cfg
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpxh6hsw4v/haproxy.cfg.j2
+@@ -8,14 +8,11 @@
+ 	group haproxy
+ 	daemon
+ 
+-	# Default SSL material locations
+ 	ca-base /etc/ssl/certs
+ 	crt-base /etc/ssl/private
+ 
+-	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
+-        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+-        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+-        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
++	ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS
++	ssl-default-bind-options no-sslv3
+ 
+ defaults
+ 	log	global
+@@ -32,3 +29,13 @@
+ 	errorfile 502 /etc/haproxy/errors/502.http
+ 	errorfile 503 /etc/haproxy/errors/503.http
+ 	errorfile 504 /etc/haproxy/errors/504.http
++
++listen agama_front
++	bind *:88
++	stats enable
++	stats uri /stats
++	server bematv-1-1  bematv-1:8001 check
++	server bematv-2-1  bematv-2:8001 check
++	server bematv-1-2  bematv-1:8002 check
++	server bematv-2-2  bematv-2:8002 check
++	
+\ No newline at end of file
+
+changed: [bematv-1]
+--- before: /etc/haproxy/haproxy.cfg
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpa_ifud9w/haproxy.cfg.j2
+@@ -8,14 +8,11 @@
+ 	group haproxy
+ 	daemon
+ 
+-	# Default SSL material locations
+ 	ca-base /etc/ssl/certs
+ 	crt-base /etc/ssl/private
+ 
+-	# See: https://ssl-config.mozilla.org/#server=haproxy&server-version=2.0.3&config=intermediate
+-        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+-        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+-        ssl-default-bind-options ssl-min-ver TLSv1.2 no-tls-tickets
++	ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS
++	ssl-default-bind-options no-sslv3
+ 
+ defaults
+ 	log	global
+@@ -32,3 +29,13 @@
+ 	errorfile 502 /etc/haproxy/errors/502.http
+ 	errorfile 503 /etc/haproxy/errors/503.http
+ 	errorfile 504 /etc/haproxy/errors/504.http
++
++listen agama_front
++	bind *:88
++	stats enable
++	stats uri /stats
++	server bematv-1-1  bematv-1:8001 check
++	server bematv-2-1  bematv-2:8001 check
++	server bematv-1-2  bematv-1:8002 check
++	server bematv-2-2  bematv-2:8002 check
++	
+\ No newline at end of file
+
+changed: [bematv-2]
+
+TASK [haproxy : Execute handlers] **********************************************
+
+RUNNING HANDLER [haproxy : Restart haproxy] ************************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+TASK [haproxy : Ensure haproxy is started] *************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [Keepalived] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [keepalived : Install 'keepalived'] ***************************************
+The following additional packages will be installed:
+  ipvsadm libmysqlclient21 libnl-3-200 libnl-genl-3-200 libsensors-config
+  libsensors5 libsnmp-base libsnmp35
+Suggested packages:
+  heartbeat ldirectord lm-sensors snmp-mibs-downloader
+The following NEW packages will be installed:
+  ipvsadm keepalived libmysqlclient21 libnl-3-200 libnl-genl-3-200
+  libsensors-config libsensors5 libsnmp-base libsnmp35
+0 upgraded, 9 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+The following additional packages will be installed:
+  ipvsadm libmysqlclient21 libnl-3-200 libnl-genl-3-200 libsensors-config
+  libsensors5 libsnmp-base libsnmp35
+Suggested packages:
+  heartbeat ldirectord lm-sensors snmp-mibs-downloader
+The following NEW packages will be installed:
+  ipvsadm keepalived libmysqlclient21 libnl-3-200 libnl-genl-3-200
+  libsensors-config libsensors5 libsnmp-base libsnmp35
+0 upgraded, 9 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+
+TASK [keepalived : Add user keepalived_script] *********************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+TASK [keepalived : Copy vrrp_script.j2 to /home/keepalived_script/vrrp_script] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpvmpuvged/vrrp_script.j2
+@@ -0,0 +1,6 @@
++global_defs {
++    
++    enable_script_security
++    script_user keepalived_script
++}
++
+
+changed: [bematv-1]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp75wgbk0i/vrrp_script.j2
+@@ -0,0 +1,6 @@
++global_defs {
++    
++    enable_script_security
++    script_user keepalived_script
++}
++
+
+changed: [bematv-2]
+
+TASK [keepalived : Copy keepalived.conf to /etc/keepalived/keepalived.conf] ****
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpxue3vn5y/keepalived.conf.j2
+@@ -0,0 +1,35 @@
++global_defs {
++
++    enable_script_security
++    script_user keepalived_script
++}
++
++vrrp_script check_haproxy {  
++
++    script "/usr/local/bin/ha88" 
++    weight 20                             
++    interval 1
++}
++
++vrrp_instance agama {
++    interface ens3
++    virtual_router_id 13
++        priority 99
++        advert_int 1                            
++    virtual_ipaddress {     
++
++                192.168.100.89/24
++            }
++
++    unicast_peer {
++
++                        192.168.42.32
++                                    }
++
++    track_script {
++        
++        check_haproxy
++    }
++
++}
++
+
+changed: [bematv-2]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp5luw9mqc/keepalived.conf.j2
+@@ -0,0 +1,35 @@
++global_defs {
++
++    enable_script_security
++    script_user keepalived_script
++}
++
++vrrp_script check_haproxy {  
++
++    script "/usr/local/bin/ha88" 
++    weight 20                             
++    interval 1
++}
++
++vrrp_instance agama {
++    interface ens3
++    virtual_router_id 13
++        priority 100
++        advert_int 1                            
++    virtual_ipaddress {     
++
++                192.168.100.89/24
++            }
++
++    unicast_peer {
++
++                                        192.168.42.89
++                    }
++
++    track_script {
++        
++        check_haproxy
++    }
++
++}
++
+
+changed: [bematv-1]
+
+TASK [keepalived : Copy ha88.j2 to /usr/local/bin/ha88] ************************
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpy2wsu8vv/ha88.j2
+@@ -0,0 +1,4 @@
++#!/bin/bash
++
++ss -ntl | grep -q ':88 '
++
+
+changed: [bematv-2]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpaxhaqd2v/ha88.j2
+@@ -0,0 +1,4 @@
++#!/bin/bash
++
++ss -ntl | grep -q ':88 '
++
+
+changed: [bematv-1]
+
+TASK [keepalived : Ensure keepalived is started] *******************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+RUNNING HANDLER [keepalived : Restart keepalived] ******************************
+changed: [bematv-1]
+changed: [bematv-2]
+
+PLAY [VM1 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+The following additional packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl moreutils
+  prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl moreutils
+  prometheus-node-exporter prometheus-node-exporter-collectors smartmontools
+0 upgraded, 7 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+The following NEW packages will be installed:
+  prometheus-nginx-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp91r7hf_n/exporter.j2
+@@ -0,0 +1,7 @@
++server {
++        listen 8080 default_server;
++        location = /stub_status {
++                stub_status;
++        }
++}
++
+
+changed: [bematv-1]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+RUNNING HANDLER [nginx_exporter : Restart nginx] *******************************
+changed: [bematv-1]
+
+RUNNING HANDLER [nginx_exporter : Restart nginx exporter] **********************
+changed: [bematv-1]
+
+RUNNING HANDLER [keepalived_exporter : Reload daemons] *************************
+changed: [bematv-1]
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-1]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Install 'prometheus-mysqld-exporter'] *******************
+The following additional packages will be installed:
+  daemon
+The following NEW packages will be installed:
+  daemon prometheus-mysqld-exporter
+0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+
+TASK [mysql_exporter : Create directory for prometheus / /var/lib/prometheus] ***
+ok: [bematv-1]
+
+TASK [mysql_exporter : Copy my.cnf.j2 to /var/lib/prometheus/.my.cnf / mysql cofig file for prometheus] ***
+changed: [bematv-1]
+
+TASK [mysql_exporter : Copy prometheus-mysqld-exporter to /etc/default/prometheus-mysqld-exporter / set data to collect] ***
+--- before: /etc/default/prometheus-mysqld-exporter
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpaauk_q22/prometheus-mysqld-exporter.j2
+@@ -1,120 +1,2 @@
+-# By default the connection string will be read from
+-# $HOME/my.cnf or from the file specified with the -config.my-cnf parameter.
++ARGS="--collect.slave_status"
+ 
+-# To set a connection string from the environment instead, uncomment one of the
+-# following lines.
+-
+-# Using UNIX domain sockets and authentication:
+-# DATA_SOURCE_NAME="prometheus:nopassword@unix(/run/mysqld/mysqld.sock)/"
+-
+-# Using a TCP connection and password authentication:
+-# DATA_SOURCE_NAME="login:password@(hostname:port)/dbname"
+-
+-# Note the user must be granted enough privileges for the exporter to run.
+-# Example to create a user to connect with the UNIX socket:
+-#
+-#  CREATE USER IF NOT EXISTS 'prometheus'@'localhost' IDENTIFIED VIA unix_socket;
+-#  GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'prometheus'@'localhost';
+-
+-# Set the command-line arguments to pass to the exporter.
+-# ARGS='-config.my-cnf /etc/mysql/debian.cnf'
+-
+-# Usage of prometheus-mysqld-exporter:
+-#   -collect.auto_increment.columns
+-#     	Collect auto_increment columns and max values from information_schema
+-#  --exporter.lock_wait_timeout=2
+-#       Set a lock_wait_timeout on the connection to avoid long metadata
+-#       locking.
+-#  --exporter.log_slow_filter
+-#       Add a log_slow_filter to avoid slow query logging of scrapes. NOTE: Not
+-#       supported by Oracle MySQL.
+-#  --collect.heartbeat.database="heartbeat"
+-#       Database from where to collect heartbeat data
+-#  --collect.heartbeat.table="heartbeat"
+-#       Table from where to collect heartbeat data
+-#  --collect.info_schema.processlist.min_time=0
+-#       Minimum time a thread must be in each state to be counted
+-#  --collect.info_schema.tables.databases="*"
+-#       The list of databases to collect table stats for, or '*' for all
+-#  --collect.perf_schema.eventsstatements.limit=250
+-#       Limit the number of events statements digests by response time
+-#  --collect.perf_schema.eventsstatements.timelimit=86400
+-#       Limit how old the 'last_seen' events statements can be, in seconds
+-#  --collect.perf_schema.eventsstatements.digest_text_limit=120
+-#       Maximum length of the normalized statement text
+-#  --collect.perf_schema.file_instances.filter=".*"
+-#       RegEx file_name filter for performance_schema.file_summary_by_instance
+-#  --collect.perf_schema.file_instances.remove_prefix="/var/lib/mysql/"
+-#       Remove path prefix in performance_schema.file_summary_by_instance
+-#  --web.listen-address=":9104"
+-#       Address to listen on for web interface and telemetry.
+-#  --web.telemetry-path="/metrics"
+-#       Path under which to expose metrics.
+-#  --config.my-cnf="$HOME/.my.cnf"
+-#       Path to .my.cnf file to read MySQL credentials from.
+-#  --collect.global_variables
+-#       Collect from SHOW GLOBAL VARIABLES
+-#  --collect.slave_status
+-#       Collect from SHOW SLAVE STATUS
+-#  --collect.info_schema.processlist
+-#       Collect current thread state counts from the
+-#       information_schema.processlist
+-#  --collect.info_schema.tables
+-#       Collect metrics from information_schema.tables
+-#  --collect.info_schema.innodb_tablespaces
+-#       Collect metrics from information_schema.innodb_sys_tablespaces
+-#  --collect.info_schema.innodb_metrics
+-#       Collect metrics from information_schema.innodb_metrics
+-#  --collect.auto_increment.columns
+-#       Collect auto_increment columns and max values from information_schema
+-#  --collect.global_status
+-#       Collect from SHOW GLOBAL STATUS
+-#  --collect.perf_schema.tableiowaits
+-#       Collect metrics from performance_schema.table_io_waits_summary_by_table
+-#  --collect.perf_schema.indexiowaits
+-#       Collect metrics from
+-#       performance_schema.table_io_waits_summary_by_index_usage
+-#  --collect.perf_schema.tablelocks
+-#       Collect metrics from
+-#       performance_schema.table_lock_waits_summary_by_table
+-#  --collect.perf_schema.eventsstatements
+-#       Collect metrics from
+-#       performance_schema.events_statements_summary_by_digest
+-#  --collect.perf_schema.eventswaits
+-#       Collect metrics from
+-#       performance_schema.events_waits_summary_global_by_event_name
+-#  --collect.perf_schema.file_events
+-#       Collect metrics from performance_schema.file_summary_by_event_name
+-#  --collect.perf_schema.file_instances
+-#       Collect metrics from performance_schema.file_summary_by_instance
+-#  --collect.binlog_size
+-#       Collect the current size of all registered binlog files
+-#  --collect.info_schema.userstats
+-#       If running with userstat=1, set to true to collect user statistics
+-#  --collect.info_schema.clientstats
+-#       If running with userstat=1, set to true to collect client statistics
+-#  --collect.info_schema.tablestats
+-#       If running with userstat=1, set to true to collect table statistics
+-#  --collect.info_schema.innodb_cmp
+-#       Collect metrics from information_schema.innodb_cmp
+-#  --collect.info_schema.innodb_cmpmem
+-#       Collect metrics from information_schema.innodb_cmpmem
+-#  --collect.info_schema.query_response_time
+-#       Collect query response time distribution if query_response_time_stats
+-#       is ON.
+-#  --collect.engine_tokudb_status
+-#       Collect from SHOW ENGINE TOKUDB STATUS
+-#  --collect.perf_schema.replication_group_member_stats
+-#       Collect metrics from performance_schema.replication_group_member_stats
+-#  --collect.heartbeat
+-#       Collect from heartbeat
+-#  --collect.slave_hosts
+-#       Scrape information from 'SHOW SLAVE HOSTS'
+-#  --collect.engine_innodb_status
+-#       Collect from SHOW ENGINE INNODB STATUS
+-#  --log.level="info"
+-#       Only log messages with the given severity or above. Valid levels:
+-#       [debug, info, warn, error, fatal]
+-#  --log.format="logger:stderr"
+-#       Set the log target and format. Example:
+-#       "logger:syslog?appname=bob&local=7" or "logger:stdout?json=true"
+
+changed: [bematv-1]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+changed: [bematv-1]
+
+TASK [mysql_exporter : Pause for 10 sec] ***************************************
+Pausing for 10 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+ok: [bematv-1]
+
+TASK [mysql_exporter : Execute handlers] ***************************************
+
+RUNNING HANDLER [mysql_exporter : Restart mysql] *******************************
+changed: [bematv-1]
+
+RUNNING HANDLER [mysql_exporter : Restart mysqld exporter] *********************
+changed: [bematv-1]
+
+TASK [mysql_exporter : Ensure mysql is started] ********************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Ensure mysqld exporter is started] **********************
+ok: [bematv-1]
+
+TASK [haproxy_exporter : Install 'prometheus-haproxy-exporter'] ****************
+The following NEW packages will be installed:
+  prometheus-haproxy-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-1]
+
+TASK [haproxy_exporter : Copy prometheus-haproxy-exporter] *********************
+--- before: /etc/default/prometheus-haproxy-exporter
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpsui1ly52/prometheus-haproxy-exporter.j2
+@@ -1,35 +1,2 @@
+-# Set the command-line arguments to pass to the server.
+-# Due to shell scaping, to pass backslashes for regexes, you need to double
+-# them (\\d for \d). If running under systemd, you need to double them again
+-# (\\\\d to mean \d), and escape newlines too.
+-ARGS=""
++ARGS="--haproxy.scrape-uri="http://localhost:88/stats?stats;csv""
+ 
+-# Prometheus-haproxy-exporter supports the following options:
+-#
+-#  --web.listen-address=":9101"
+-#    Address to listen on for web interface and telemetry.
+-#  --web.telemetry-path="/metrics"
+-#    Path under which to expose metrics.
+-#  --haproxy.scrape-uri="http://localhost/;csv"
+-#    URI on which to scrape HAProxy.
+-#  --haproxy.ssl-verify
+-#    Flag that enables SSL certificate verification for the scrape URI
+-#  --haproxy.server-metric-fields="2,3,4,5,6,7,8,9,13,14,15,16,17,18,21,24,33,35,38,39,40,41,42,43,44"
+-#    Comma-separated list of exported server metrics. See
+-#    http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#9.1
+-#  --haproxy.timeout=5s
+-#    Timeout for trying to get stats from HAProxy.
+-#  --haproxy.pid-file=""
+-#    Path to HAProxy pid file.
+-#
+-#    If provided, the standard process metrics get exported for the HAProxy
+-#    process, prefixed with 'haproxy_process_...'. The haproxy_process exporter
+-#    needs to have read access to files owned by the HAProxy process. Depends
+-#    on the availability of /proc.
+-#    https://prometheus.io/docs/instrumenting/writing_clientlibs/#process-metrics.
+-#  --log.level="info"
+-#    Only log messages with the given severity or above.
+-#    Valid levels: [debug, info, warn, error, fatal]
+-#  --log.format="logger:stderr"
+-#    Set the log target and format. Example:
+-#    "logger:syslog?appname=bob&local=7" or "logger:stdout?json=true"
+
+changed: [bematv-1]
+
+TASK [haproxy_exporter : Execute handlers] *************************************
+
+RUNNING HANDLER [haproxy_exporter : Restart haproxy-exporter] ******************
+changed: [bematv-1]
+
+TASK [haproxy_exporter : Ensure haproxy exporter is started] *******************
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Download keepalived exporter to /usr/local/bin/] ***
+changed: [bematv-1]
+
+TASK [keepalived_exporter : Copy keepalived-prometheus-exporter.service.j2 to /etc/systemd/system/keepalived-prometheus-exporter.service / create keepalived prometheus exporter service] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpb6qzvykw/keepalived-prometheus-exporter.service.j2
+@@ -0,0 +1,13 @@
++[Unit]
++Description=Prometheus exporter for Keepalived
++Documentation=https://github.com/cafebazaar/keepalived-exporter
++
++[Service]
++Restart=always
++User=root
++ExecStart=/usr/local/bin/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter
++
++
++[Install]
++WantedBy=multi-user.target
++
+
+changed: [bematv-1]
+
+TASK [keepalived_exporter : Sleep for 10 seconds and continue with play] *******
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Execute handlers] **********************************
+
+RUNNING HANDLER [keepalived_exporter : Reload daemons] *************************
+changed: [bematv-1]
+
+RUNNING HANDLER [keepalived_exporter : Restart keepalived_exporter] ************
+changed: [bematv-1]
+
+TASK [keepalived_exporter : Ensure that keepalived exporter is started] ********
+changed: [bematv-1]
+
+PLAY [VM2 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+The following additional packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl moreutils
+  prometheus-node-exporter-collectors smartmontools
+Suggested packages:
+  gsmartcontrol smart-notifier mailx | mailutils
+The following NEW packages will be installed:
+  libio-pty-perl libipc-run-perl libtime-duration-perl moreutils
+  prometheus-node-exporter prometheus-node-exporter-collectors smartmontools
+0 upgraded, 7 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+The following NEW packages will be installed:
+  prometheus-nginx-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpzxcpgzcm/exporter.j2
+@@ -0,0 +1,7 @@
++server {
++        listen 8080 default_server;
++        location = /stub_status {
++                stub_status;
++        }
++}
++
+
+changed: [bematv-2]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+RUNNING HANDLER [nginx_exporter : Restart nginx] *******************************
+changed: [bematv-2]
+
+RUNNING HANDLER [nginx_exporter : Restart nginx exporter] **********************
+changed: [bematv-2]
+
+RUNNING HANDLER [keepalived_exporter : Reload daemons] *************************
+changed: [bematv-2]
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-2]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Install 'prometheus-mysqld-exporter'] *******************
+The following additional packages will be installed:
+  daemon
+The following NEW packages will be installed:
+  daemon prometheus-mysqld-exporter
+0 upgraded, 2 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+
+TASK [mysql_exporter : Create directory for prometheus / /var/lib/prometheus] ***
+ok: [bematv-2]
+
+TASK [mysql_exporter : Copy my.cnf.j2 to /var/lib/prometheus/.my.cnf / mysql cofig file for prometheus] ***
+changed: [bematv-2]
+
+TASK [mysql_exporter : Copy prometheus-mysqld-exporter to /etc/default/prometheus-mysqld-exporter / set data to collect] ***
+--- before: /etc/default/prometheus-mysqld-exporter
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpj7xvmznj/prometheus-mysqld-exporter.j2
+@@ -1,120 +1,2 @@
+-# By default the connection string will be read from
+-# $HOME/my.cnf or from the file specified with the -config.my-cnf parameter.
++ARGS="--collect.slave_status"
+ 
+-# To set a connection string from the environment instead, uncomment one of the
+-# following lines.
+-
+-# Using UNIX domain sockets and authentication:
+-# DATA_SOURCE_NAME="prometheus:nopassword@unix(/run/mysqld/mysqld.sock)/"
+-
+-# Using a TCP connection and password authentication:
+-# DATA_SOURCE_NAME="login:password@(hostname:port)/dbname"
+-
+-# Note the user must be granted enough privileges for the exporter to run.
+-# Example to create a user to connect with the UNIX socket:
+-#
+-#  CREATE USER IF NOT EXISTS 'prometheus'@'localhost' IDENTIFIED VIA unix_socket;
+-#  GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'prometheus'@'localhost';
+-
+-# Set the command-line arguments to pass to the exporter.
+-# ARGS='-config.my-cnf /etc/mysql/debian.cnf'
+-
+-# Usage of prometheus-mysqld-exporter:
+-#   -collect.auto_increment.columns
+-#     	Collect auto_increment columns and max values from information_schema
+-#  --exporter.lock_wait_timeout=2
+-#       Set a lock_wait_timeout on the connection to avoid long metadata
+-#       locking.
+-#  --exporter.log_slow_filter
+-#       Add a log_slow_filter to avoid slow query logging of scrapes. NOTE: Not
+-#       supported by Oracle MySQL.
+-#  --collect.heartbeat.database="heartbeat"
+-#       Database from where to collect heartbeat data
+-#  --collect.heartbeat.table="heartbeat"
+-#       Table from where to collect heartbeat data
+-#  --collect.info_schema.processlist.min_time=0
+-#       Minimum time a thread must be in each state to be counted
+-#  --collect.info_schema.tables.databases="*"
+-#       The list of databases to collect table stats for, or '*' for all
+-#  --collect.perf_schema.eventsstatements.limit=250
+-#       Limit the number of events statements digests by response time
+-#  --collect.perf_schema.eventsstatements.timelimit=86400
+-#       Limit how old the 'last_seen' events statements can be, in seconds
+-#  --collect.perf_schema.eventsstatements.digest_text_limit=120
+-#       Maximum length of the normalized statement text
+-#  --collect.perf_schema.file_instances.filter=".*"
+-#       RegEx file_name filter for performance_schema.file_summary_by_instance
+-#  --collect.perf_schema.file_instances.remove_prefix="/var/lib/mysql/"
+-#       Remove path prefix in performance_schema.file_summary_by_instance
+-#  --web.listen-address=":9104"
+-#       Address to listen on for web interface and telemetry.
+-#  --web.telemetry-path="/metrics"
+-#       Path under which to expose metrics.
+-#  --config.my-cnf="$HOME/.my.cnf"
+-#       Path to .my.cnf file to read MySQL credentials from.
+-#  --collect.global_variables
+-#       Collect from SHOW GLOBAL VARIABLES
+-#  --collect.slave_status
+-#       Collect from SHOW SLAVE STATUS
+-#  --collect.info_schema.processlist
+-#       Collect current thread state counts from the
+-#       information_schema.processlist
+-#  --collect.info_schema.tables
+-#       Collect metrics from information_schema.tables
+-#  --collect.info_schema.innodb_tablespaces
+-#       Collect metrics from information_schema.innodb_sys_tablespaces
+-#  --collect.info_schema.innodb_metrics
+-#       Collect metrics from information_schema.innodb_metrics
+-#  --collect.auto_increment.columns
+-#       Collect auto_increment columns and max values from information_schema
+-#  --collect.global_status
+-#       Collect from SHOW GLOBAL STATUS
+-#  --collect.perf_schema.tableiowaits
+-#       Collect metrics from performance_schema.table_io_waits_summary_by_table
+-#  --collect.perf_schema.indexiowaits
+-#       Collect metrics from
+-#       performance_schema.table_io_waits_summary_by_index_usage
+-#  --collect.perf_schema.tablelocks
+-#       Collect metrics from
+-#       performance_schema.table_lock_waits_summary_by_table
+-#  --collect.perf_schema.eventsstatements
+-#       Collect metrics from
+-#       performance_schema.events_statements_summary_by_digest
+-#  --collect.perf_schema.eventswaits
+-#       Collect metrics from
+-#       performance_schema.events_waits_summary_global_by_event_name
+-#  --collect.perf_schema.file_events
+-#       Collect metrics from performance_schema.file_summary_by_event_name
+-#  --collect.perf_schema.file_instances
+-#       Collect metrics from performance_schema.file_summary_by_instance
+-#  --collect.binlog_size
+-#       Collect the current size of all registered binlog files
+-#  --collect.info_schema.userstats
+-#       If running with userstat=1, set to true to collect user statistics
+-#  --collect.info_schema.clientstats
+-#       If running with userstat=1, set to true to collect client statistics
+-#  --collect.info_schema.tablestats
+-#       If running with userstat=1, set to true to collect table statistics
+-#  --collect.info_schema.innodb_cmp
+-#       Collect metrics from information_schema.innodb_cmp
+-#  --collect.info_schema.innodb_cmpmem
+-#       Collect metrics from information_schema.innodb_cmpmem
+-#  --collect.info_schema.query_response_time
+-#       Collect query response time distribution if query_response_time_stats
+-#       is ON.
+-#  --collect.engine_tokudb_status
+-#       Collect from SHOW ENGINE TOKUDB STATUS
+-#  --collect.perf_schema.replication_group_member_stats
+-#       Collect metrics from performance_schema.replication_group_member_stats
+-#  --collect.heartbeat
+-#       Collect from heartbeat
+-#  --collect.slave_hosts
+-#       Scrape information from 'SHOW SLAVE HOSTS'
+-#  --collect.engine_innodb_status
+-#       Collect from SHOW ENGINE INNODB STATUS
+-#  --log.level="info"
+-#       Only log messages with the given severity or above. Valid levels:
+-#       [debug, info, warn, error, fatal]
+-#  --log.format="logger:stderr"
+-#       Set the log target and format. Example:
+-#       "logger:syslog?appname=bob&local=7" or "logger:stdout?json=true"
+
+changed: [bematv-2]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+changed: [bematv-2]
+
+TASK [mysql_exporter : Pause for 10 sec] ***************************************
+Pausing for 10 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+ok: [bematv-2]
+
+TASK [mysql_exporter : Execute handlers] ***************************************
+
+RUNNING HANDLER [mysql_exporter : Restart mysql] *******************************
+changed: [bematv-2]
+
+RUNNING HANDLER [mysql_exporter : Restart mysqld exporter] *********************
+changed: [bematv-2]
+
+TASK [mysql_exporter : Ensure mysql is started] ********************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Ensure mysqld exporter is started] **********************
+ok: [bematv-2]
+
+TASK [haproxy_exporter : Install 'prometheus-haproxy-exporter'] ****************
+The following NEW packages will be installed:
+  prometheus-haproxy-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-2]
+
+TASK [haproxy_exporter : Copy prometheus-haproxy-exporter] *********************
+--- before: /etc/default/prometheus-haproxy-exporter
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpafuighg1/prometheus-haproxy-exporter.j2
+@@ -1,35 +1,2 @@
+-# Set the command-line arguments to pass to the server.
+-# Due to shell scaping, to pass backslashes for regexes, you need to double
+-# them (\\d for \d). If running under systemd, you need to double them again
+-# (\\\\d to mean \d), and escape newlines too.
+-ARGS=""
++ARGS="--haproxy.scrape-uri="http://localhost:88/stats?stats;csv""
+ 
+-# Prometheus-haproxy-exporter supports the following options:
+-#
+-#  --web.listen-address=":9101"
+-#    Address to listen on for web interface and telemetry.
+-#  --web.telemetry-path="/metrics"
+-#    Path under which to expose metrics.
+-#  --haproxy.scrape-uri="http://localhost/;csv"
+-#    URI on which to scrape HAProxy.
+-#  --haproxy.ssl-verify
+-#    Flag that enables SSL certificate verification for the scrape URI
+-#  --haproxy.server-metric-fields="2,3,4,5,6,7,8,9,13,14,15,16,17,18,21,24,33,35,38,39,40,41,42,43,44"
+-#    Comma-separated list of exported server metrics. See
+-#    http://cbonte.github.io/haproxy-dconv/configuration-1.5.html#9.1
+-#  --haproxy.timeout=5s
+-#    Timeout for trying to get stats from HAProxy.
+-#  --haproxy.pid-file=""
+-#    Path to HAProxy pid file.
+-#
+-#    If provided, the standard process metrics get exported for the HAProxy
+-#    process, prefixed with 'haproxy_process_...'. The haproxy_process exporter
+-#    needs to have read access to files owned by the HAProxy process. Depends
+-#    on the availability of /proc.
+-#    https://prometheus.io/docs/instrumenting/writing_clientlibs/#process-metrics.
+-#  --log.level="info"
+-#    Only log messages with the given severity or above.
+-#    Valid levels: [debug, info, warn, error, fatal]
+-#  --log.format="logger:stderr"
+-#    Set the log target and format. Example:
+-#    "logger:syslog?appname=bob&local=7" or "logger:stdout?json=true"
+
+changed: [bematv-2]
+
+TASK [haproxy_exporter : Execute handlers] *************************************
+
+RUNNING HANDLER [haproxy_exporter : Restart haproxy-exporter] ******************
+changed: [bematv-2]
+
+TASK [haproxy_exporter : Ensure haproxy exporter is started] *******************
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Download keepalived exporter to /usr/local/bin/] ***
+changed: [bematv-2]
+
+TASK [keepalived_exporter : Copy keepalived-prometheus-exporter.service.j2 to /etc/systemd/system/keepalived-prometheus-exporter.service / create keepalived prometheus exporter service] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpzbt77xgb/keepalived-prometheus-exporter.service.j2
+@@ -0,0 +1,13 @@
++[Unit]
++Description=Prometheus exporter for Keepalived
++Documentation=https://github.com/cafebazaar/keepalived-exporter
++
++[Service]
++Restart=always
++User=root
++ExecStart=/usr/local/bin/keepalived-exporter-1.2.0.linux-amd64/keepalived-exporter
++
++
++[Install]
++WantedBy=multi-user.target
++
+
+changed: [bematv-2]
+
+TASK [keepalived_exporter : Sleep for 10 seconds and continue with play] *******
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Execute handlers] **********************************
+
+RUNNING HANDLER [keepalived_exporter : Reload daemons] *************************
+changed: [bematv-2]
+
+RUNNING HANDLER [keepalived_exporter : Restart keepalived_exporter] ************
+changed: [bematv-2]
+
+TASK [keepalived_exporter : Ensure that keepalived exporter is started] ********
+changed: [bematv-2]
+
+PLAY [VM3 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+ok: [bematv-3]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+The following NEW packages will be installed:
+  prometheus-nginx-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp7hii2hrx/exporter.j2
+@@ -0,0 +1,7 @@
++server {
++        listen 8080 default_server;
++        location = /stub_status {
++                stub_status;
++        }
++}
++
+
+changed: [bematv-3]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+RUNNING HANDLER [nginx_exporter : Restart nginx] *******************************
+changed: [bematv-3]
+
+RUNNING HANDLER [nginx_exporter : Restart nginx exporter] **********************
+changed: [bematv-3]
+
+RUNNING HANDLER [influxdb_exporter : Reload daemons] ***************************
+changed: [bematv-3]
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-3]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+The following NEW packages will be installed:
+  prometheus-bind-exporter
+0 upgraded, 1 newly installed, 0 to remove and 140 not upgraded.
+changed: [bematv-3]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Download 'influxdb-stats-exporter' to /usr/local/bin/influx_stats_exporter_linux_amd64] ***
+changed: [bematv-3]
+
+TASK [influxdb_exporter : Giving permission and upload influx_stats_exporter_linux_amd64 to] ***
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "mode": "0644",
++    "mode": "0755",
+     "path": "/usr/local/bin/influx_stats_exporter_linux_amd64"
+ }
+
+changed: [bematv-3]
+
+TASK [influxdb_exporter : Upload prometheus-influxdb-stats-exporter.service.j2 to /etc/systemd/system/prometheus-influxdb-stats-exporter.service / making a service unit] ***
+changed: [bematv-3]
+
+TASK [influxdb_exporter : Execute handlers] ************************************
+
+RUNNING HANDLER [influxdb_exporter : Reload daemons] ***************************
+changed: [bematv-3]
+
+RUNNING HANDLER [influxdb_exporter : Restart prometheus-influxdb-stats-exporter] ***
+changed: [bematv-3]
+
+TASK [influxdb_exporter : Ensure influxdb-stats-exporter is started] ***********
+ok: [bematv-3]
+
+PLAY [Grafana] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [grafana : Create docker directories for grafana / /opt/grafana/provisioning/dashboards + /opt/grafana/provisioning/datasources] ***
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/grafana/provisioning/dashboards",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-3] => (item=/opt/grafana/provisioning/dashboards)
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+     "path": "/opt/grafana/provisioning/datasources",
+-    "state": "absent"
++    "state": "directory"
+ }
+
+changed: [bematv-3] => (item=/opt/grafana/provisioning/datasources)
+
+TASK [grafana : Copy grafana.ini.j2 to /opt/grafana/grafana.ini / set url and pass] ***
+changed: [bematv-3]
+
+TASK [grafana : Copy datasource.yaml to /opt/grafana/provisioning/datasources/datasource.yaml / set the prometheus, influxdb, telegraf datasources] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmppr9br33j/datasource.yaml
+@@ -0,0 +1,32 @@
++# config file version
++apiVersion: 1
++
++datasources:
++ - name: prometheus
++   type: prometheus
++#   orgId: 1
++   url: http://prometheus:/prometheus
++   password:
++   user:
++   database:
++   isDefault: true
++   editable: true
++
++ - name: InfluxDB
++   type: influxdb
++#   orgId: 1
++   url: http://influxdb:8086
++   password:
++   user:
++   database: latency
++   editable: true
++
++ - name: InfluxDB-telegraf
++   type: influxdb
++#   orgId: 1
++   url: http://influxdb:8086
++   password:
++   user:
++   database: telegraf
++   editable: true
++
+
+changed: [bematv-3]
+
+TASK [grafana : Copy dashboard.yaml to /opt/grafana/provisioning/dashboards/dashboard.yaml / set path to dashboards] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmpqjux52ep/dashboard.yaml
+@@ -0,0 +1,27 @@
++apiVersion: 1
++
++providers:
++  # <string> an unique provider name. Required
++  - name: 'grafana'
++    # <int> Org id. Default to 1
++    orgId: 1
++    # <string> name of the dashboard folder.
++    folder: ''
++    # <string> folder UID. will be automatically generated if not specified
++    folderUid: ''
++    # <string> provider type. Default to 'file'
++    type: file
++    # <bool> disable dashboard deletion
++    disableDeletion: false
++    # <int> how often Grafana will scan for changed dashboards
++    updateIntervalSeconds: 10
++    # <bool> allow updating provisioned dashboards from the UI
++    allowUiUpdates: false
++    options:
++      # <string, required> path to dashboard files on disk. Required when using the 'file' type
++      #path: /var/lib/grafana/dashboards
++      path: /etc/grafana/provisioning/dashboards # LAB 12 Task 3
++      # <bool> use folder names from filesystem to create folders in Grafana
++      foldersFromFilesStructure: true
++
++      
+\ No newline at end of file
+
+changed: [bematv-3]
+
+TASK [grafana : Copy grafana dashboards / copy the .json-s] ********************
+changed: [bematv-3] => (item=None)
+changed: [bematv-3] => (item=None)
+changed: [bematv-3] => (item=None)
+changed: [bematv-3] => (item=None)
+changed: [bematv-3]
+
+TASK [grafana : Create grafana Docker container] *******************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "exists": false,
+-    "running": false
++    "exists": true,
++    "running": true
+ }
+
+[DEPRECATION WARNING]: The container_default_behavior option will change its 
+default value from "compatibility" to "no_defaults" in community.docker 2.0.0. 
+To remove this warning, please specify an explicit value for it now. This 
+feature will be removed from community.docker in version 2.0.0. Deprecation 
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+changed: [bematv-3]
+
+RUNNING HANDLER [grafana : Restart grafana docker] *****************************
+--- before
++++ after
+@@ -1,4 +1,4 @@
+ {
+-    "restarted": false,
++    "restarted": true,
+     "running": true
+ }
+
+changed: [bematv-3]
+
+PLAY [Rsyslog Slaves] **********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [rsyslog : Install 'rsyslog'] *********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [rsyslog : Copy 50-telegraf.conf.j2 to /etc/rsyslog.d/50-telegraf.conf / Reconfigure Rsyslog] ***
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp2r_o_5z_/50-telegraf.conf.j2
+@@ -0,0 +1,7 @@
++$ActionQueueType LinkedList # use asynchronous processing
++$ActionQueueFileName srvrfwd # set file name, also enables disk mode
++$ActionResumeRetryCount -1 # infinite retries on insert failure
++$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
++
++*.* @influxdb:6514;RSYSLOG_SyslogProtocol23Format
++
+
+changed: [bematv-1]
+--- before
++++ after: /home/bematv/.ansible/tmp/ansible-local-52836yyhxhddn/tmp7f9gjkcr/50-telegraf.conf.j2
+@@ -0,0 +1,7 @@
++$ActionQueueType LinkedList # use asynchronous processing
++$ActionQueueFileName srvrfwd # set file name, also enables disk mode
++$ActionResumeRetryCount -1 # infinite retries on insert failure
++$ActionQueueSaveOnShutdown on # save in-memory data if rsyslog shuts down
++
++*.* @influxdb:6514;RSYSLOG_SyslogProtocol23Format
++
+
+changed: [bematv-2]
+
+TASK [rsyslog : Ensure rsyslog is started] *************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+RUNNING HANDLER [rsyslog : Restart Rsyslog] ************************************
+changed: [bematv-2]
+changed: [bematv-1]
+
+PLAY RECAP *********************************************************************
+bematv-1                   : ok=118  changed=78   unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+bematv-2                   : ok=118  changed=78   unreachable=0    failed=0    skipped=3    rescued=0    ignored=0   
+bematv-3                   : ok=110  changed=73   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ ansible-playbook infra.yaml --diff
+
+PLAY [Collect info about all VMs] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [setup] *******************************************************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+PLAY [Init] ********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [init : Update APT cache] *************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [init : Gather server information] ****************************************
+ok: [bematv-1] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  3222",
+        "Public URL  http://193.40.156.67:3280",
+        "Hostname  bematv-1"
+    ]
+}
+ok: [bematv-2] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  8922",
+        "Public URL  http://193.40.156.67:8980",
+        "Hostname  bematv-2"
+    ]
+}
+ok: [bematv-3] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  6922",
+        "Public URL  http://193.40.156.67:6980",
+        "Hostname  bematv-3"
+    ]
+}
+
+PLAY [Backup] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [backup : Install 'duplicity'] ********************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [backup : Add the user 'backup' and generate keys] ************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [backup : Add group 'backup'] *********************************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [backup : Create backup directory on the backup server / /home/backup/] ***
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [backup : Create backup directory restore and .ssh / /home/backup/restore/ + /home/backup/.ssh/] ***
+ok: [bematv-2] => (item=restore)
+ok: [bematv-3] => (item=restore)
+ok: [bematv-1] => (item=restore)
+ok: [bematv-1] => (item=.ssh)
+ok: [bematv-3] => (item=.ssh)
+ok: [bematv-2] => (item=.ssh)
+
+TASK [backup : Add known hosts to /home/backup/.ssh/known_hosts] ***************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [backup : Ensure cron is running] *****************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+PLAY [IPtables] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [iptables : Install 'iptables-persistent'] ********************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [iptables : fix ssl handshake docker] *************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [iptables : Sleep for 10 seconds and continue with play] ******************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [iptables : Ensure netfilter-persistent is started] ***********************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [iptables : Load iptable-mangle config] ***********************************
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+PLAY [Bind9 DNS server] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [bind : Install 'bind9'] **************************************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [bind : Install 'python3-dnspython'] **************************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [bind : Create directory /var/cache/bind] *********************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [bind : Upload db.pho.j2 to /var/cache/bind/db.pho.ng / DNS zone file] ****
+skipping: [bematv-1]
+skipping: [bematv-2]
+ok: [bematv-3]
+
+TASK [bind : Upload db.domain.j2 to /var/cache/bind/db.pho.ng.reverse / reverse DNS zone file] ***
+skipping: [bematv-1]
+skipping: [bematv-2]
+ok: [bematv-3]
+
+TASK [bind : Copy resolv.conf.j2 to /etc/resolv.conf / Update resolv.conf] *****
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [bind : Stop service systemd-resolved] ************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [bind : Upload named.conf.local.j2 to /etc/bind/named.conf.local / local DNS server configuration] ***
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [bind : Upload named.conf.options.j2 to /etc/bind/named.conf.options / configuration options for the DNS server] ***
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+TASK [bind : Ensure bind9 is started] ******************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [bind : Set A records] ****************************************************
+ok: [bematv-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
+ok: [bematv-3] => (item={'key': 'cloudfare', 'value': '1.1.1.1'})
+ok: [bematv-3] => (item={'key': 'google', 'value': '8.8.8.8'})
+ok: [bematv-3] => (item={'key': 'google2', 'value': '8.8.4.4'})
+
+TASK [bind : Set CNAME records] ************************************************
+ok: [bematv-3] => (item={'key': 'grafana', 'value': 'bematv-3'})
+ok: [bematv-3] => (item={'key': 'prometheus', 'value': 'bematv-3'})
+ok: [bematv-3] => (item={'key': 'influxdb', 'value': 'bematv-3'})
+ok: [bematv-3] => (item={'key': 'web1', 'value': 'bematv-1'})
+ok: [bematv-3] => (item={'key': 'web2', 'value': 'bematv-2'})
+ok: [bematv-3] => (item={'key': 'web3', 'value': 'bematv-3'})
+ok: [bematv-3] => (item={'key': 'lb1', 'value': 'bematv-1'})
+ok: [bematv-3] => (item={'key': 'lb2', 'value': 'bematv-2'})
+ok: [bematv-3] => (item={'key': 'mysql1', 'value': 'bematv-1'})
+ok: [bematv-3] => (item={'key': 'mysql2', 'value': 'bematv-2'})
+ok: [bematv-3] => (item={'key': 'ns1', 'value': 'bematv-3'})
+ok: [bematv-3] => (item={'key': 'ns2', 'value': 'bematv-1'})
+ok: [bematv-3] => (item={'key': 'ns3', 'value': 'bematv-2'})
+
+PLAY [MySQL database server] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Install 'mysql-server'] ******************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Install 'python3-mysql'] *****************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Copy override.cnf.j2 to /etc/mysql/mysql.conf.d/override.cnf / Upload the mysql config file] ***
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Ensure mysql is started] *****************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Create MySQL database] *******************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Create MySQL user] ***********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Create MySQL replication user] ***********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Make replication read only] **************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Execute handlers preemptively] ***********************************
+
+TASK [mysql_backup : Create the backup directory for mysql /  /home/backup/mysql] ***
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql_backup : Create MySQL backup user] *********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql_backup : Copy backup.my.cnf.j2 to /home/backup/.my.cnf / Upload MySQL configuration file] ***
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql_backup : Copy mysql-backup.j2 to /etc/cron.d/mysql-backup / Update mysql cron] ***
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql_backup : Ensure Cron is started] ***********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [Docker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [docker : Install 'python3-docker'] ***************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [docker : Install 'docker.io'] ********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [docker : Log into DockerHub] *********************************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [docker : Ensure docker is running] ***************************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+PLAY [Nginx] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [nginx : Install 'nginx'] *************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [nginx : Copy index.html to /var/www/html/index.html Replace the default HTML page] ***
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [nginx : Copy default.j2 to /etc/nginx/sites-enabled/default / Nginx as uWSGI frontend, Nginx configuration, Prometheus ports] ***
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [nginx : Ensure nginx is started] *****************************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+PLAY [Agama web server] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Creating folder /opt/agama] **************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Download agama container file] ***********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Create agama docker image file] **********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Create agama Docker container 1] *********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [agama : Create agama Docker container 2] *********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [uwsgi : Install 'uwsgi'] *************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [uwsgi : Install 'uwsgi-plugin-python3'] **********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [uwsgi : Ensure that uwsgi is started] ************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [Prometheus] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [prometheus : Install 'prometheus'] ***************************************
+ok: [bematv-3]
+
+TASK [prometheus : Copy prometheus.yml.j2 to /etc/prometheus/prometheus.yml / prometheus config] ***
+ok: [bematv-3]
+
+TASK [prometheus : Copy prometheus.j2 to /etc/default/prometheus / reverse proxy config] ***
+ok: [bematv-3]
+
+TASK [prometheus : Ensure prometheus is running] *******************************
+ok: [bematv-3]
+
+PLAY [InfluxDB and Telegraf] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [influxdb : Add influxdb and telegraf key] ********************************
+ok: [bematv-3]
+
+TASK [influxdb : Add influx and telegraf repository into sources list] *********
+ok: [bematv-3]
+
+TASK [influxdb : Install 'influxdb'] *******************************************
+ok: [bematv-3]
+
+TASK [influxdb : Ensure influxdb is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Install 'telegraf'] *******************************************
+ok: [bematv-3]
+
+TASK [influxdb : Ensure Telegraf is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Copy influxdb.conf.j2 into /etc/influxdb/influxdb.conf] *******
+ok: [bematv-3]
+
+TASK [influxdb : Copy telegraf.conf.j2 into /etc/telegraf/telegraf.conf] *******
+ok: [bematv-3]
+
+TASK [influxdb : Execute handlers] *********************************************
+
+TASK [influxdb : Ensure influxdb is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Ensure Telegraf is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb_backup : Create the backup directory for influxdb] **************
+ok: [bematv-3]
+
+TASK [influxdb_backup : Copy influxdb-backup.j2 to /etc/cron.d/influxdb-backup / Upload influxdb cron] ***
+ok: [bematv-3]
+
+TASK [influxdb_backup : Ensure Cron is started] ********************************
+ok: [bematv-3]
+
+PLAY [Pinger] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [pinger : Add user pinger] ************************************************
+ok: [bematv-3]
+
+TASK [pinger : Install 'fping'] ************************************************
+ok: [bematv-3]
+
+TASK [pinger : Copy pinger.sh.j2 template into /usr/local/bin/pinger / Create pinger service] ***
+ok: [bematv-3]
+
+TASK [pinger : Create directory for pinger / /etc/pinger] **********************
+ok: [bematv-3]
+
+TASK [pinger : Copy pinger.conf.j2 template into /etc/pinger/pinger.conf] ******
+ok: [bematv-3]
+
+TASK [pinger : Copy pinger.service.j2 to /etc/systemd/system/pinger.service / Upload pinger service config] ***
+ok: [bematv-3]
+
+TASK [pinger : Ensure pinger is started] ***************************************
+ok: [bematv-3]
+
+PLAY [Rsyslog] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [rsyslog : Install 'rsyslog'] *********************************************
+ok: [bematv-3]
+
+TASK [rsyslog : Copy 50-telegraf.conf.j2 to /etc/rsyslog.d/50-telegraf.conf / Reconfigure Rsyslog] ***
+ok: [bematv-3]
+
+TASK [rsyslog : Ensure rsyslog is started] *************************************
+ok: [bematv-3]
+
+PLAY [Haproxy] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [haproxy : Install 'haproxy'] *********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [haproxy : Copy haproxy.conf] *********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [haproxy : Execute handlers] **********************************************
+
+TASK [haproxy : Ensure haproxy is started] *************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+PLAY [Keepalived] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [keepalived : Install 'keepalived'] ***************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [keepalived : Add user keepalived_script] *********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [keepalived : Copy vrrp_script.j2 to /home/keepalived_script/vrrp_script] ***
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [keepalived : Copy keepalived.conf to /etc/keepalived/keepalived.conf] ****
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [keepalived : Copy ha88.j2 to /usr/local/bin/ha88] ************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [keepalived : Ensure keepalived is started] *******************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [VM1 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+ok: [bematv-1]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+ok: [bematv-1]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-1]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+ok: [bematv-1]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Install 'prometheus-mysqld-exporter'] *******************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Create directory for prometheus / /var/lib/prometheus] ***
+ok: [bematv-1]
+
+TASK [mysql_exporter : Copy my.cnf.j2 to /var/lib/prometheus/.my.cnf / mysql cofig file for prometheus] ***
+ok: [bematv-1]
+
+TASK [mysql_exporter : Copy prometheus-mysqld-exporter to /etc/default/prometheus-mysqld-exporter / set data to collect] ***
+ok: [bematv-1]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Pause for 10 sec] ***************************************
+skipping: [bematv-1]
+
+TASK [mysql_exporter : Execute handlers] ***************************************
+
+TASK [mysql_exporter : Ensure mysql is started] ********************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Ensure mysqld exporter is started] **********************
+ok: [bematv-1]
+
+TASK [haproxy_exporter : Install 'prometheus-haproxy-exporter'] ****************
+ok: [bematv-1]
+
+TASK [haproxy_exporter : Copy prometheus-haproxy-exporter] *********************
+ok: [bematv-1]
+
+TASK [haproxy_exporter : Execute handlers] *************************************
+
+TASK [haproxy_exporter : Ensure haproxy exporter is started] *******************
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Download keepalived exporter to /usr/local/bin/] ***
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Copy keepalived-prometheus-exporter.service.j2 to /etc/systemd/system/keepalived-prometheus-exporter.service / create keepalived prometheus exporter service] ***
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Sleep for 10 seconds and continue with play] *******
+skipping: [bematv-1]
+
+TASK [keepalived_exporter : Execute handlers] **********************************
+
+TASK [keepalived_exporter : Ensure that keepalived exporter is started] ********
+ok: [bematv-1]
+
+PLAY [VM2 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+ok: [bematv-2]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+ok: [bematv-2]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-2]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+ok: [bematv-2]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Install 'prometheus-mysqld-exporter'] *******************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Create directory for prometheus / /var/lib/prometheus] ***
+ok: [bematv-2]
+
+TASK [mysql_exporter : Copy my.cnf.j2 to /var/lib/prometheus/.my.cnf / mysql cofig file for prometheus] ***
+ok: [bematv-2]
+
+TASK [mysql_exporter : Copy prometheus-mysqld-exporter to /etc/default/prometheus-mysqld-exporter / set data to collect] ***
+ok: [bematv-2]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Pause for 10 sec] ***************************************
+skipping: [bematv-2]
+
+TASK [mysql_exporter : Execute handlers] ***************************************
+
+TASK [mysql_exporter : Ensure mysql is started] ********************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Ensure mysqld exporter is started] **********************
+ok: [bematv-2]
+
+TASK [haproxy_exporter : Install 'prometheus-haproxy-exporter'] ****************
+ok: [bematv-2]
+
+TASK [haproxy_exporter : Copy prometheus-haproxy-exporter] *********************
+ok: [bematv-2]
+
+TASK [haproxy_exporter : Execute handlers] *************************************
+
+TASK [haproxy_exporter : Ensure haproxy exporter is started] *******************
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Download keepalived exporter to /usr/local/bin/] ***
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Copy keepalived-prometheus-exporter.service.j2 to /etc/systemd/system/keepalived-prometheus-exporter.service / create keepalived prometheus exporter service] ***
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Sleep for 10 seconds and continue with play] *******
+skipping: [bematv-2]
+
+TASK [keepalived_exporter : Execute handlers] **********************************
+
+TASK [keepalived_exporter : Ensure that keepalived exporter is started] ********
+ok: [bematv-2]
+
+PLAY [VM3 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+ok: [bematv-3]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+ok: [bematv-3]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-3]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+ok: [bematv-3]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Download 'influxdb-stats-exporter' to /usr/local/bin/influx_stats_exporter_linux_amd64] ***
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Giving permission and upload influx_stats_exporter_linux_amd64 to] ***
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Upload prometheus-influxdb-stats-exporter.service.j2 to /etc/systemd/system/prometheus-influxdb-stats-exporter.service / making a service unit] ***
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Execute handlers] ************************************
+
+TASK [influxdb_exporter : Ensure influxdb-stats-exporter is started] ***********
+ok: [bematv-3]
+
+PLAY [Grafana] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [grafana : Create docker directories for grafana / /opt/grafana/provisioning/dashboards + /opt/grafana/provisioning/datasources] ***
+ok: [bematv-3] => (item=/opt/grafana/provisioning/dashboards)
+ok: [bematv-3] => (item=/opt/grafana/provisioning/datasources)
+
+TASK [grafana : Copy grafana.ini.j2 to /opt/grafana/grafana.ini / set url and pass] ***
+ok: [bematv-3]
+
+TASK [grafana : Copy datasource.yaml to /opt/grafana/provisioning/datasources/datasource.yaml / set the prometheus, influxdb, telegraf datasources] ***
+ok: [bematv-3]
+
+TASK [grafana : Copy dashboard.yaml to /opt/grafana/provisioning/dashboards/dashboard.yaml / set path to dashboards] ***
+ok: [bematv-3]
+
+TASK [grafana : Copy grafana dashboards / copy the .json-s] ********************
+ok: [bematv-3] => (item=None)
+ok: [bematv-3] => (item=None)
+ok: [bematv-3] => (item=None)
+ok: [bematv-3] => (item=None)
+ok: [bematv-3]
+
+TASK [grafana : Create grafana Docker container] *******************************
+[DEPRECATION WARNING]: The container_default_behavior option will change its 
+default value from "compatibility" to "no_defaults" in community.docker 2.0.0. 
+To remove this warning, please specify an explicit value for it now. This 
+feature will be removed from community.docker in version 2.0.0. Deprecation 
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+ok: [bematv-3]
+
+PLAY [Rsyslog Slaves] **********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [rsyslog : Install 'rsyslog'] *********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [rsyslog : Copy 50-telegraf.conf.j2 to /etc/rsyslog.d/50-telegraf.conf / Reconfigure Rsyslog] ***
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [rsyslog : Ensure rsyslog is started] *************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+PLAY RECAP *********************************************************************
+bematv-1                   : ok=98   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+bematv-2                   : ok=98   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+bematv-3                   : ok=93   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ ansible all -b -m reboot -a test_command=uptime
+bematv-3 | CHANGED => {
+    "changed": true,
+    "elapsed": 48,
+    "rebooted": true
+}
+bematv-1 | CHANGED => {
+    "changed": true,
+    "elapsed": 54,
+    "rebooted": true
+}
+bematv-2 | CHANGED => {
+    "changed": true,
+    "elapsed": 56,
+    "rebooted": true
+}
++ ansible-playbook infra.yaml --diff
+
+PLAY [Collect info about all VMs] **********************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [setup] *******************************************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+PLAY [Init] ********************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [init : Update APT cache] *************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [init : Gather server information] ****************************************
+ok: [bematv-1] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  3222",
+        "Public URL  http://193.40.156.67:3280",
+        "Hostname  bematv-1"
+    ]
+}
+ok: [bematv-2] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  8922",
+        "Public URL  http://193.40.156.67:8980",
+        "Hostname  bematv-2"
+    ]
+}
+ok: [bematv-3] => {
+    "msg": [
+        "SSH host  193.40.156.67",
+        "SSH port  6922",
+        "Public URL  http://193.40.156.67:6980",
+        "Hostname  bematv-3"
+    ]
+}
+
+PLAY [Backup] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [backup : Install 'duplicity'] ********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [backup : Add the user 'backup' and generate keys] ************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [backup : Add group 'backup'] *********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [backup : Create backup directory on the backup server / /home/backup/] ***
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [backup : Create backup directory restore and .ssh / /home/backup/restore/ + /home/backup/.ssh/] ***
+ok: [bematv-3] => (item=restore)
+ok: [bematv-1] => (item=restore)
+ok: [bematv-2] => (item=restore)
+ok: [bematv-3] => (item=.ssh)
+ok: [bematv-2] => (item=.ssh)
+ok: [bematv-1] => (item=.ssh)
+
+TASK [backup : Add known hosts to /home/backup/.ssh/known_hosts] ***************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [backup : Ensure cron is running] *****************************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+PLAY [IPtables] ****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [iptables : Install 'iptables-persistent'] ********************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [iptables : fix ssl handshake docker] *************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [iptables : Sleep for 10 seconds and continue with play] ******************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [iptables : Ensure netfilter-persistent is started] ***********************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [iptables : Load iptable-mangle config] ***********************************
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+[WARNING]: Attempts to restore iptables state without rollback in case of
+mistake may lead the ansible controller to loose access to the hosts and never
+regain it before fixing firewall rules through a serial console, or any other
+way except SSH. Please set task attribute 'poll' (=15) to 0, and 'async' (=0)
+to a value >2 and not greater than 'ansible_timeout' (=10) (recommended).
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+PLAY [Bind9 DNS server] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [bind : Install 'bind9'] **************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [bind : Install 'python3-dnspython'] **************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [bind : Create directory /var/cache/bind] *********************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [bind : Upload db.pho.j2 to /var/cache/bind/db.pho.ng / DNS zone file] ****
+skipping: [bematv-1]
+skipping: [bematv-2]
+ok: [bematv-3]
+
+TASK [bind : Upload db.domain.j2 to /var/cache/bind/db.pho.ng.reverse / reverse DNS zone file] ***
+skipping: [bematv-1]
+skipping: [bematv-2]
+ok: [bematv-3]
+
+TASK [bind : Copy resolv.conf.j2 to /etc/resolv.conf / Update resolv.conf] *****
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [bind : Stop service systemd-resolved] ************************************
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [bind : Upload named.conf.local.j2 to /etc/bind/named.conf.local / local DNS server configuration] ***
+ok: [bematv-2]
+ok: [bematv-3]
+ok: [bematv-1]
+
+TASK [bind : Upload named.conf.options.j2 to /etc/bind/named.conf.options / configuration options for the DNS server] ***
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [bind : Execute handlers preemptively] ************************************
+
+TASK [bind : Ensure bind9 is started] ******************************************
+ok: [bematv-1]
+ok: [bematv-2]
+ok: [bematv-3]
+
+TASK [bind : Set A records] ****************************************************
+ok: [bematv-3] => (item={'key': 'backup', 'value': '192.168.42.132'})
+ok: [bematv-3] => (item={'key': 'cloudfare', 'value': '1.1.1.1'})
+ok: [bematv-3] => (item={'key': 'google', 'value': '8.8.8.8'})
+ok: [bematv-3] => (item={'key': 'google2', 'value': '8.8.4.4'})
+
+TASK [bind : Set CNAME records] ************************************************
+ok: [bematv-3] => (item={'key': 'grafana', 'value': 'bematv-3'})
+ok: [bematv-3] => (item={'key': 'prometheus', 'value': 'bematv-3'})
+ok: [bematv-3] => (item={'key': 'influxdb', 'value': 'bematv-3'})
+ok: [bematv-3] => (item={'key': 'web1', 'value': 'bematv-1'})
+ok: [bematv-3] => (item={'key': 'web2', 'value': 'bematv-2'})
+ok: [bematv-3] => (item={'key': 'web3', 'value': 'bematv-3'})
+ok: [bematv-3] => (item={'key': 'lb1', 'value': 'bematv-1'})
+ok: [bematv-3] => (item={'key': 'lb2', 'value': 'bematv-2'})
+ok: [bematv-3] => (item={'key': 'mysql1', 'value': 'bematv-1'})
+ok: [bematv-3] => (item={'key': 'mysql2', 'value': 'bematv-2'})
+ok: [bematv-3] => (item={'key': 'ns1', 'value': 'bematv-3'})
+ok: [bematv-3] => (item={'key': 'ns2', 'value': 'bematv-1'})
+ok: [bematv-3] => (item={'key': 'ns3', 'value': 'bematv-2'})
+
+PLAY [MySQL database server] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Install 'mysql-server'] ******************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Install 'python3-mysql'] *****************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Copy override.cnf.j2 to /etc/mysql/mysql.conf.d/override.cnf / Upload the mysql config file] ***
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Ensure mysql is started] *****************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Create MySQL database] *******************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Create MySQL user] ***********************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Create MySQL replication user] ***********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql : Make replication read only] **************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql : Execute handlers preemptively] ***********************************
+
+TASK [mysql_backup : Create the backup directory for mysql /  /home/backup/mysql] ***
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql_backup : Create MySQL backup user] *********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql_backup : Copy backup.my.cnf.j2 to /home/backup/.my.cnf / Upload MySQL configuration file] ***
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [mysql_backup : Copy mysql-backup.j2 to /etc/cron.d/mysql-backup / Update mysql cron] ***
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [mysql_backup : Ensure Cron is started] ***********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [Docker] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [docker : Install 'python3-docker'] ***************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [docker : Install 'docker.io'] ********************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [docker : Log into DockerHub] *********************************************
+ok: [bematv-3]
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [docker : Ensure docker is running] ***************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+PLAY [Nginx] *******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+TASK [nginx : Install 'nginx'] *************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [nginx : Copy index.html to /var/www/html/index.html Replace the default HTML page] ***
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [nginx : Copy default.j2 to /etc/nginx/sites-enabled/default / Nginx as uWSGI frontend, Nginx configuration, Prometheus ports] ***
+ok: [bematv-2]
+ok: [bematv-1]
+ok: [bematv-3]
+
+TASK [nginx : Ensure nginx is started] *****************************************
+ok: [bematv-1]
+ok: [bematv-3]
+ok: [bematv-2]
+
+PLAY [Agama web server] ********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [agama : Creating folder /opt/agama] **************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [agama : Download agama container file] ***********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [agama : Create agama docker image file] **********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [agama : Create agama Docker container 1] *********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [agama : Create agama Docker container 2] *********************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [uwsgi : Install 'uwsgi'] *************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [uwsgi : Install 'uwsgi-plugin-python3'] **********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [uwsgi : Ensure that uwsgi is started] ************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY [Prometheus] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [prometheus : Install 'prometheus'] ***************************************
+ok: [bematv-3]
+
+TASK [prometheus : Copy prometheus.yml.j2 to /etc/prometheus/prometheus.yml / prometheus config] ***
+ok: [bematv-3]
+
+TASK [prometheus : Copy prometheus.j2 to /etc/default/prometheus / reverse proxy config] ***
+ok: [bematv-3]
+
+TASK [prometheus : Ensure prometheus is running] *******************************
+ok: [bematv-3]
+
+PLAY [InfluxDB and Telegraf] ***************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [influxdb : Add influxdb and telegraf key] ********************************
+ok: [bematv-3]
+
+TASK [influxdb : Add influx and telegraf repository into sources list] *********
+ok: [bematv-3]
+
+TASK [influxdb : Install 'influxdb'] *******************************************
+ok: [bematv-3]
+
+TASK [influxdb : Ensure influxdb is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Install 'telegraf'] *******************************************
+ok: [bematv-3]
+
+TASK [influxdb : Ensure Telegraf is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Copy influxdb.conf.j2 into /etc/influxdb/influxdb.conf] *******
+ok: [bematv-3]
+
+TASK [influxdb : Copy telegraf.conf.j2 into /etc/telegraf/telegraf.conf] *******
+ok: [bematv-3]
+
+TASK [influxdb : Execute handlers] *********************************************
+
+TASK [influxdb : Ensure influxdb is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb : Ensure Telegraf is started] ***********************************
+ok: [bematv-3]
+
+TASK [influxdb_backup : Create the backup directory for influxdb] **************
+ok: [bematv-3]
+
+TASK [influxdb_backup : Copy influxdb-backup.j2 to /etc/cron.d/influxdb-backup / Upload influxdb cron] ***
+ok: [bematv-3]
+
+TASK [influxdb_backup : Ensure Cron is started] ********************************
+ok: [bematv-3]
+
+PLAY [Pinger] ******************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [pinger : Add user pinger] ************************************************
+ok: [bematv-3]
+
+TASK [pinger : Install 'fping'] ************************************************
+ok: [bematv-3]
+
+TASK [pinger : Copy pinger.sh.j2 template into /usr/local/bin/pinger / Create pinger service] ***
+ok: [bematv-3]
+
+TASK [pinger : Create directory for pinger / /etc/pinger] **********************
+ok: [bematv-3]
+
+TASK [pinger : Copy pinger.conf.j2 template into /etc/pinger/pinger.conf] ******
+ok: [bematv-3]
+
+TASK [pinger : Copy pinger.service.j2 to /etc/systemd/system/pinger.service / Upload pinger service config] ***
+ok: [bematv-3]
+
+TASK [pinger : Ensure pinger is started] ***************************************
+ok: [bematv-3]
+
+PLAY [Rsyslog] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [rsyslog : Install 'rsyslog'] *********************************************
+ok: [bematv-3]
+
+TASK [rsyslog : Copy 50-telegraf.conf.j2 to /etc/rsyslog.d/50-telegraf.conf / Reconfigure Rsyslog] ***
+ok: [bematv-3]
+
+TASK [rsyslog : Ensure rsyslog is started] *************************************
+ok: [bematv-3]
+
+PLAY [Haproxy] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [haproxy : Install 'haproxy'] *********************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [haproxy : Copy haproxy.conf] *********************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [haproxy : Execute handlers] **********************************************
+
+TASK [haproxy : Ensure haproxy is started] *************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+PLAY [Keepalived] **************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [keepalived : Install 'keepalived'] ***************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [keepalived : Add user keepalived_script] *********************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [keepalived : Copy vrrp_script.j2 to /home/keepalived_script/vrrp_script] ***
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [keepalived : Copy keepalived.conf to /etc/keepalived/keepalived.conf] ****
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [keepalived : Copy ha88.j2 to /usr/local/bin/ha88] ************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [keepalived : Ensure keepalived is started] *******************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+PLAY [VM1 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-1]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+ok: [bematv-1]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+ok: [bematv-1]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-1]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-1]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+ok: [bematv-1]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Install 'prometheus-mysqld-exporter'] *******************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Create directory for prometheus / /var/lib/prometheus] ***
+ok: [bematv-1]
+
+TASK [mysql_exporter : Copy my.cnf.j2 to /var/lib/prometheus/.my.cnf / mysql cofig file for prometheus] ***
+ok: [bematv-1]
+
+TASK [mysql_exporter : Copy prometheus-mysqld-exporter to /etc/default/prometheus-mysqld-exporter / set data to collect] ***
+ok: [bematv-1]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Pause for 10 sec] ***************************************
+skipping: [bematv-1]
+
+TASK [mysql_exporter : Execute handlers] ***************************************
+
+TASK [mysql_exporter : Ensure mysql is started] ********************************
+ok: [bematv-1]
+
+TASK [mysql_exporter : Ensure mysqld exporter is started] **********************
+ok: [bematv-1]
+
+TASK [haproxy_exporter : Install 'prometheus-haproxy-exporter'] ****************
+ok: [bematv-1]
+
+TASK [haproxy_exporter : Copy prometheus-haproxy-exporter] *********************
+ok: [bematv-1]
+
+TASK [haproxy_exporter : Execute handlers] *************************************
+
+TASK [haproxy_exporter : Ensure haproxy exporter is started] *******************
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Download keepalived exporter to /usr/local/bin/] ***
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Copy keepalived-prometheus-exporter.service.j2 to /etc/systemd/system/keepalived-prometheus-exporter.service / create keepalived prometheus exporter service] ***
+ok: [bematv-1]
+
+TASK [keepalived_exporter : Sleep for 10 seconds and continue with play] *******
+skipping: [bematv-1]
+
+TASK [keepalived_exporter : Execute handlers] **********************************
+
+TASK [keepalived_exporter : Ensure that keepalived exporter is started] ********
+ok: [bematv-1]
+
+PLAY [VM2 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+ok: [bematv-2]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+ok: [bematv-2]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-2]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-2]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+ok: [bematv-2]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Install 'prometheus-mysqld-exporter'] *******************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Create directory for prometheus / /var/lib/prometheus] ***
+ok: [bematv-2]
+
+TASK [mysql_exporter : Copy my.cnf.j2 to /var/lib/prometheus/.my.cnf / mysql cofig file for prometheus] ***
+ok: [bematv-2]
+
+TASK [mysql_exporter : Copy prometheus-mysqld-exporter to /etc/default/prometheus-mysqld-exporter / set data to collect] ***
+ok: [bematv-2]
+
+TASK [mysql_exporter : Create MySQL exporter user] *****************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Pause for 10 sec] ***************************************
+skipping: [bematv-2]
+
+TASK [mysql_exporter : Execute handlers] ***************************************
+
+TASK [mysql_exporter : Ensure mysql is started] ********************************
+ok: [bematv-2]
+
+TASK [mysql_exporter : Ensure mysqld exporter is started] **********************
+ok: [bematv-2]
+
+TASK [haproxy_exporter : Install 'prometheus-haproxy-exporter'] ****************
+ok: [bematv-2]
+
+TASK [haproxy_exporter : Copy prometheus-haproxy-exporter] *********************
+ok: [bematv-2]
+
+TASK [haproxy_exporter : Execute handlers] *************************************
+
+TASK [haproxy_exporter : Ensure haproxy exporter is started] *******************
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Download keepalived exporter to /usr/local/bin/] ***
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Copy keepalived-prometheus-exporter.service.j2 to /etc/systemd/system/keepalived-prometheus-exporter.service / create keepalived prometheus exporter service] ***
+ok: [bematv-2]
+
+TASK [keepalived_exporter : Sleep for 10 seconds and continue with play] *******
+skipping: [bematv-2]
+
+TASK [keepalived_exporter : Execute handlers] **********************************
+
+TASK [keepalived_exporter : Ensure that keepalived exporter is started] ********
+ok: [bematv-2]
+
+PLAY [VM3 exporters] ***********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [node_exporter : Install 'prometheus-node-exporter'] **********************
+ok: [bematv-3]
+
+TASK [node_exporter : Ensure node exporter is started] *************************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Install 'prometheus-nginx-exporter'] ********************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Copy exporter.j2 to /etc/nginx/sites-enabled/exporter / listen to stub status] ***
+ok: [bematv-3]
+
+TASK [nginx_exporter : Execute handlers preemptively] **************************
+
+TASK [nginx_exporter : Ensure nginx is started] ********************************
+ok: [bematv-3]
+
+TASK [nginx_exporter : Ensure nginx exporter is started] ***********************
+ok: [bematv-3]
+
+TASK [bind_exporter : Install 'prometheus-bind-exporter'] **********************
+ok: [bematv-3]
+
+TASK [bind_exporter : Ensure Bind9 exporter is started] ************************
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Download 'influxdb-stats-exporter' to /usr/local/bin/influx_stats_exporter_linux_amd64] ***
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Giving permission and upload influx_stats_exporter_linux_amd64 to] ***
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Upload prometheus-influxdb-stats-exporter.service.j2 to /etc/systemd/system/prometheus-influxdb-stats-exporter.service / making a service unit] ***
+ok: [bematv-3]
+
+TASK [influxdb_exporter : Execute handlers] ************************************
+
+TASK [influxdb_exporter : Ensure influxdb-stats-exporter is started] ***********
+ok: [bematv-3]
+
+PLAY [Grafana] *****************************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-3]
+
+TASK [grafana : Create docker directories for grafana / /opt/grafana/provisioning/dashboards + /opt/grafana/provisioning/datasources] ***
+ok: [bematv-3] => (item=/opt/grafana/provisioning/dashboards)
+ok: [bematv-3] => (item=/opt/grafana/provisioning/datasources)
+
+TASK [grafana : Copy grafana.ini.j2 to /opt/grafana/grafana.ini / set url and pass] ***
+ok: [bematv-3]
+
+TASK [grafana : Copy datasource.yaml to /opt/grafana/provisioning/datasources/datasource.yaml / set the prometheus, influxdb, telegraf datasources] ***
+ok: [bematv-3]
+
+TASK [grafana : Copy dashboard.yaml to /opt/grafana/provisioning/dashboards/dashboard.yaml / set path to dashboards] ***
+ok: [bematv-3]
+
+TASK [grafana : Copy grafana dashboards / copy the .json-s] ********************
+ok: [bematv-3] => (item=None)
+ok: [bematv-3] => (item=None)
+ok: [bematv-3] => (item=None)
+ok: [bematv-3] => (item=None)
+ok: [bematv-3]
+
+TASK [grafana : Create grafana Docker container] *******************************
+[DEPRECATION WARNING]: The container_default_behavior option will change its 
+default value from "compatibility" to "no_defaults" in community.docker 2.0.0. 
+To remove this warning, please specify an explicit value for it now. This 
+feature will be removed from community.docker in version 2.0.0. Deprecation 
+warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+ok: [bematv-3]
+
+PLAY [Rsyslog Slaves] **********************************************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [rsyslog : Install 'rsyslog'] *********************************************
+ok: [bematv-1]
+ok: [bematv-2]
+
+TASK [rsyslog : Copy 50-telegraf.conf.j2 to /etc/rsyslog.d/50-telegraf.conf / Reconfigure Rsyslog] ***
+ok: [bematv-2]
+ok: [bematv-1]
+
+TASK [rsyslog : Ensure rsyslog is started] *************************************
+ok: [bematv-2]
+ok: [bematv-1]
+
+PLAY RECAP *********************************************************************
+bematv-1                   : ok=98   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+bematv-2                   : ok=98   changed=0    unreachable=0    failed=0    skipped=4    rescued=0    ignored=0   
+bematv-3                   : ok=93   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
++ date
+Thu 13 Jan 2022 03:35:14 PM EET

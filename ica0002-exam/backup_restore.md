@@ -16,11 +16,11 @@ If you know the issue is with the backup, it is mandatory to first run the backu
 
 This command will collect information about the vm-s:
 
-    ansible-playbook infra-yaml --tags INIT
+    ansible-playbook infra-yaml --tags SETUP
 
-This command will install/restore duplicity service on the vm-s:
+This command will update services on each vm-s:
     
-    ansible-playbook infra-yaml --tags BACKUP
+    ansible-playbook infra-yaml --tags INIT
 
 This command will install/restore duplicity service on the vm-s:
     
@@ -126,7 +126,7 @@ The last step will recover the database and drop the old one.
 
 
 1. sudo su - backup
-2. rm -r restore/
+2. rm -r /home/backup/restore/*
 3. duplicity --no-encryption restore rsync://bematv@backup//home/bematv /home/backup/restore/agama
 4. exit
 5. sudo su -
@@ -134,7 +134,7 @@ The last step will recover the database and drop the old one.
 
         sudo su - backup
 
-        rm -r restore/
+        rm -r /home/backup/restore/*
 
         duplicity --no-encryption restore rsync://bematv@backup//home/bematv/mysql/ /home/backup/restore/agama
 
@@ -153,7 +153,7 @@ In the thirs step, you have exit user backup, to login to user root in step 4. T
 In step 7, we restore the EMPTY database with the file that we downlaoded, then start the telegraf service in the last step.
 
 1. sudo su - backup
-2. rm -r restore/
+2. rm -r /home/backup/restore/*
 3. duplicity --no-encryption restore rsync://bematv@backup//home/bematv /home/backup/restore/
 4. exit
 5. sudo su -
@@ -163,7 +163,7 @@ In step 7, we restore the EMPTY database with the file that we downlaoded, then 
 
         sudo su - backup
 
-        rm -r restore/
+        rm -r /home/backup/restore/*
 
         duplicity --no-encryption restore rsync://bematv@backup//home/bematv/influxdb/ /home/backup/restore/
 

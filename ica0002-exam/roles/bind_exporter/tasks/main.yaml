@@ -11,9 +11,3 @@
     state: started
     enabled: yes
 
-#- name: Restart bind9 ## not needed?
-#  service:
-#    name: bind9
-#    state: restarted
-#    #enabled: yes
-

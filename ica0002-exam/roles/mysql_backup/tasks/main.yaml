@@ -7,7 +7,7 @@
     state: directory
     owner: "{{ backup_user }}"
     group: "{{ backup_user }}"
-    mode: 0774
+    mode: 0755
 
 
 # LAB 10 Task 2
@@ -40,6 +40,12 @@
     dest: /etc/cron.d/mysql-backup
     owner: root
     group: root
-    mode: 0744
+    mode: 0755
   tags: cron
 
+- name: Ensure Cron is started
+  service:
+    name: cron
+    state: started
+    enabled: yes
+  tags: cron

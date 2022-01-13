@@ -10,32 +10,10 @@
 - name: Install 'uwsgi-plugin-python3'
   apt:
     name: uwsgi-plugin-python3
-    #state: latest
-
-## No need from LAB 4
-#- name: Add uwsgi config file
-#  copy:
-#    src: agama.ini
-#    dest: /etc/uwsgi/apps-enabled/agama.ini
-#  no_log: true
-#  notify: Restart uwsgi
-
 
 - name: Ensure that uwsgi is started
   service:
     name: uwsgi
     state: started
     enabled: yes  
-
-
-# LAB 4 Task 9: Reconfigure AGAMA to use MySQL
-# NOT NEEDED FROM LAB 12
-#- name: Copy agama.ini.j2 with owner and permissions
-#  ansible.builtin.template:
-#    src: agama.ini.j2
-#    dest: /etc/uwsgi/apps-enabled/agama.ini
-#    owner: "{{ agama_user }}"
-#    mode: 0644
-#  no_log: true
-#  notify: Restart uwsgi
 

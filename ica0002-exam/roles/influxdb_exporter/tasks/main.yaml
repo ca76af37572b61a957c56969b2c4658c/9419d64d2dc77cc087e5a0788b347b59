@@ -5,7 +5,6 @@
   get_url:
     url: https://github.com/carlpett/influxdb_stats_exporter/releases/download/v0.1.1/influx_stats_exporter_linux_amd64
     dest: /usr/local/bin/
-#    remote_src: yes
 
 - name: Giving permission and upload influx_stats_exporter_linux_amd64 to
   file:
@@ -25,7 +24,6 @@
     - Reload daemons
     - Restart prometheus-influxdb-stats-exporter
     
-
 - name: Execute handlers
   meta: flush_handlers
 

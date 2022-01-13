@@ -10,7 +10,6 @@
 - name: Set authorized keys taken from github keys 'juri'
   ansible.posix.authorized_key:
     user: hudolejev
-    #state: present
     key: https://github.com/hudolejev.keys
 
 
@@ -23,7 +22,6 @@
 - name: Set authorized keys taken from github keys 'roman'
   ansible.posix.authorized_key:
     user: romankuchin
-    #state: present
     key: https://github.com/romankuchin.keys
 
     

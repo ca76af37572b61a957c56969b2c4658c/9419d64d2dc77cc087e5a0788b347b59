@@ -1,4 +1,5 @@
 ---
+
 - name: Restart prometheus-mysqld-exporter
   service:
     name: prometheus-mysqld-exporter
